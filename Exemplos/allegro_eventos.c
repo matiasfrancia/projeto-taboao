@@ -6,8 +6,8 @@
 #include <stdio.h>
  
 // Atributos da tela
-const int LARGURA_TELA = 1000;
-const int ALTURA_TELA = 700;
+const int LARGURA_TELA = 1024;
+const int ALTURA_TELA = 720;
  
 int main(void)
 {
@@ -19,20 +19,37 @@ int main(void)
     {
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
         return -1;
-    }
- 
+    }   
+
     if (!al_init_image_addon())
     {
         fprintf(stderr, "Falha ao inicializar add-on allegro_image.\n");
         return -1;
     }
- 
-    janela = al_create_display(LARGURA_TELA, ALTURA_TELA);
+
+    ALLEGRO_MONITOR_INFO info;
+
+    int res_x_comp, res_y_comp;
+    al_get_monitor_info(0, &info);
+
+    res_x_comp = info.x2 - info.x1;
+    res_y_comp = info.y2 - info.y2;
+ 	
+ 	al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+    janela = al_create_display(res_x_comp, res_y_comp);
     if (!janela)
     {
         fprintf(stderr, "Falha ao criar janela.\n");
         return -1;
     }
+
+    float red_x = res_x_comp / (float) LARGURA_TELA;
+    float red_y = res_y_comp / (float) ALTURA_TELA;
+
+    ALLEGRO_TRANSFORM transformar;
+    al_identity_transform(&transformar);
+    al_scale_transform(&transformar, red_x, red_y);
+    al_use_transform(&transformar);
  
     imagem = al_load_bitmap("trump_bingolinha.jpg");
     if (!imagem)
@@ -60,7 +77,7 @@ int main(void)
     {
         ALLEGRO_EVENT evento;
         ALLEGRO_TIMEOUT timeout;
-        al_init_timeout(&timeout, 0.05);
+        al_init_timeout(&timeout, 0);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
  
