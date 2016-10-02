@@ -36,27 +36,30 @@ int main(void)
         fprintf(stderr, "Falha ao criar janela.\n");
         return -1;
     }
+
+    al_set_window_title(janela, "Projeto Taboão");
+
  
-    imagem = al_load_bitmap("taboao.png");
+    imagem = al_load_bitmap("mainImages/taboao.png");
     if (!imagem)
     {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    iniciar = al_load_bitmap("instrucoes-botao.png");
+    iniciar = al_load_bitmap("mainImages/instrucoes-botao.png");
     if (!iniciar){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    config = al_load_bitmap("configuracoes-botao.png");
+    config = al_load_bitmap("mainImages/configuracoes-botao.png");
     if (!config){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    credito = al_load_bitmap("creditos-botao.png");
+    credito = al_load_bitmap("mainImages/creditos-botao.png");
     if (!credito){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
@@ -83,7 +86,7 @@ int main(void)
     while (1){
         ALLEGRO_EVENT evento;
         ALLEGRO_TIMEOUT timeout;
-        al_init_timeout(&timeout, 0.05);
+        al_init_timeout(&timeout, 0.5);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
  
@@ -92,6 +95,9 @@ int main(void)
         }
  
         al_draw_bitmap(imagem, 420, 150, 0);
+        al_draw_bitmap(iniciar, 400, 450, 0);
+        al_draw_bitmap(config, 400, 500, 0);
+        al_draw_bitmap(credito, 400, 550, 0);
         al_flip_display();
 
     }
