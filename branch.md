@@ -1,7 +1,9 @@
 Projeto Taboão - Branchs
 
 Nosso padrão de branch será: 
-- projeto_taboao-<nome_da_pasta_secundaria>-<tarefa>
+- projeto_taboao-nome_da_pasta_secundaria-tarefa
+
+**tarefa vide excel
 
 Exemplo:
 "taboao_mainScreen-05"
