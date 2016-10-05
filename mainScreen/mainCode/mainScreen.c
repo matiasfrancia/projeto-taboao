@@ -99,7 +99,6 @@ int main(void)
         al_draw_bitmap(config, 400, 500, 0);
         al_draw_bitmap(credito, 400, 550, 0);
         al_flip_display();
-
     }
 
     al_destroy_display(janela);
