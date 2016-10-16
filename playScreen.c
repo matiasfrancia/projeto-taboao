@@ -52,50 +52,44 @@ int main(void)
     al_set_window_title(janela, "Projeto Taboão");
 
  
-    taboaoLogoImage = al_load_bitmap("Images/taboaoLogoImage.png");
-    if (!taboaoLogoImage)
-    {
+    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
+    if (!taboaoLogoImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
     }
-    firstPersonaImage = al_load_bitmap("Images/firstPersonaImage.png");
+    firstPersonaImage = al_load_bitmap("Images/playImages/firstPersonaImage.png");
     if (!firstPersonaImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem1.\n");
         al_destroy_display(janela);
         return -1;
     }
-    sencondPersonaImage = al_load_bitmap("Images/sencondPersonaImage.png");
+    sencondPersonaImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
     if (!sencondPersonaImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem2.\n");
         al_destroy_display(janela);
         return -1;
     }
-    thirdPersonaImage = al_load_bitmap("Images/thirdPersonaImage.png");
+    thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
     if (!thirdPersonaImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem3.\n");
         al_destroy_display(janela);
         return -1;
     }
-    fundo = al_load_bitmap("Images/fundoTaboao.png");
-    if (!fundo){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }pauseBtnImage = al_load_bitmap("Images/pauseBtnImage.png");
+    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
     if (!pauseBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
         al_destroy_display(janela);
         return -1;
-    }settingsBtnImage = al_load_bitmap("Images/settingsBtnImage.png");
+    }
+    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
     if (!settingsBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
         al_destroy_display(janela);
         return -1;
     }
     fila_eventos = al_create_event_queue();
-    if (!fila_eventos)
-    {
+    if (!fila_eventos){
         fprintf(stderr, "Falha ao criar fila de eventos.\n");
         al_destroy_display(janela);
         return -1;
@@ -103,14 +97,16 @@ int main(void)
     
     firstText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("playFonts/arial.ttf", 24,0 );
-    char firstMajor[] = "Romero Tori";
+    char firstMajor[] = "Fernando Haddad";
+    char secondMajor[] = "Luiza Erundina";
+    char thirdMajor[] = "João Doria";
     char *majorName; 
-    majorName = firstMajor;
+    //majorName = firstMajor;
 
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
     //al_draw_bitmap(fundo, 0, 0, 0);
-    al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
+    /*al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
     al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
     al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
     al_draw_bitmap(firstPersonaImage, 145, 330, 1);
@@ -125,7 +121,7 @@ int main(void)
     al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO");
     al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS");
  
-    al_flip_display();
+    al_flip_display();*/
  
     while (1){
         ALLEGRO_EVENT evento;
@@ -137,8 +133,51 @@ int main(void)
         if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             break;
         }
+        
  
-        //al_draw_bitmap(fundo, 0, 0, 0);
+        // Se o evento foi de movimentação do mouse
+        if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
+            // Verificamos se ele está sobre a região do retângulo central
+            if (evento.mouse.x >= 145 - al_get_bitmap_width(firstPersonaImage) / 2 &&
+                evento.mouse.x <= 145 + al_get_bitmap_width(firstPersonaImage) / 2 &&
+                evento.mouse.y >= 330 - al_get_bitmap_height(firstPersonaImage) / 2 &&
+                evento.mouse.y <= 330 + al_get_bitmap_height(firstPersonaImage) / 2)
+            {
+                majorName = firstMajor;
+            }
+            else 
+            if (evento.mouse.x >= 415 - al_get_bitmap_width(sencondPersonaImage) / 2 &&
+                evento.mouse.x <= 415 + al_get_bitmap_width(sencondPersonaImage) / 2 &&
+                evento.mouse.y >= 330 - al_get_bitmap_height(sencondPersonaImage) / 2 &&
+                evento.mouse.y <= 330 + al_get_bitmap_height(sencondPersonaImage) / 2)
+            {
+                majorName = secondMajor;
+            }
+            else
+            if (evento.mouse.x >= 680 - al_get_bitmap_width(thirdPersonaImage) / 2 &&
+                evento.mouse.x <= 680 + al_get_bitmap_width(thirdPersonaImage) / 2 &&
+                evento.mouse.y >= 330 - al_get_bitmap_height(thirdPersonaImage) / 2 &&
+                evento.mouse.y <= 330 + al_get_bitmap_height(thirdPersonaImage) / 2)
+            {
+                majorName = thirdMajor;
+            }
+            else
+            {
+                majorName = "         ";
+            }
+        }
+        // Ou se o evento foi um clique do mouse
+       /* else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+        {
+            if (evento.mouse.x >= LARGURA_TELA - al_get_bitmap_width(botao_sair) - 10 &&
+                evento.mouse.x <= LARGURA_TELA - 10 && evento.mouse.y <= ALTURA_TELA - 10 &&
+                evento.mouse.y >= ALTURA_TELA - al_get_bitmap_height(botao_sair) - 10)
+            {
+                sair = 1;
+            }
+        }*/
+        
+        
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
