@@ -12,8 +12,8 @@
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
  
-int main(void)
-{
+int main(void){
+
     ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *taboaoLogoImage = NULL;
     ALLEGRO_BITMAP *firstPersonaImage = NULL;
@@ -25,8 +25,7 @@ int main(void)
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
-
- 
+	int sair = 0; 
     al_init_font_addon(); 
     al_init_ttf_addon();
 
@@ -88,6 +87,16 @@ int main(void)
         al_destroy_display(janela);
         return -1;
     }
+    if (!al_install_mouse()){
+        fprintf(stderr, "Falha ao inicializar o mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
+        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
     fila_eventos = al_create_event_queue();
     if (!fila_eventos){
         fprintf(stderr, "Falha ao criar fila de eventos.\n");
@@ -95,88 +104,58 @@ int main(void)
         return -1;
     }
     
-    firstText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("playFonts/arial.ttf", 24,0 );
+    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
+    secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
     char firstMajor[] = "Fernando Haddad";
     char secondMajor[] = "Luiza Erundina";
     char thirdMajor[] = "João Doria";
     char *majorName; 
-    //majorName = firstMajor;
+    majorName = NULL;
 
+    al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
-    
-    //al_draw_bitmap(fundo, 0, 0, 0);
-    /*al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
-    al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-    al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
-    al_draw_bitmap(firstPersonaImage, 145, 330, 1);
-    al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
-    al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
-    al_draw_bitmap(pauseBtnImage, 815, 25, 0);
-    al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
-    al_draw_bitmap(settingsBtnImage, 885, 22, 0);
-    al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
-    al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
-    al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
-    al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO");
-    al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS");
+
+    int candidato = 0;
+    while (!sair){
+    	while (!al_is_event_queue_empty(fila_eventos)){
+	        ALLEGRO_EVENT evento;
+            ALLEGRO_TIMEOUT timeout;
+            al_init_timeout(&timeout, 0.5);
  
-    al_flip_display();*/
+	        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+	 
+	        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+	            sair = 1;
+	        }
+	 		
+	 		if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
+	                if (evento.mouse.x >= 145 && evento.mouse.x <= 300 &&
+	                    evento.mouse.y >= 330 && evento.mouse.y <= 660){
+	                    candidato = 1;
+	                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 470 &&
+	                    evento.mouse.y >= 330 && evento.mouse.y <= 660){
+	                    candidato = 2;
+	                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 735 &&
+	                    evento.mouse.y >= 330 && evento.mouse.y <= 660){
+	                    candidato = 3;
+	                }
+	            }
+	        }
  
-    while (1){
-        ALLEGRO_EVENT evento;
-        ALLEGRO_TIMEOUT timeout;
-        al_init_timeout(&timeout, 0.5);
+        al_clear_to_color(al_map_rgb(0, 0, 0));
  
-        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
- 
-        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-            break;
+        al_set_target_bitmap(firstPersonaImage);
+        if (candidato == 1){
+            majorName = firstMajor;
+        }else if (candidato == 2){
+            majorName = secondMajor;
+        }else if(candidato == 3){
+        	majorName = thirdMajor;
+        }else{
+        	majorName = NULL;
         }
-        
- 
-        // Se o evento foi de movimentação do mouse
-        if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
-            // Verificamos se ele está sobre a região do retângulo central
-            if (evento.mouse.x >= 145 - al_get_bitmap_width(firstPersonaImage) / 2 &&
-                evento.mouse.x <= 145 + al_get_bitmap_width(firstPersonaImage) / 2 &&
-                evento.mouse.y >= 330 - al_get_bitmap_height(firstPersonaImage) / 2 &&
-                evento.mouse.y <= 330 + al_get_bitmap_height(firstPersonaImage) / 2)
-            {
-                majorName = firstMajor;
-            }
-            else 
-            if (evento.mouse.x >= 415 - al_get_bitmap_width(sencondPersonaImage) / 2 &&
-                evento.mouse.x <= 415 + al_get_bitmap_width(sencondPersonaImage) / 2 &&
-                evento.mouse.y >= 330 - al_get_bitmap_height(sencondPersonaImage) / 2 &&
-                evento.mouse.y <= 330 + al_get_bitmap_height(sencondPersonaImage) / 2)
-            {
-                majorName = secondMajor;
-            }
-            else
-            if (evento.mouse.x >= 680 - al_get_bitmap_width(thirdPersonaImage) / 2 &&
-                evento.mouse.x <= 680 + al_get_bitmap_width(thirdPersonaImage) / 2 &&
-                evento.mouse.y >= 330 - al_get_bitmap_height(thirdPersonaImage) / 2 &&
-                evento.mouse.y <= 330 + al_get_bitmap_height(thirdPersonaImage) / 2)
-            {
-                majorName = thirdMajor;
-            }
-            else
-            {
-                majorName = "         ";
-            }
-        }
-        // Ou se o evento foi um clique do mouse
-       /* else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
-        {
-            if (evento.mouse.x >= LARGURA_TELA - al_get_bitmap_width(botao_sair) - 10 &&
-                evento.mouse.x <= LARGURA_TELA - 10 && evento.mouse.y <= ALTURA_TELA - 10 &&
-                evento.mouse.y >= ALTURA_TELA - al_get_bitmap_height(botao_sair) - 10)
-            {
-                sair = 1;
-            }
-        }*/
-        
+
+        al_set_target_bitmap(al_get_backbuffer(janela));
         
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
@@ -196,7 +175,7 @@ int main(void)
 
         al_flip_display();
     }
-
+    al_destroy_bitmap(sencondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
  
