@@ -24,6 +24,7 @@ int main(void)
     ALLEGRO_BITMAP *settingsBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
     ALLEGRO_FONT *firstText = NULL;
+    ALLEGRO_FONT *secondText = NULL;
 
  
     al_init_font_addon(); 
@@ -101,14 +102,20 @@ int main(void)
     }
     
     firstText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
-    
+    secondText = al_load_ttf_font("playFonts/arial.ttf", 24,0 );
+    char firstMajor[] = "Romero Tori";
+    char *majorName; 
+    majorName = firstMajor;
+
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
     //al_draw_bitmap(fundo, 0, 0, 0);
+    al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
     al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+    al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
     al_draw_bitmap(firstPersonaImage, 145, 330, 1);
     al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
-    al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
+    al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
     al_draw_bitmap(pauseBtnImage, 815, 25, 0);
     al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
     al_draw_bitmap(settingsBtnImage, 885, 22, 0);
@@ -132,10 +139,12 @@ int main(void)
         }
  
         //al_draw_bitmap(fundo, 0, 0, 0);
+        al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
         al_draw_bitmap(firstPersonaImage, 145, 330, 1);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
-        al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
+        al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
         al_draw_bitmap(settingsBtnImage, 885, 22, 0);
