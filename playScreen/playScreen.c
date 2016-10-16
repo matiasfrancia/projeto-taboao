@@ -1,9 +1,9 @@
 // Os arquivos de cabeçalho
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-// Os arquivos de cabeçalho
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
  
 // Para utilizarmos o fprintf
 #include <stdio.h>
@@ -23,7 +23,12 @@ int main(void)
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
     ALLEGRO_BITMAP *settingsBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
+    ALLEGRO_FONT *pauseBtnText = NULL;
+    ALLEGRO_FONT *settingsBtnText = NULL;
  
+    al_init_font_addon(); 
+    al_init_ttf_addon();
+
     if (!al_init())
     {
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
@@ -94,7 +99,11 @@ int main(void)
         al_destroy_display(janela);
         return -1;
     }
+    
+    pauseBtnText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
+    settingsBtnText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
  
+
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
     //al_draw_bitmap(fundo, 0, 0, 0);
@@ -104,6 +113,8 @@ int main(void)
     al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
     al_draw_bitmap(pauseBtnImage, 820, 25, 0);
     al_draw_bitmap(settingsBtnImage, 885, 20, 0);
+    al_draw_text(pauseBtnText, al_map_rgb(255, 255, 255), 20, 300, 20, "CREDITOS");
+
              
  
     al_flip_display();
@@ -126,6 +137,8 @@ int main(void)
         al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
         al_draw_bitmap(pauseBtnImage, 820, 25, 0);
         al_draw_bitmap(settingsBtnImage, 885, 20, 0);
+        al_draw_text(pauseBtnText, al_map_rgb(255, 255, 255), 20, 300, 20, "CREDITOS");
+
         al_flip_display();
     }
 
