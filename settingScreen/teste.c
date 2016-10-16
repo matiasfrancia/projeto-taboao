@@ -68,7 +68,7 @@ int main(void)
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
  
-    al_draw_bitmap(imagem, 0, 0, 0);
+    //al_draw_bitmap(imagem, 0, 0, 0);
  
     al_flip_display();
  

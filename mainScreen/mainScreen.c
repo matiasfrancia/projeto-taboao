@@ -91,12 +91,12 @@ int main(void)
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
-    al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
-    al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
-    al_draw_bitmap(jogarBtnImage, 400, 450, 0);
-    al_draw_bitmap(configBtnImage, 400, 550, 0);
-    al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
-    al_draw_bitmap(creditBtnImage, 400, 600, 0);
+    //al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
+    //al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
+    //al_draw_bitmap(jogarBtnImage, 400, 450, 0);
+    //al_draw_bitmap(configBtnImage, 400, 550, 0);
+    //al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
+    //al_draw_bitmap(creditBtnImage, 400, 600, 0);
  
     al_flip_display();
  
