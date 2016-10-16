@@ -101,7 +101,7 @@ int main(void)
         return -1;
     }
     
-    firstText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
+    firstText = al_load_ttf_font("mainFonts/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("playFonts/arial.ttf", 24,0 );
     char firstMajor[] = "Romero Tori";
     char *majorName; 

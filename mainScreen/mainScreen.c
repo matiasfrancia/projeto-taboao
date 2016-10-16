@@ -1,6 +1,9 @@
 // Os arquivos de cabeçalho
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
  
 // Para utilizarmos o fprintf
 #include <stdio.h>
@@ -12,12 +15,17 @@ const int ALTURA_TELA = 720;
 int main(void)
 {
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *imagem = NULL;
-    ALLEGRO_BITMAP *iniciar = NULL;
-    ALLEGRO_BITMAP *config = NULL;
-    ALLEGRO_BITMAP *credito = NULL;
+    ALLEGRO_BITMAP *taboaoLogoImage = NULL;
+    ALLEGRO_BITMAP *instrucaoBtnImage = NULL;
+    ALLEGRO_BITMAP *configBtnImage = NULL;
+    ALLEGRO_BITMAP *creditBtnImage = NULL;
+    ALLEGRO_BITMAP *jogarBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
- 
+    ALLEGRO_FONT *firstText = NULL;
+
+    al_init_font_addon(); 
+    al_init_ttf_addon();
+
     if (!al_init())
     {
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
@@ -40,27 +48,32 @@ int main(void)
     al_set_window_title(janela, "Projeto Taboão");
 
  
-    imagem = al_load_bitmap("mainImages/taboao.png");
-    if (!imagem)
+    taboaoLogoImage = al_load_bitmap("mainImages/taboao.png");
+    if (!taboaoLogoImage)
     {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    iniciar = al_load_bitmap("mainImages/instrucoes-botao.png");
-    if (!iniciar){
+    jogarBtnImage = al_load_bitmap("mainImages/jogar-botao.png");
+    if (!jogarBtnImage){
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
+        al_destroy_display(janela);
+        return -1;
+    }instrucaoBtnImage = al_load_bitmap("mainImages/instrucoes-botao.png");
+    if (!instrucaoBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    config = al_load_bitmap("mainImages/configuracoes-botao.png");
-    if (!config){
+    configBtnImage = al_load_bitmap("mainImages/configuracoes-botao.png");
+    if (!configBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    credito = al_load_bitmap("mainImages/creditos-botao.png");
-    if (!credito){
+    creditBtnImage = al_load_bitmap("mainImages/creditos-botao.png");
+    if (!creditBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
@@ -73,13 +86,17 @@ int main(void)
         al_destroy_display(janela);
         return -1;
     }
+    
+    firstText = al_load_ttf_font("mainFonts/arial.ttf", 32,0 );
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
- 
-    al_draw_bitmap(imagem, 420, 150, 0);
-    al_draw_bitmap(iniciar, 400, 450, 0);
-    al_draw_bitmap(config, 400, 500, 0);
-    al_draw_bitmap(credito, 400, 550, 0);
+    
+    al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
+    al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
+    al_draw_bitmap(jogarBtnImage, 400, 450, 0);
+    al_draw_bitmap(configBtnImage, 400, 550, 0);
+    al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
+    al_draw_bitmap(creditBtnImage, 400, 600, 0);
  
     al_flip_display();
  
@@ -94,10 +111,13 @@ int main(void)
             break;
         }
  
-        al_draw_bitmap(imagem, 420, 150, 0);
-        al_draw_bitmap(iniciar, 400, 450, 0);
-        al_draw_bitmap(config, 400, 500, 0);
-        al_draw_bitmap(credito, 400, 550, 0);
+        al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
+        al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
+        al_draw_bitmap(jogarBtnImage, 400, 450, 0);
+        al_draw_bitmap(configBtnImage, 400, 550, 0);
+        al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
+        al_draw_bitmap(creditBtnImage, 400, 600, 0);
+        
         al_flip_display();
     }
 
