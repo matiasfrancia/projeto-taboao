@@ -1,6 +1,9 @@
 // Os arquivos de cabeçalho
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+// Os arquivos de cabeçalho
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
  
 // Para utilizarmos o fprintf
 #include <stdio.h>
@@ -12,11 +15,13 @@ const int ALTURA_TELA = 720;
 int main(void)
 {
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *imagem = NULL;
-    ALLEGRO_BITMAP *pref1 = NULL;
-    ALLEGRO_BITMAP *pref2 = NULL;
-    ALLEGRO_BITMAP *pref3 = NULL;
+    ALLEGRO_BITMAP *taboaoLogoImage = NULL;
+    ALLEGRO_BITMAP *firstPersonaImage = NULL;
+    ALLEGRO_BITMAP *sencondPersonaImage = NULL;
+    ALLEGRO_BITMAP *thirdPersonaImage = NULL;
     ALLEGRO_BITMAP *fundo = NULL;
+    ALLEGRO_BITMAP *pauseBtnImage = NULL;
+    ALLEGRO_BITMAP *settingsBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
  
     if (!al_init())
@@ -41,33 +46,43 @@ int main(void)
     al_set_window_title(janela, "Projeto Taboão");
 
  
-    imagem = al_load_bitmap("Images/taboao.png");
-    if (!imagem)
+    taboaoLogoImage = al_load_bitmap("Images/taboaoLogoImage.png");
+    if (!taboaoLogoImage)
     {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
     }
-    pref1 = al_load_bitmap("Images/pref1.png");
-    if (!pref1){
+    firstPersonaImage = al_load_bitmap("Images/firstPersonaImage.png");
+    if (!firstPersonaImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem1.\n");
         al_destroy_display(janela);
         return -1;
     }
-    pref2 = al_load_bitmap("Images/pref2.png");
-    if (!pref2){
+    sencondPersonaImage = al_load_bitmap("Images/sencondPersonaImage.png");
+    if (!sencondPersonaImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem2.\n");
         al_destroy_display(janela);
         return -1;
     }
-    pref3 = al_load_bitmap("Images/pref3.png");
-    if (!pref3){
+    thirdPersonaImage = al_load_bitmap("Images/thirdPersonaImage.png");
+    if (!thirdPersonaImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem3.\n");
         al_destroy_display(janela);
         return -1;
     }
     fundo = al_load_bitmap("Images/fundoTaboao.png");
-    if (!pref3){
+    if (!fundo){
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
+        al_destroy_display(janela);
+        return -1;
+    }pauseBtnImage = al_load_bitmap("Images/pauseBtnImage.png");
+    if (!pauseBtnImage){
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
+        al_destroy_display(janela);
+        return -1;
+    }settingsBtnImage = al_load_bitmap("Images/settingsBtnImage.png");
+    if (!settingsBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
         al_destroy_display(janela);
         return -1;
@@ -81,12 +96,14 @@ int main(void)
     }
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
- 
- 	al_draw_bitmap(fundo, 0, 0, 0);
-    al_draw_bitmap(imagem, 420, 150, 1);
-    al_draw_bitmap(pref1, 50, 300, 1);
-    al_draw_bitmap(pref2, 350, 300, 1);
-    al_draw_bitmap(pref3, 750, 300, 1);
+    
+    //al_draw_bitmap(fundo, 0, 0, 0);
+    al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+    al_draw_bitmap(firstPersonaImage, 145, 330, 1);
+    al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
+    al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
+    al_draw_bitmap(pauseBtnImage, 820, 25, 0);
+    al_draw_bitmap(settingsBtnImage, 885, 20, 0);
              
  
     al_flip_display();
@@ -102,11 +119,13 @@ int main(void)
             break;
         }
  
-        al_draw_bitmap(imagem, 420, 150, 1);
-        al_draw_bitmap(pref1, 50, 300, 1);
-        al_draw_bitmap(pref2, 350, 300, 1);
-        al_draw_bitmap(pref3, 750, 300, 1);
-        al_draw_bitmap(fundo, 0, 0, 0);
+        //al_draw_bitmap(fundo, 0, 0, 0);
+        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+        al_draw_bitmap(firstPersonaImage, 145, 330, 1);
+        al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
+        al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
+        al_draw_bitmap(pauseBtnImage, 820, 25, 0);
+        al_draw_bitmap(settingsBtnImage, 885, 20, 0);
         al_flip_display();
     }
 
