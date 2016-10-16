@@ -23,8 +23,8 @@ int main(void)
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
     ALLEGRO_BITMAP *settingsBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
-    ALLEGRO_FONT *pauseBtnText = NULL;
-    ALLEGRO_FONT *settingsBtnText = NULL;
+    ALLEGRO_FONT *firstText = NULL;
+
  
     al_init_font_addon(); 
     al_init_ttf_addon();
@@ -100,10 +100,8 @@ int main(void)
         return -1;
     }
     
-    pauseBtnText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
-    settingsBtnText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
- 
-
+    firstText = al_load_ttf_font("playFonts/arial.ttf", 11,0 );
+    
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
     //al_draw_bitmap(fundo, 0, 0, 0);
@@ -111,11 +109,14 @@ int main(void)
     al_draw_bitmap(firstPersonaImage, 145, 330, 1);
     al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
     al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
-    al_draw_bitmap(pauseBtnImage, 820, 25, 0);
-    al_draw_bitmap(settingsBtnImage, 885, 20, 0);
-    al_draw_text(pauseBtnText, al_map_rgb(255, 255, 255), 20, 300, 20, "CREDITOS");
-
-             
+    al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+    al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
+    al_draw_bitmap(settingsBtnImage, 885, 22, 0);
+    al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+    al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
+    al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
+    al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO");
+    al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS");
  
     al_flip_display();
  
@@ -135,9 +136,15 @@ int main(void)
         al_draw_bitmap(firstPersonaImage, 145, 330, 1);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 690, 330, 0);
-        al_draw_bitmap(pauseBtnImage, 820, 25, 0);
-        al_draw_bitmap(settingsBtnImage, 885, 20, 0);
-        al_draw_text(pauseBtnText, al_map_rgb(255, 255, 255), 20, 300, 20, "CREDITOS");
+        al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
+        al_draw_bitmap(settingsBtnImage, 885, 22, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+        al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
+        al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
+
 
         al_flip_display();
     }
