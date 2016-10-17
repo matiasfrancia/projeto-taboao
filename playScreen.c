@@ -11,7 +11,13 @@
 // Atributos da tela
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
+typedef struct prefeito {
+      char *nome;
+      char *descricao;
+   }prefeito; 
+
  
+  
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
@@ -106,11 +112,19 @@ int main(void){
     
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
-    char firstMajor[] = "Fernando Haddad";
-    char secondMajor[] = "Luiza Erundina";
-    char thirdMajor[] = "João Doria";
+    prefeito firstMajor;
+    prefeito secondMajor;
+    prefeito thirdMajor;
+    firstMajor.nome = "Fernando Haddad";
+    firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
+    secondMajor.nome = "Luiza Erundina";
+    secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
+    thirdMajor.nome = "João Doria";
+    thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
     char *majorName; 
+    char *majorDesc; 
     majorName = NULL;
+    majorDesc = NULL;
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -146,13 +160,17 @@ int main(void){
  
         al_set_target_bitmap(firstPersonaImage);
         if (candidato == 1){
-            majorName = firstMajor;
+            majorName = firstMajor.nome;
+            majorDesc = firstMajor.descricao;
         }else if (candidato == 2){
-            majorName = secondMajor;
+            majorName = secondMajor.nome;
+            majorDesc = secondMajor.descricao;
         }else if(candidato == 3){
-        	majorName = thirdMajor;
+            majorName = thirdMajor.nome;
+        	majorDesc = thirdMajor.descricao;
         }else{
-        	majorName = NULL;
+            majorName = NULL;
+        	majorDesc = NULL;
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
@@ -160,6 +178,7 @@ int main(void){
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 230, ALLEGRO_ALIGN_CENTRE, majorDesc);
         al_draw_bitmap(firstPersonaImage, 145, 330, 1);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
@@ -170,7 +189,9 @@ int main(void){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
 
 
         al_flip_display();
