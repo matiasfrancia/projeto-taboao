@@ -129,14 +129,14 @@ int main(void){
 	        }
 	 		
 	 		if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
-	                if (evento.mouse.x >= 145 && evento.mouse.x <= 300 &&
-	                    evento.mouse.y >= 330 && evento.mouse.y <= 660){
+	                if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
+	                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
 	                    candidato = 1;
-	                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 470 &&
-	                    evento.mouse.y >= 330 && evento.mouse.y <= 660){
+	                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
+	                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
 	                    candidato = 2;
-	                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 735 &&
-	                    evento.mouse.y >= 330 && evento.mouse.y <= 660){
+	                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
+	                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
 	                    candidato = 3;
 	                }
 	            }
