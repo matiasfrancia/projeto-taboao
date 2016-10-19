@@ -308,6 +308,9 @@ int main(void){
         al_draw_filled_rectangle(045, 645, lazerInd, 665, al_map_rgb(29, 113, 189));
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
+        //relogio
+        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+
         al_flip_display();
     }
     al_destroy_bitmap(sencondPersonaImage);
