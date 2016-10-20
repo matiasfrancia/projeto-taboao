@@ -15,6 +15,7 @@ const int ALTURA_TELA = 720;
 typedef struct prefeito {
       char *nome;
       char *descricao;
+      char *dinheiro; 
       int educacaoInd; 
       int saudeInd; 
       int segurancaInd; 
@@ -151,22 +152,25 @@ int main(void){
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
-    firstMajor.nome = "Fernando Haddad";
+    firstMajor.nome = "Candidato Fernando Haddad";
     firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
+    firstMajor.dinheiro = "R$1000000,00";
     firstMajor.educacaoInd = 20; 
     firstMajor.saudeInd = 20; 
     firstMajor.segurancaInd = 20; 
     firstMajor.saneamentoInd = 10; 
     firstMajor.lazerInd = 30;
-    secondMajor.nome = "Luiza Erundina";
+    secondMajor.nome = "Candidata Luiza Erundina";
     secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
+    secondMajor.dinheiro = "R$10000,00";
     secondMajor.educacaoInd = 20;
     secondMajor.saudeInd = 30;
     secondMajor.segurancaInd = 10;
     secondMajor.saneamentoInd = 30;
     secondMajor.lazerInd = 20;
-    thirdMajor.nome = "João Doria";
+    thirdMajor.nome = "Candidato João Doria";
     thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
+    thirdMajor.dinheiro = "R$100000000000,00";
     thirdMajor.educacaoInd = 10;
     thirdMajor.saudeInd = 20;
     thirdMajor.segurancaInd = 40;
@@ -175,6 +179,7 @@ int main(void){
 
     char *majorName; 
     char *majorDesc; 
+    char *majorMoney; 
     int educacaoInd; 
     int saudeInd; 
     int segurancaInd; 
@@ -254,6 +259,7 @@ int main(void){
         al_set_target_bitmap(firstPersonaImage);
         if (candidato == 1){
             majorName = firstMajor.nome;
+            majorMoney = firstMajor.dinheiro;
             majorDesc = firstMajor.descricao;
             educacaoInd = 401 + firstMajor.educacaoInd + 99; 
             saudeInd = 401 + firstMajor.saudeInd + 99; 
@@ -263,6 +269,7 @@ int main(void){
         }else if (candidato == 2){
             majorName = secondMajor.nome;
             majorDesc = secondMajor.descricao;
+            majorMoney = secondMajor.dinheiro;
             educacaoInd = 401 + secondMajor.educacaoInd + 99; 
             saudeInd = 401 + secondMajor.saudeInd + 99; 
             segurancaInd = 401 + secondMajor.segurancaInd + 99; 
@@ -270,7 +277,8 @@ int main(void){
             lazerInd = 401 + secondMajor.lazerInd + 99; 
         }else if(candidato == 3){
             majorName = thirdMajor.nome;
-        	majorDesc = thirdMajor.descricao;
+            majorDesc = thirdMajor.descricao;
+            majorMoney = thirdMajor.dinheiro;
             educacaoInd = 401 + thirdMajor.educacaoInd + 99; 
             saudeInd = 401 + thirdMajor.saudeInd + 99; 
             segurancaInd = 401 + thirdMajor.segurancaInd + 99; 
@@ -278,7 +286,8 @@ int main(void){
             lazerInd = 401 + thirdMajor.lazerInd + 99; 
         }else{
             majorName = "Escolha o seu Prefeito(a)";
-        	majorDesc = NULL;
+            majorDesc = NULL;
+            majorMoney = "R$0,00";
             educacaoInd = 401; 
             saudeInd = 401; 
             segurancaInd = 401; 
@@ -305,9 +314,13 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
+        
+        // atributos do candidato
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 515, ALLEGRO_ALIGN_RIGHT, "ATRIBUTOS DO(A) CANDIDATO(A)");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 545, ALLEGRO_ALIGN_RIGHT, majorName);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), 240, 575, ALLEGRO_ALIGN_RIGHT, majorMoney);
         // grafico
         al_draw_filled_rectangle(400, 525, 401, 665, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 515, ALLEGRO_ALIGN_RIGHT, "ATRIBUTOS DO(A) CANDIDATO(A)");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 530, ALLEGRO_ALIGN_RIGHT, "EDUCAÇÃO");
         al_draw_filled_rectangle(400, 525, educacaoInd, 545, al_map_rgb(255, 255, 255));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 560, ALLEGRO_ALIGN_RIGHT, "SAÚDE");
