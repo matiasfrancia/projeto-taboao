@@ -22,6 +22,9 @@ int main(void)
     ALLEGRO_BITMAP *jogarBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
     ALLEGRO_FONT *firstText = NULL;
+    ALLEGRO_BITMAP *botao_sair = NULL;
+    int botao = 0;
+    int sair = 0;
 
     al_init_font_addon(); 
     al_init_ttf_addon();
@@ -47,6 +50,19 @@ int main(void)
 
     al_set_window_title(janela, "Projeto Taboão");
 
+    // Torna apto o uso de mouse na aplicação
+    if (!al_install_mouse())
+    {
+        fprintf(stderr, "Falha ao inicializar o mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT))
+    {
+        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
     if (!taboaoLogoImage)
@@ -89,6 +105,7 @@ int main(void)
     
     firstText = al_load_ttf_font("Font/arial.ttf", 32,0 );
  
+    al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
     //al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
@@ -100,27 +117,44 @@ int main(void)
  
     al_flip_display();
  
-    while (1){
+    while (!sair){
         ALLEGRO_EVENT evento;
         ALLEGRO_TIMEOUT timeout;
         al_init_timeout(&timeout, 0.5);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
- 
+        
         if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             break;
         }
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                evento.mouse.y >= 450 && evento.mouse.y <= 485){
+                sair = 1;
+            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                      evento.mouse.y >= 500 && evento.mouse.y <= 535){
+                      sair = 1;
+            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                      evento.mouse.y >= 550 && evento.mouse.y <= 585){
+                      sair = 1;
+            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                      evento.mouse.y >= 600 && evento.mouse.y <= 635){
+                      sair = 1;
+            }
+        }
+        
  
         al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
         al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
         al_draw_bitmap(jogarBtnImage, 400, 450, 0);
-        al_draw_bitmap(configBtnImage, 400, 550, 0);
         al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
+        al_draw_bitmap(configBtnImage, 400, 550, 0);
         al_draw_bitmap(creditBtnImage, 400, 600, 0);
         
         al_flip_display();
     }
 
+    al_destroy_bitmap(botao_sair);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
  
