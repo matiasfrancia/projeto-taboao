@@ -5,6 +5,7 @@
 
 typedef struct candidatos{
 	
+	char **nome;
 	int saude;
 	int educacao;
 	int saneamento;
@@ -16,18 +17,20 @@ typedef struct candidatos{
 char *homem[] = {"Henrique", "Daniel", "Matheus", "Caio", "Luiz", "Antonio", "Carlos", "Felipe", "Mauricio", "Marcos"};
 char *mulher[] = {"Viviane", "Rosana", "Elaine", "Sonia", "Eliana", "Neuza", "Talita", "Leticia", "Caroline", "Lais", "Livia"};
 
-void name_select(char ***pessoa){
+int name_select(char ***pessoa){
 
 	srand((unsigned)time(NULL));
 	int random = rand() % 2;
 	int aux_busca;
 	if(!random){
-		aux_busca = rand() % 11;
+		aux_busca = rand() % 10;
 		*pessoa = &homem[aux_busca];
+		return aux_busca;
 	}
 	else{
 		aux_busca = rand() % 11;
 		*pessoa = &mulher[aux_busca];
+		return aux_busca;
 	}
 }
 
@@ -165,11 +168,39 @@ int main(){
 	CANDIDATO *vector;
 	vector = random_select(vec);
 	int i;
+	int alocar;
 	char **pessoa;
-	name_select(&pessoa);
-	printf("PESSOA: %s\n", (char*)pessoa[0]);
+	int aux[3];
 	for(i = 0; i < 3; i++){
-		printf("%d candidato\n\n\n", i);
+		JUMP:
+		alocar = name_select(&pessoa);
+		if(!i){
+			aux[0] = alocar;
+			vector[i].nome = pessoa;
+		}
+		if(i == 1){
+			aux[1] = alocar;
+			if(aux[0] == aux[1]){
+				goto JUMP;
+			}
+			else{
+				vector[i].nome = pessoa;
+			}
+		}
+		if(i == 2){
+			aux[2] = alocar;
+			if(aux[2] == aux[1] || aux[2] == aux[0]){
+				goto JUMP;
+			}
+			else{
+				vector[i].nome = pessoa;
+			}
+		}
+		
+
+	}
+	for(i = 0; i < 3; i++){
+		printf("%s candidato\n\n\n", (char *)*vector[i].nome);
 		printf("EDUCACAO: %d\n", vector[i].educacao);
 		printf("SAUDE: %d\n", vector[i].saude);
 		printf("SEGURANCA: %d\n", vector[i].seguranca);
@@ -178,7 +209,6 @@ int main(){
 	}
 	
 	
-	free(vec);
-	return 0;
-		
+	return 0;	
+
 }
