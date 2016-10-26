@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 
 typedef struct candidatos{
 	
@@ -14,6 +13,23 @@ typedef struct candidatos{
 	
 }CANDIDATO;
 
+char *homem[] = {"Henrique", "Daniel", "Matheus", "Caio", "Luiz", "Antonio", "Carlos", "Felipe", "Mauricio", "Marcos"};
+char *mulher[] = {"Viviane", "Rosana", "Elaine", "Sonia", "Eliana", "Neuza", "Talita", "Leticia", "Caroline", "Lais", "Livia"};
+
+void name_select(char ***pessoa){
+
+	srand((unsigned)time(NULL));
+	int random = rand() % 2;
+	int aux_busca;
+	if(!random){
+		aux_busca = rand() % 11;
+		*pessoa = &homem[aux_busca];
+	}
+	else{
+		aux_busca = rand() % 11;
+		*pessoa = &mulher[aux_busca];
+	}
+}
 
 CANDIDATO* random_select(CANDIDATO *vec){
 	
@@ -24,7 +40,7 @@ CANDIDATO* random_select(CANDIDATO *vec){
 	int aux[2];
 	int i = 0; 
 	while(1){
-		s1: random = rand() % 6;
+		s1: random = rand() % 11;
 		if(!i){
 			aux[0] = random;
 			cand[i].saude = vec[random].saude;
@@ -70,7 +86,7 @@ CANDIDATO* random_select(CANDIDATO *vec){
 int main(){
 	
 	CANDIDATO *vec;
-	vec = (CANDIDATO *)malloc(8 * sizeof(CANDIDATO));
+	vec = (CANDIDATO *)malloc(11 * sizeof(CANDIDATO));
 	//MEDIANO
 	vec[0].educacao = 20;
 	vec[0].lazer = 20;
@@ -106,7 +122,7 @@ int main(){
 	vec[4].saneamento = 10;
 	vec[4].lazer = 20; 
 	//MILITAR
-	
+
 	vec[5].seguranca = 70;
 	vec[5].lazer = 0;
 	vec[5].saneamento = 15;
@@ -126,11 +142,34 @@ int main(){
 	vec[7].saude = 5;
 	vec[7].educacao = 0;
 	
+	vec[8].seguranca = 30;
+	vec[8].educacao = 30;
+	vec[8].saude = 30;
+	vec[8].saneamento = 10;
+	vec[8].lazer = 0;
+
+	//PROFESSOR
+	vec[9].educacao = 90;
+	vec[9].saude = 5;
+	vec[9].seguranca = 3;
+	vec[9].saneamento = 2;
+	vec[9].lazer = 0;
+
+	//medico
+	vec[10].saude = 50;
+	vec[10].saneamento = 32;
+	vec[10].educacao = 8;
+	vec[10].seguranca = 9;
+	vec[10].lazer = 1;
+
 	CANDIDATO *vector;
 	vector = random_select(vec);
-	int i, j;
+	int i;
+	char **pessoa;
+	name_select(&pessoa);
+	printf("PESSOA: %s\n", (char*)pessoa[0]);
 	for(i = 0; i < 3; i++){
-		printf("%dº candidato\n\n\n", i);
+		printf("%d candidato\n\n\n", i);
 		printf("EDUCACAO: %d\n", vector[i].educacao);
 		printf("SAUDE: %d\n", vector[i].saude);
 		printf("SEGURANCA: %d\n", vector[i].seguranca);
