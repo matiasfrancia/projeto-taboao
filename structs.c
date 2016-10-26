@@ -70,7 +70,7 @@ CANDIDATO* random_select(CANDIDATO *vec){
 int main(){
 	
 	CANDIDATO *vec;
-	vec = (CANDIDATO *)malloc(6 * sizeof(CANDIDATO));
+	vec = (CANDIDATO *)malloc(8 * sizeof(CANDIDATO));
 	//MEDIANO
 	vec[0].educacao = 20;
 	vec[0].lazer = 20;
