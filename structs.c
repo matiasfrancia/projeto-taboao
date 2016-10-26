@@ -112,6 +112,20 @@ int main(){
 	vec[5].saneamento = 15;
 	vec[5].educacao = 0;
 	vec[5].saude = 15;
+	
+	vec[6].saude = 65;
+	vec[6].lazer = 10;
+	vec[6].educacao = 10;
+	vec[6].saneamento = 10;
+	vec[6].seguranca = 5;
+	
+	//CIRCO
+	vec[7].lazer = 80;
+	vec[7].seguranca = 10;
+	vec[7].saneamento = 5;
+	vec[7].saude = 5;
+	vec[7].educacao = 0;
+	
 	CANDIDATO *vector;
 	vector = random_select(vec);
 	int i, j;
