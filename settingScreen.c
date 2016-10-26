@@ -4,6 +4,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
  
 // Para utilizarmos o fprintf
 #include <stdio.h>
@@ -21,6 +23,7 @@ int main(void){
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
     ALLEGRO_FONT *configText = NULL;
     ALLEGRO_FONT *songText = NULL;
+    ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     al_init_font_addon(); 
     al_init_ttf_addon();
@@ -60,6 +63,31 @@ int main(void){
         al_destroy_display(janela);
         return -1;
     }
+    if (!al_install_audio())
+    {
+        fprintf(stderr, "Falha ao inicializar áudio.\n");
+        return false;
+    }
+ 
+    if (!al_init_acodec_addon())
+    {
+        fprintf(stderr, "Falha ao inicializar codecs de áudio.\n");
+        return false;
+    }
+ 
+    if (!al_reserve_samples(1))
+    {
+        fprintf(stderr, "Falha ao alocar canais de áudio.\n");
+        return false;
+    }
+    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    if (!musica)
+    {
+        fprintf(stderr, "Falha ao carregar audio.\n");
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_display(janela);
+        return false;
+    }
     fila_eventos = al_create_event_queue();
     if (!fila_eventos){
         fprintf(stderr, "Falha ao criar fila de eventos.\n");
@@ -90,16 +118,22 @@ int main(void){
 
         al_set_target_bitmap(al_get_backbuffer(janela));
 
+        
         al_draw_filled_rectangle(100, 45, 900, 666, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_text(configText, al_map_rgb(255, 255, 255), (1024/2), 70, ALLEGRO_ALIGN_CENTRE, "CONFIGURAÇÕES");
         al_draw_text(songText, al_map_rgb(255, 255, 255), 200, 200, 0, "Volume");
         al_draw_filled_rectangle(690, 197, 700, 237, al_map_rgb(255, 255, 255));
         al_draw_filled_rectangle(300, 212, 800, 222, al_map_rgb(255, 255, 255));
+         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+        al_set_audio_stream_playing(musica, true);
+
         al_flip_display();
+
 
     }
 
+    al_destroy_audio_stream(musica);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
 
