@@ -18,10 +18,14 @@ int main(void)
     ALLEGRO_BITMAP *facilBtnImage = NULL;
     ALLEGRO_BITMAP *medioBtnImage = NULL;
     ALLEGRO_BITMAP *dificilBtnImage = NULL;
+    ALLEGRO_BITMAP *backBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
     ALLEGRO_FONT *thirdText = NULL;
+    ALLEGRO_BITMAP *botao_sair = NULL;
+    int botao = 0;
+    int sair = 0;
 
     al_init_font_addon(); 
     al_init_ttf_addon();
@@ -64,7 +68,23 @@ int main(void)
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
-    } 
+    }backBtnImage = al_load_bitmap("Images/nivelImages/button-back.png");
+    if (!dificilBtnImage){
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
+        al_destroy_display(janela);
+        return -1;
+    }if (!al_install_mouse())
+    {
+        fprintf(stderr, "Falha ao inicializar o mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT))
+    {
+        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
     fila_eventos = al_create_event_queue();
     if (!fila_eventos)
     {
@@ -79,9 +99,12 @@ int main(void)
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     
+    al_register_event_source(fila_eventos, al_get_mouse_event_source());
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+    
     al_flip_display();
   
-    while (1){
+    while (!sair){
         ALLEGRO_EVENT evento;
         ALLEGRO_TIMEOUT timeout;
         al_init_timeout(&timeout, 0.5);
@@ -91,12 +114,29 @@ int main(void)
         if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             break;
         }
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            if (evento.mouse.x >= 165 && evento.mouse.x <= 352 &&
+                evento.mouse.y >= 250 && evento.mouse.y <= 437){
+                sair = 1;
+            }else if (evento.mouse.x >= 415 && evento.mouse.x <= 595 &&
+                      evento.mouse.y >= 250 && evento.mouse.y <= 437){
+                      sair = 1;
+            }else if (evento.mouse.x >= 665 && evento.mouse.x <= 845 &&
+                      evento.mouse.y >= 250 && evento.mouse.y <= 437){
+                      sair = 1;
+            }else if (evento.mouse.x >= 10 && evento.mouse.x <= 30 &&
+                      evento.mouse.y >= 10 && evento.mouse.y <= 30){
+                      sair = 1;
+            }
+        }
  
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "ESCOLHA UM NÍVEL");
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, "Selecione um nível abaixo para começar.");
         al_draw_bitmap(facilBtnImage, 165, 250, 0);
         al_draw_bitmap(medioBtnImage, 415, 250, 0);
         al_draw_bitmap(dificilBtnImage, 665, 250, 0);
+        al_draw_bitmap(backBtnImage, 10, 10, 0);
         al_draw_text(thirdText, al_map_rgb(255, 255, 255), (1024/4), 450, ALLEGRO_ALIGN_CENTRE, "Fácil");
         al_draw_text(thirdText, al_map_rgb(255, 255, 255), (1024/2), 450, ALLEGRO_ALIGN_CENTRE, "Médio");
         al_draw_text(thirdText, al_map_rgb(255, 255, 255), 750, 450, ALLEGRO_ALIGN_CENTRE, "Difícil");
@@ -104,6 +144,7 @@ int main(void)
         al_flip_display();
     }
 
+    al_destroy_bitmap(botao_sair);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
  
