@@ -18,7 +18,6 @@ int main(void)
     ALLEGRO_BITMAP *facilBtnImage = NULL;
     ALLEGRO_BITMAP *medioBtnImage = NULL;
     ALLEGRO_BITMAP *dificilBtnImage = NULL;
-    ALLEGRO_BITMAP *backBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
@@ -64,11 +63,6 @@ int main(void)
         al_destroy_display(janela);
         return -1;
     }dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
-    if (!dificilBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }backBtnImage = al_load_bitmap("Images/nivelImages/button-back.png");
     if (!dificilBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
@@ -136,7 +130,6 @@ int main(void)
         al_draw_bitmap(facilBtnImage, 165, 250, 0);
         al_draw_bitmap(medioBtnImage, 415, 250, 0);
         al_draw_bitmap(dificilBtnImage, 665, 250, 0);
-        al_draw_bitmap(backBtnImage, 10, 10, 0);
         al_draw_text(thirdText, al_map_rgb(255, 255, 255), (1024/4), 450, ALLEGRO_ALIGN_CENTRE, "Fácil");
         al_draw_text(thirdText, al_map_rgb(255, 255, 255), (1024/2), 450, ALLEGRO_ALIGN_CENTRE, "Médio");
         al_draw_text(thirdText, al_map_rgb(255, 255, 255), 750, 450, ALLEGRO_ALIGN_CENTRE, "Difícil");

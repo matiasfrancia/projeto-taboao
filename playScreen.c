@@ -35,6 +35,7 @@ int main(void){
     ALLEGRO_BITMAP *fundo = NULL;
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
     ALLEGRO_BITMAP *settingsBtnImage = NULL;
+    ALLEGRO_BITMAP *clockBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
@@ -98,7 +99,12 @@ int main(void){
         al_destroy_display(janela);
         return -1;
     }
-    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
+    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
+    if (!clockBtnImage){
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
+        al_destroy_display(janela);
+        return -1;
+    }settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
     if (!settingsBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
         al_destroy_display(janela);
@@ -170,7 +176,7 @@ int main(void){
     secondMajor.lazerInd = 20;
     thirdMajor.nome = "Candidato João Doria";
     thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-    thirdMajor.dinheiro = "R$100000000000,00";
+    thirdMajor.dinheiro = "R$100000000,00";
     thirdMajor.educacaoInd = 10;
     thirdMajor.saudeInd = 20;
     thirdMajor.segurancaInd = 40;
@@ -305,6 +311,7 @@ int main(void){
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+        al_draw_bitmap(clockBtnImage, 750, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
         al_draw_bitmap(settingsBtnImage, 885, 22, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
@@ -333,7 +340,7 @@ int main(void){
         al_draw_filled_rectangle(400, 645, lazerInd, 665, al_map_rgb(255, 255, 255));
 
         //relogio
-        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
     }
