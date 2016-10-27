@@ -112,6 +112,19 @@ int main(void){
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
                 sair = 1;
             }
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+            {
+                if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
+                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
+                       musica = al_load_audio_stream("teste.ogg", 1, 1024);
+                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
+                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
+                        musica = al_load_audio_stream("teste.ogg", 2, 1024);
+                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
+                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
+                        musica = al_load_audio_stream("teste.ogg", 4, 1024);
+                    }
+                }
         }
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -123,9 +136,9 @@ int main(void){
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_text(configText, al_map_rgb(255, 255, 255), (1024/2), 70, ALLEGRO_ALIGN_CENTRE, "CONFIGURAÇÕES");
         al_draw_text(songText, al_map_rgb(255, 255, 255), 200, 200, 0, "Volume");
-        al_draw_filled_rectangle(690, 197, 700, 237, al_map_rgb(255, 255, 255));
+        //al_draw_filled_rectangle(690, 197, 700, 237, al_map_rgb(255, 255, 255));
         al_draw_filled_rectangle(300, 212, 800, 222, al_map_rgb(255, 255, 255));
-         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         al_set_audio_stream_playing(musica, true);
 
         al_flip_display();
