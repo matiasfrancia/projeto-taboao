@@ -26,11 +26,8 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *taboaoLogoImage = NULL;
-    ALLEGRO_BITMAP *fundo = NULL;
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
     ALLEGRO_BITMAP *settingsBtnImage = NULL;
-    ALLEGRO_BITMAP *atributosBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
@@ -63,13 +60,6 @@ int main(void){
 
     al_set_window_title(janela, "Projeto Taboão");
 
- 
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    if (!taboaoLogoImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
     pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
     if (!pauseBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
@@ -78,12 +68,6 @@ int main(void){
     }
     settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
     if (!settingsBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    atributosBtnImage = al_load_bitmap("Images/atributos.png");
-    if (!atributosBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
         al_destroy_display(janela);
         return -1;
@@ -135,12 +119,7 @@ int main(void){
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
 
     char *majorName; 
-    char *majorDesc; 
-    int educacaoInd = 401; 
-    int saudeInd = 401; 
-    int segurancaInd = 401; 
-    int saneamentoInd = 401; 
-    int lazerInd = 401;   
+    char *majorDesc;  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -181,32 +160,16 @@ int main(void){
 
         al_set_target_bitmap(al_get_backbuffer(janela));
         
-        al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
-        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
         al_draw_bitmap(settingsBtnImage, 885, 22, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
-        al_draw_bitmap(atributosBtnImage, 140, 175, 0);
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
-
-        // grafico
-        al_draw_filled_rectangle(400, 525, 401, 665, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 530, ALLEGRO_ALIGN_RIGHT, "EDUCAÇÃO");
-        al_draw_filled_rectangle(400, 525, educacaoInd, 545, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 560, ALLEGRO_ALIGN_RIGHT, "SAÚDE");
-        al_draw_filled_rectangle(400, 555, saudeInd, 575, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 590, ALLEGRO_ALIGN_RIGHT, "SEGURANÇA");
-        al_draw_filled_rectangle(400, 585, segurancaInd, 605, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 620, ALLEGRO_ALIGN_RIGHT, "SANEAMENTO");
-        al_draw_filled_rectangle(400, 615, saneamentoInd, 635, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 650, ALLEGRO_ALIGN_RIGHT, "LAZER");
-        al_draw_filled_rectangle(400, 645, lazerInd, 665, al_map_rgb(255, 255, 255));
 
         //relogio
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
