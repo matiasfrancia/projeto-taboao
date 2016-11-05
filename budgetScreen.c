@@ -29,6 +29,7 @@ int main(void){
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
     ALLEGRO_BITMAP *settingsBtnImage = NULL;
     ALLEGRO_BITMAP *fundo = NULL;
+    ALLEGRO_BITMAP *majorImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
@@ -61,6 +62,12 @@ int main(void){
 
     al_set_window_title(janela, "Projeto Taboão");
 
+    majorImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
+    if (!majorImage){
+        fprintf(stderr, "Falha ao carregar o arquivo de majorImage.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
     pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
     if (!pauseBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
@@ -178,6 +185,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
         al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
+        al_draw_bitmap(majorImage, 120, 100, 0);
         al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
