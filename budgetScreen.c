@@ -31,7 +31,7 @@ int main(void){
         *seguranca = NULL, *lazer = NULL, *saneamento = NULL;
 
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *fonte = NULL;
+    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL;
     ALLEGRO_TIMER *contador = 0;
     int sair = 0;
     int r = 0, g = 0, b = 0;
@@ -52,25 +52,34 @@ int main(void){
 
     al_set_window_title(janela, "Projeto Taboão");
 
+    educacao = al_load_bitmap("Images/budgetScreen/education-btn.png");
+    saude = al_load_bitmap("Images/budgetScreen/health-btn.png");
+    seguranca = al_load_bitmap("Images/budgetScreen/security-btn.png");
+    lazer = al_load_bitmap("Images/budgetScreen/laze-btn.png");
+    saneamento = al_load_bitmap("Images/budgetScreen/sanitation-btn.png");
     garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
     investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
     majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
     pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
     settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
-    fonte = al_load_font("Font/arial.ttf", 11,00);
+    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
+    secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
+    optionText = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
 
-    if (!janela || !garbage || !investir || !majorImage || !fila_eventos || !fila_contador || !pauseBtnImage || !settingsBtnImage || !contador || !fundo || !al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte){
+    if (!janela || !garbage || !firstText || !secondText ||
+        !investir || !majorImage || !fila_eventos || !optionText ||
+        !fila_contador || !pauseBtnImage || !settingsBtnImage || 
+        !contador || !fundo || !al_install_mouse() || 
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
         return -1;
     }
 
-    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
 
     char *majorName; 
     char *majorDesc;  
@@ -124,13 +133,13 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
-        al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
+        //al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
         al_draw_bitmap(majorImage, 140, 152, 0);
-        //al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
-        //al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
-        //al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
-        //al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
-        //al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
         al_draw_bitmap(investir, 539, 226, 0);
         al_draw_bitmap(investir, 539, 364, 0);
         al_draw_bitmap(investir, 539, 502, 0);
@@ -141,8 +150,17 @@ int main(void){
         al_draw_bitmap(garbage, 509, 502, 0);
         al_draw_bitmap(garbage, 790, 226, 0);
         al_draw_bitmap(garbage, 790, 364, 0);
-        //relogio
-        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_bitmap(educacao, 405, 163, 0);
+        al_draw_bitmap(seguranca, 405, 301, 0);
+        al_draw_bitmap(saneamento, 405, 439, 0);
+        al_draw_bitmap(saude, 693, 163, 0);
+        al_draw_bitmap(lazer, 693, 301, 0);
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 540, 167, ALLEGRO_ALIGN_CENTRE, "EDUCACÃO");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 545, 306, ALLEGRO_ALIGN_CENTRE, "SEGURANCA");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
+        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
         
