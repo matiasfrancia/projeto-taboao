@@ -26,105 +26,45 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *pauseBtnImage = NULL;
-    ALLEGRO_BITMAP *settingsBtnImage = NULL;
-    ALLEGRO_BITMAP *fundo = NULL;
-    ALLEGRO_BITMAP *majorImage = NULL;
+    ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, 
+        *majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL, *saude = NULL,
+        *seguranca = NULL, *lazer = NULL, *saneamento = NULL;
+
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL;
-    ALLEGRO_FONT *secondText = NULL;
+    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *fonte = NULL;
     ALLEGRO_TIMER *contador = 0;
-    ALLEGRO_FONT *fonte = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0;  
     al_init_font_addon(); 
     al_init_ttf_addon();
 
-    if (!al_init())
-    {
+    if (!al_init()){
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
         return -1;
     }
- 
-    if (!al_init_image_addon())
-    {
+    if (!al_init_image_addon()){
         fprintf(stderr, "Falha ao inicializar add-on allegro_image.\n");
         return -1;
     }
  
     janela = al_create_display(LARGURA_TELA, ALTURA_TELA);
-    if (!janela)
-    {
-        fprintf(stderr, "Falha ao criar janela.\n");
-        return -1;
-    }
 
     al_set_window_title(janela, "Projeto Taboão");
 
-    majorImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
-    if (!majorImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de majorImage.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
+    garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
+    investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
+    majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
     pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
-    if (!pauseBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
     settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
-    if (!settingsBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
-    if (!fundo){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_install_mouse()){
-        fprintf(stderr, "Falha ao inicializar o mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
-        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
     fonte = al_load_font("Font/arial.ttf", 11,00);
-    if (!fonte)
-    {
-        fprintf(stderr, "Falha ao carregar fonte.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
- 
     contador = al_create_timer(1.0);
-    if (!contador)
-    {
-        fprintf(stderr, "Falha ao criar timer.\n");
-        al_destroy_font(fonte);
-        al_destroy_display(janela);
-        return -1;
-    }
- 
     fila_contador = al_create_event_queue();
-    if (!fila_contador)
-    {
-        fprintf(stderr, "Falha ao criar fila do contador.\n");
-        al_destroy_timer(contador);
-        al_destroy_font(fonte);
-        al_destroy_display(janela);
-        return -1;
-    }
     fila_eventos = al_create_event_queue();
-    if (!fila_eventos){
-        fprintf(stderr, "Falha ao criar fila de eventos.\n");
+
+    if (!janela || !garbage || !investir || !majorImage || !fila_eventos || !fila_contador || !pauseBtnImage || !settingsBtnImage || !contador || !fundo || !al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte){
+        fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
         return -1;
     }
@@ -185,12 +125,22 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
         al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
-        al_draw_bitmap(majorImage, 120, 100, 0);
-        al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
+        al_draw_bitmap(majorImage, 140, 152, 0);
+        //al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
+        //al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
+        //al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
+        //al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
+        //al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
+        al_draw_bitmap(investir, 539, 226, 0);
+        al_draw_bitmap(investir, 539, 364, 0);
+        al_draw_bitmap(investir, 539, 502, 0);
+        al_draw_bitmap(investir, 824, 226, 0);
+        al_draw_bitmap(investir, 824, 364, 0);
+        al_draw_bitmap(garbage, 509, 226, 0);
+        al_draw_bitmap(garbage, 509, 364, 0);
+        al_draw_bitmap(garbage, 509, 502, 0);
+        al_draw_bitmap(garbage, 790, 226, 0);
+        al_draw_bitmap(garbage, 790, 364, 0);
         //relogio
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
