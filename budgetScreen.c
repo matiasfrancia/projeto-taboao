@@ -26,12 +26,12 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, 
+    ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, *money = NULL, 
         *majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL, *saude = NULL,
-        *seguranca = NULL, *lazer = NULL, *saneamento = NULL;
+        *seguranca = NULL, *lazer = NULL, *saneamento = NULL, *clockBtnImage = NULL, *voltar = NULL;
 
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL;
+    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
     ALLEGRO_TIMER *contador = 0;
     int sair = 0;
     int r = 0, g = 0, b = 0;
@@ -52,6 +52,9 @@ int main(void){
 
     al_set_window_title(janela, "Projeto Taboão");
 
+    money = al_load_bitmap("Images/budgetScreen/money-btn.png");
+    voltar = al_load_bitmap("Images/globalImages/back-btn.png");
+    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
     educacao = al_load_bitmap("Images/budgetScreen/education-btn.png");
     saude = al_load_bitmap("Images/budgetScreen/health-btn.png");
     seguranca = al_load_bitmap("Images/budgetScreen/security-btn.png");
@@ -66,14 +69,15 @@ int main(void){
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
     optionText = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
+    moneyText = al_load_ttf_font("Font/Arial_Bold.ttf", 16,0 );
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
 
-    if (!janela || !garbage || !firstText || !secondText ||
-        !investir || !majorImage || !fila_eventos || !optionText ||
+    if (!janela || !garbage || !firstText || !secondText || !clockBtnImage ||
+        !investir || !majorImage || !fila_eventos || !optionText || !moneyText ||
         !fila_contador || !pauseBtnImage || !settingsBtnImage || 
-        !contador || !fundo || !al_install_mouse() || 
+        !contador || !fundo || !al_install_mouse() ||  !money ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
@@ -123,7 +127,8 @@ int main(void){
 
         al_set_target_bitmap(al_get_backbuffer(janela));
         
-        al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+        al_draw_bitmap(clockBtnImage, 750, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
         al_draw_bitmap(settingsBtnImage, 885, 22, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
@@ -135,8 +140,8 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
         //al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
         al_draw_bitmap(majorImage, 140, 152, 0);
-        al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
@@ -160,7 +165,25 @@ int main(void){
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
-        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 750, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 323, 378, 0, "90%%");
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 323, 411, 0, "82%%");
+        al_draw_textf(optionText, al_map_rgb(190, 22, 34), 323, 444, 0, "29%%");
+        al_draw_textf(optionText, al_map_rgb(190, 22, 34), 323, 477, 0, "42%%");
+        al_draw_textf(optionText, al_map_rgb(05, 150, 64), 323, 510, 0, "73%%");
+        int n = 337;
+        for (int i = 0; i < 6; i++){
+            al_draw_filled_rectangle(140, (n+=1), 350, (n+=32), al_map_rgb(255, 255, 255));        
+        }
+        // 104 94 35
+        al_draw_bitmap(voltar, 140, 568, 0);
+        al_draw_bitmap(money, 456, 82, 0);
+        al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ 2.000.000,00");
+        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
         
