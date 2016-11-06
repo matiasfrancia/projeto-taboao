@@ -4,11 +4,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
- 
-// Para utilizarmos o fprintf
 #include <stdio.h>
  
-// Atributos da tela
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
 
@@ -22,8 +19,6 @@ typedef struct prefeito {
       int saneamentoInd; 
       int lazerInd;
    }prefeito; 
-
- 
   
 int main(void){
 
@@ -70,88 +65,26 @@ int main(void){
 
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    if (!taboaoLogoImage){
+    firstPersonaImage = al_load_bitmap("Images/playImages/firstPersonaImage.png");
+    sencondPersonaImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
+    thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
+    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
+    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
+    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
+    fonte = al_load_font("Font/arial.ttf", 11,00);
+    contador = al_create_timer(1.0);
+    fila_contador = al_create_event_queue();
+    fila_eventos = al_create_event_queue();
+    
+    if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+        !pauseBtnImage || !clockBtnImage || !settingsBtnImage || !al_install_mouse() ||
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
+        !contador || !fila_contador || !fila_eventos){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
     }
-    firstPersonaImage = al_load_bitmap("Images/playImages/firstPersonaImage.png");
-    if (!firstPersonaImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem1.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    sencondPersonaImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
-    if (!sencondPersonaImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem2.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
-    if (!thirdPersonaImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem3.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
-    if (!pauseBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
-    if (!clockBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
-    if (!settingsBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem4.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_install_mouse()){
-        fprintf(stderr, "Falha ao inicializar o mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
-        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    fonte = al_load_font("Font/arial.ttf", 11,00);
-    if (!fonte)
-    {
-        fprintf(stderr, "Falha ao carregar fonte.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
  
-    contador = al_create_timer(1.0);
-    if (!contador)
-    {
-        fprintf(stderr, "Falha ao criar timer.\n");
-        al_destroy_font(fonte);
-        al_destroy_display(janela);
-        return -1;
-    }
- 
-    fila_contador = al_create_event_queue();
-    if (!fila_contador)
-    {
-        fprintf(stderr, "Falha ao criar fila do contador.\n");
-        al_destroy_timer(contador);
-        al_destroy_font(fonte);
-        al_destroy_display(janela);
-        return -1;
-    }
-    fila_eventos = al_create_event_queue();
-    if (!fila_eventos){
-        fprintf(stderr, "Falha ao criar fila de eventos.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
     
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
@@ -243,10 +176,8 @@ int main(void){
 	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
 	                    candidato = 3;
 	                }
-	        }
-	        
-            else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
-            {
+	        }	        
+            else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                        candidato = 1;
@@ -256,9 +187,9 @@ int main(void){
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 3;
-                    }
                 }
             }
+        }
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
  
@@ -321,12 +252,9 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
-        
-        // atributos do candidato
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 515, ALLEGRO_ALIGN_RIGHT, "ATRIBUTOS DO(A) CANDIDATO(A)");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 545, ALLEGRO_ALIGN_RIGHT, majorName);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), 240, 575, ALLEGRO_ALIGN_RIGHT, majorMoney);
-        // grafico
         al_draw_filled_rectangle(400, 525, 401, 665, al_map_rgb(255, 255, 255));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 530, ALLEGRO_ALIGN_RIGHT, "EDUCAÇÃO");
         al_draw_filled_rectangle(400, 525, educacaoInd, 545, al_map_rgb(255, 255, 255));
@@ -338,8 +266,6 @@ int main(void){
         al_draw_filled_rectangle(400, 615, saneamentoInd, 635, al_map_rgb(255, 255, 255));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 650, ALLEGRO_ALIGN_RIGHT, "LAZER");
         al_draw_filled_rectangle(400, 645, lazerInd, 665, al_map_rgb(255, 255, 255));
-
-        //relogio
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
