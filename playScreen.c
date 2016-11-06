@@ -310,11 +310,11 @@ int main(void){
         al_draw_bitmap(firstPersonaImage, 145, 330, 0);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
-        //al_draw_bitmap(pauseBtnImage, 815, 25, 0);
-        //al_draw_bitmap(clockBtnImage, 750, 20, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
-        //al_draw_bitmap(settingsBtnImage, 885, 22, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+        al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+        al_draw_bitmap(clockBtnImage, 750, 20, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
+        al_draw_bitmap(settingsBtnImage, 885, 22, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
