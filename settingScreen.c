@@ -116,13 +116,13 @@ int main(void){
             {
                 if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                       musica = al_load_audio_stream("teste.ogg", 1, 1024);
+                       al_reserve_samples(0);
                 }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        musica = al_load_audio_stream("teste.ogg", 2, 1024);
+                        al_reserve_samples(1);
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        musica = al_load_audio_stream("teste.ogg", 4, 1024);
+                        al_reserve_samples(2);
                     }
                 }
         }
