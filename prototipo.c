@@ -201,6 +201,30 @@ int nivelScreen(){
 }
 
 int playScreen(){
+    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
+    firstPersonaImage = al_load_bitmap("Images/playImages/firstPersonaImage.png");
+    sencondPersonaImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
+    thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
+    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
+    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
+    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
+    fonte = al_load_font("Font/arial.ttf", 11,00);
+    contador = al_create_timer(1.0);
+    fila_contador = al_create_event_queue();
+    fila_eventos = al_create_event_queue();
+    
+    if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+        !pauseBtnImage || !clockBtnImage || !settingsBtnImage || !al_install_mouse() ||
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
+        !contador || !fila_contador || !fila_eventos){
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+ 
+    
+    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
+    secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
@@ -237,31 +261,19 @@ int playScreen(){
     int segurancaInd; 
     int saneamentoInd; 
     int lazerInd; 
+    /*majorName = "Escolha o seu Prefeito(a)";
+    majorDesc = NULL;
+    educacaoInd = 046; 
+    saudeInd = 046; 
+    segurancaInd = 046; 
+    saneamentoInd = 046; 
+    lazerInd = 046;*/ 
 
+    al_register_event_source(fila_eventos, al_get_mouse_event_source());
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
 
     al_start_timer(contador);
-
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    firstPersonaImage = al_load_bitmap("Images/playImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
-    thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
-    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
-    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
-    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
-    fonte = al_load_font("Font/arial.ttf", 11,00);
-    contador = al_create_timer(1.0);
-    fila_contador = al_create_event_queue();
-    //fila_eventos = al_create_event_queue();
-    
-    if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !settingsBtnImage || !al_install_mouse() ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
-        !contador || !fila_contador || !fila_eventos){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
 
     int candidato = 0;
     while (!sair){
@@ -394,7 +406,7 @@ int playScreen(){
 
         al_flip_display();
     }
-    al_destroy_bitmap(sencondPersonaImage);
+    
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
