@@ -50,6 +50,8 @@ ALLEGRO_FONT *firstText = NULL,
              *thirdText = NULL,
              *fonte = NULL;
 ALLEGRO_TIMER *contador = 0;
+ALLEGRO_EVENT evento;
+ALLEGRO_TIMEOUT timeout;
 
 int botao = 0;
 int sair = 0;
@@ -104,8 +106,8 @@ int main(void){
     al_flip_display();
  
     while (!sair){
-        ALLEGRO_EVENT evento;
-        ALLEGRO_TIMEOUT timeout;
+        //ALLEGRO_EVENT evento;
+        //ALLEGRO_TIMEOUT timeout;
         al_init_timeout(&timeout, 0.5);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
@@ -116,7 +118,7 @@ int main(void){
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 450 && evento.mouse.y <= 485){
-                nivelScreen(sair);;
+                nivelScreen(sair);
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                       evento.mouse.y >= 500 && evento.mouse.y <= 535){
                       nivelScreen(sair);
@@ -140,14 +142,7 @@ int main(void){
         al_flip_display();
     }
 
-    al_destroy_bitmap(botao_sair);
-    al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
- 
-    return 0;
 }
-
-
 
 int nivelScreen(){
 
@@ -161,9 +156,9 @@ int nivelScreen(){
     }
     
     while (!sair){
-        janela = NULL;
-        ALLEGRO_EVENT evento;
-        ALLEGRO_TIMEOUT timeout;
+        //janela = NULL;
+        //ALLEGRO_EVENT evento;
+        //ALLEGRO_TIMEOUT timeout;
         al_init_timeout(&timeout, 0.5);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
@@ -181,9 +176,6 @@ int nivelScreen(){
                       playScreen(sair);
             }else if (evento.mouse.x >= 665 && evento.mouse.x <= 845 &&
                       evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                      playScreen(sair);
-            }else if (evento.mouse.x >= 10 && evento.mouse.x <= 30 &&
-                      evento.mouse.y >= 10 && evento.mouse.y <= 30){
                       playScreen(sair);
             }
         }
@@ -286,8 +278,8 @@ int playScreen(){
             }
         }
         while (!al_is_event_queue_empty(fila_eventos)){
-            ALLEGRO_EVENT evento;
-            ALLEGRO_TIMEOUT timeout;
+            //ALLEGRO_EVENT evento;
+            //ALLEGRO_TIMEOUT timeout;
             al_init_timeout(&timeout, 0.5);
  
             int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
