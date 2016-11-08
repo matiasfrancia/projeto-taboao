@@ -307,7 +307,7 @@ int playScreen(){
                     seg = 59;
                 }
                 else if(min == 0 && seg == 0 ){
-                    budgetScreen(sair);
+                    sair = 1;
                 }
             }
         }
@@ -512,13 +512,14 @@ int budgetScreen(void){
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
-            if (evento.type == ALLEGRO_EVENT_TIMER)
-            {
+            if (evento.type == ALLEGRO_EVENT_TIMER){
                 seg--;
-                if (seg == -1)
-                {
+                if (seg == -1){
                     min--;
                     seg = 59;
+                }
+                else if(min == 0 && seg == 0 ){
+                    sair = 1;
                 }
             }
         }
