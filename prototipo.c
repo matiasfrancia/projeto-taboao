@@ -606,48 +606,14 @@ int budgetScreen(void){
 }
 int settingScreen(void){
     voltar = al_load_bitmap("Images/globalImages/back-btn.png");
-
-   /* taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    musica = al_load_audio_stream("teste.ogg", 4, 1024);
-    fila_eventos = al_create_event_queue();
-    if (!taboaoLogoImage||!al_install_mouse()||!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)||!al_install_audio()
-    ||!al_init_acodec_addon()||!al_reserve_samples(1)||!musica||!fila_eventos){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
-        al_destroy_display(janela);
-        return -1;
-    }*/
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    if (!taboaoLogoImage){
+    fila_eventos = al_create_event_queue();
+    
+    if (!taboaoLogoImage || !al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)||
+     !al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(1) || !fila_eventos){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
-    }
-    if (!al_install_mouse()){
-        fprintf(stderr, "Falha ao inicializar o mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
-        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_install_audio())
-    {
-        fprintf(stderr, "Falha ao inicializar áudio.\n");
-        return false;
-    }
- 
-    if (!al_init_acodec_addon())
-    {
-        fprintf(stderr, "Falha ao inicializar codecs de áudio.\n");
-        return false;
-    }
- 
-    if (!al_reserve_samples(1))
-    {
-        fprintf(stderr, "Falha ao alocar canais de áudio.\n");
-        return false;
     }
     musica = al_load_audio_stream("teste.ogg", 4, 1024);
     if (!musica)
@@ -656,12 +622,6 @@ int settingScreen(void){
         al_destroy_event_queue(fila_eventos);
         al_destroy_display(janela);
         return false;
-    }
-    fila_eventos = al_create_event_queue();
-    if (!fila_eventos){
-        fprintf(stderr, "Falha ao criar fila de eventos.\n");
-        al_destroy_display(janela);
-        return -1;
     }
 
     configText = al_load_ttf_font("Font/arial.ttf", 33,0 );

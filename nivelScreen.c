@@ -51,41 +51,16 @@ int main(void)
     al_set_window_title(janela, "Projeto Taboão");
 
     facilBtnImage = al_load_bitmap("Images/nivelImages/facilBtnImage.png");
-    if (!facilBtnImage)
-    {
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
     medioBtnImage = al_load_bitmap("Images/nivelImages/medioBtnImage.png");
-    if (!medioBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
-    if (!dificilBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }if (!al_install_mouse())
-    {
-        fprintf(stderr, "Falha ao inicializar o mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT))
-    {
-        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
+    dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
     fila_eventos = al_create_event_queue();
-    if (!fila_eventos)
-    {
-        fprintf(stderr, "Falha ao criar fila de eventos.\n");
+    if (!facilBtnImage || !medioBtnImage || !dificilBtnImage || !al_install_mouse() || 
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fila_eventos) {
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
+    
     
     firstText = al_load_ttf_font("Font/arial.ttf", 32,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 18,0 );

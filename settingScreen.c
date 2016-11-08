@@ -18,15 +18,14 @@ const int ALTURA_TELA = 720;
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *taboaoLogoImage = NULL;
-    ALLEGRO_BITMAP *fundo = NULL;
+    ALLEGRO_BITMAP *taboaoLogoImage = NULL, *fundo = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
-    ALLEGRO_FONT *configText = NULL;
-    ALLEGRO_FONT *songText = NULL;
+    ALLEGRO_FONT *configText = NULL, *songText = NULL;
     ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     al_init_font_addon(); 
     al_init_ttf_addon();
+
 
     if (!al_init()){
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
@@ -45,40 +44,14 @@ int main(void){
     }
 
     al_set_window_title(janela, "Projeto Taboão");
-
- 
+    fila_eventos = al_create_event_queue();
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    if (!taboaoLogoImage){
+    
+    if (!taboaoLogoImage || !al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)||
+     !al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(1) || !fila_eventos){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
-    }
-    if (!al_install_mouse()){
-        fprintf(stderr, "Falha ao inicializar o mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
-        fprintf(stderr, "Falha ao atribuir ponteiro do mouse.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    if (!al_install_audio())
-    {
-        fprintf(stderr, "Falha ao inicializar áudio.\n");
-        return false;
-    }
- 
-    if (!al_init_acodec_addon())
-    {
-        fprintf(stderr, "Falha ao inicializar codecs de áudio.\n");
-        return false;
-    }
- 
-    if (!al_reserve_samples(1))
-    {
-        fprintf(stderr, "Falha ao alocar canais de áudio.\n");
-        return false;
     }
     musica = al_load_audio_stream("teste.ogg", 4, 1024);
     if (!musica)
@@ -88,12 +61,7 @@ int main(void){
         al_destroy_display(janela);
         return false;
     }
-    fila_eventos = al_create_event_queue();
-    if (!fila_eventos){
-        fprintf(stderr, "Falha ao criar fila de eventos.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
+    
 
     configText = al_load_ttf_font("Font/arial.ttf", 33,0 );
     songText = al_load_ttf_font("Font/arial.ttf", 25,0 );
