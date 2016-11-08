@@ -34,6 +34,7 @@ int main(void){
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
+    ALLEGRO_FONT *nametext = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_FONT *fonte = NULL;
 	int sair = 0;
@@ -87,7 +88,8 @@ int main(void){
  
     
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
+    secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
+    nametext = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
@@ -236,8 +238,8 @@ int main(void){
         
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, majorName);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 230, ALLEGRO_ALIGN_CENTRE, majorDesc);
+        al_draw_text(nametext, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
         al_draw_bitmap(firstPersonaImage, 145, 330, 0);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
@@ -254,7 +256,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 515, ALLEGRO_ALIGN_RIGHT, "ATRIBUTOS DO(A) CANDIDATO(A)");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 545, ALLEGRO_ALIGN_RIGHT, majorName);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), 240, 575, ALLEGRO_ALIGN_RIGHT, majorMoney);
+        al_draw_text(nametext, al_map_rgb(255, 255, 255), 240, 575, ALLEGRO_ALIGN_RIGHT, majorMoney);
         al_draw_filled_rectangle(400, 525, 401, 665, al_map_rgb(255, 255, 255));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 530, ALLEGRO_ALIGN_RIGHT, "EDUCAÇÃO");
         al_draw_filled_rectangle(400, 525, educacaoInd, 545, al_map_rgb(255, 255, 255));
