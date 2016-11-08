@@ -4,48 +4,33 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
- 
-// Para utilizarmos o fprintf
 #include <stdio.h>
  
-// Atributos da tela
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
-
-/*
-gcc creditScreen.c -o teste $(pkg-config –cflags –libs allegro-5) -lallegro -lallegro_primitives -lallegro_main -lallegro_image
-
-
-*/
 
 int main(void)
 {
     ALLEGRO_DISPLAY *janela = NULL;
-    //ALLEGRO_BITMAP *mainScreen = NULL;
     ALLEGRO_BITMAP *taboaoLogoImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
-    ALLEGRO_FONT *font = NULL;
-    ALLEGRO_FONT *nomes = NULL;
+    ALLEGRO_FONT *font = NULL,  *nomes = NULL;
 
     al_init_font_addon(); 
     al_init_ttf_addon();
 
-    if (!al_init())
-    {
+    if (!al_init()) {
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
         return -1;
     }
-
  
-    if (!al_init_image_addon())
-    {
+    if (!al_init_image_addon()) {
         fprintf(stderr, "Falha ao inicializar add-on allegro_image.\n");
         return -1;
     }
  
     janela = al_create_display(LARGURA_TELA, ALTURA_TELA);
-    if (!janela)
-    {
+    if (!janela) {
         fprintf(stderr, "Falha ao criar janela.\n");
         return -1;
     }
@@ -54,21 +39,15 @@ int main(void)
 
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    if (!taboaoLogoImage)
-    {
+    fila_eventos = al_create_event_queue();
+    font = al_load_ttf_font("Font/arial.ttf", 38,0 );
+    nomes = al_load_ttf_font("Font/arial.ttf", 15,0 );
+    if (!taboaoLogoImage || !fila_eventos || ! font || !nomes) {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
         al_destroy_display(janela);
         return -1;
     }
-    fila_eventos = al_create_event_queue();
-    if (!fila_eventos)
-    {
-        fprintf(stderr, "Falha ao criar fila de eventos.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    font = al_load_ttf_font("Font/arial.ttf", 38,0 );
-    nomes = al_load_ttf_font("Font/arial.ttf", 15,0 );
+   
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
  

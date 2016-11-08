@@ -29,7 +29,7 @@ int main(void){
     ALLEGRO_BITMAP *thirdPersonaImage = NULL;
     ALLEGRO_BITMAP *fundo = NULL;
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
-    ALLEGRO_BITMAP *settingsBtnImage = NULL;
+    ALLEGRO_BITMAP *soundBtnImage = NULL;
     ALLEGRO_BITMAP *clockBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL;
@@ -70,14 +70,14 @@ int main(void){
     thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
     pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
     clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
-    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
+    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
     fonte = al_load_font("Font/arial.ttf", 11,00);
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
     
     if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !settingsBtnImage || !al_install_mouse() ||
+        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
         !contador || !fila_contador || !fila_eventos){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
@@ -241,11 +241,11 @@ int main(void){
         al_draw_bitmap(firstPersonaImage, 145, 330, 0);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
-        al_draw_bitmap(pauseBtnImage, 815, 25, 0);
-        al_draw_bitmap(clockBtnImage, 750, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
-        al_draw_bitmap(settingsBtnImage, 885, 22, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+        al_draw_bitmap(pauseBtnImage, 830, 25, 0);
+        al_draw_bitmap(clockBtnImage, 765, 20, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
+        al_draw_bitmap(soundBtnImage, 900, 20, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
@@ -266,7 +266,7 @@ int main(void){
         al_draw_filled_rectangle(400, 615, saneamentoInd, 635, al_map_rgb(255, 255, 255));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 650, ALLEGRO_ALIGN_RIGHT, "LAZER");
         al_draw_filled_rectangle(400, 645, lazerInd, 665, al_map_rgb(255, 255, 255));
-        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
     }
