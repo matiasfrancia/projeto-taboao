@@ -6,6 +6,7 @@ typedef struct evento_bom{
 	//eventos para longo prazo, objetivos até o fim do mandato.
 	//pode aceitar ou nao
 	int dinheiro;
+	int investimento;
 	int saude;
 	int educacao;
 	int saneamento;
@@ -30,19 +31,35 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 	
 	EVENTO_RUIM *ruim;
 	srand((unsigned)time(NULL));
-	ruim = (EVENTO_RUIM *)malloc(1 * sizeof(EVENTO_RUIM));
+	ruim = (EVENTO_RUIM *)malloc(3 * sizeof(EVENTO_RUIM));
 
 	//chuva insana
-	ruim[0].dinheiro = 100000; //dinheiro que vai ser perdido
-	ruim[0].saude = 5;
-	ruim[0].saneamento = 0;
-	ruim[0].lazer = 2;
-	ruim[0].seguranca = 0;
-	ruim[0].educacao = 0;
+	ruim[0].dinheiro = -100000; //dinheiro que vai ser perdido
+	ruim[0].saude = -12;
+	ruim[0].saneamento = -10;
+	ruim[0].lazer = -5;
+	ruim[0].seguranca = -3;
+	ruim[0].educacao = -13;
 	//outros parametros nao serao alterados
 
-	int idx = rand() % 1;
-	aux->dinheiro = ruim[idx].dinheiro;
+	//Terremoto
+	ruim[1].dinheiro = -500000;
+	ruim[1].saude = 0;
+	ruim[1].saneamento = -10;
+	ruim[1].lazer = -10;
+	ruim[1].seguranca = -10;
+	ruim[1].educacao = -10;
+
+	//Aliens invadiram Taboao
+	ruim[2].dinheiro = -1000000;
+	ruim[2].saude = -20;
+	ruim[2].saneamento = 0;
+	ruim[2].lazer = -30;
+	ruim[2].seguranca = -20;
+	ruim[2].educacao = -50; //eles nos deixam burros! idhauifhiwu
+
+	int idx = rand() % 3; //seleciona um indice aleatorio do vetor ruim idem para EVENTO_BOM
+	aux->dinheiro = ruim[idx].dinheiro; //atribui valores a struct adicional
 	aux->seguranca = ruim[idx].seguranca;
 	aux->saneamento = ruim[idx].saneamento;
 	aux->lazer = ruim[idx].lazer;
@@ -56,18 +73,37 @@ void select_evento_bom(EVENTO_BOM *aux){
 	EVENTO_BOM *bom;
 	srand((unsigned)time(NULL));
 	
-	bom = (EVENTO_BOM *)malloc(1 * sizeof(EVENTO_BOM));
+	bom = (EVENTO_BOM *)malloc(3 * sizeof(EVENTO_BOM));
 	
 	//copa do mundo, objetivo a ser alcançado
 	bom[0].dinheiro = 2000000;
+	bom[0].investimento = 1000000;
 	bom[0].seguranca = 70;
 	bom[0].lazer = 20;
 	bom[0].saude = 10;
-	bom[0].saneamento = 0;
-	bom[0].educacao = 0;
+	bom[0].saneamento = 14;
+	bom[0].educacao = 2;
+
+	//olimpiada
+	bom[1].dinheiro = 700000;
+	bom[1].investimento = 500000;
+	bom[1].seguranca = 50;
+	bom[1].lazer = 30;
+	bom[1].saude = 5;
+	bom[1].saneamento = 10;
+	bom[1].educacao = 13;
+
+	//campus party
+	bom[2].dinheiro = 800000;
+	bom[2].investimento = 250000;
+	bom[2].seguranca = 90;
+	bom[2].lazer = 0;
+	bom[2].saude = 0;
+	bom[2].saneamento = 5;
+	bom[2].educacao = 30;
 
 
-	int idx = rand() % 1;
+	int idx = rand() % 3;
 	aux->dinheiro = bom[idx].dinheiro;
 	aux->seguranca = bom[idx].seguranca;
 	aux->lazer = bom[idx].lazer;
@@ -80,13 +116,15 @@ void select_evento_bom(EVENTO_BOM *aux){
 
 
 /*
-###############################################################################################
-#																							  #	
-#																							  #
-#			         FUNCAO MAIN DEVERÁ CHAMAR FUNCAO DA SEGUINTE FORMA:                      #
-#																							  #
-#																							  #
-###############################################################################################
+
+#################################################################################
+#																				#	
+#																				#
+#       FUNCAO DE SELECAO DE EVENTOS DEVERA SER CHAMADA DA SEGUINTE FORMA:      #
+#																				#
+#																				#
+#################################################################################
+
 
 int main(int argc, char const *argv[]){
 	
