@@ -306,6 +306,9 @@ int playScreen(){
                     min--;
                     seg = 59;
                 }
+                else if(min == 0 && seg == 0 ){
+                    budgetScreen(sair);
+                }
             }
         }
 
