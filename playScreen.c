@@ -23,21 +23,28 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *taboaoLogoImage = NULL;
+    ALLEGRO_BITMAP *fundo = NULL;
     ALLEGRO_BITMAP *firstPersonaImage = NULL;
     ALLEGRO_BITMAP *sencondPersonaImage = NULL;
     ALLEGRO_BITMAP *thirdPersonaImage = NULL;
-    ALLEGRO_BITMAP *fundo = NULL;
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
     ALLEGRO_BITMAP *soundBtnImage = NULL;
     ALLEGRO_BITMAP *clockBtnImage = NULL;
+    ALLEGRO_BITMAP *investiment = NULL;
+    ALLEGRO_BITMAP *education = NULL;
+    ALLEGRO_BITMAP *fun = NULL;
+    ALLEGRO_BITMAP *health = NULL;
+    ALLEGRO_BITMAP *sanitation = NULL;
+    ALLEGRO_BITMAP *security = NULL;
+    ALLEGRO_BITMAP *fundo2 = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL;
     ALLEGRO_FONT *secondText = NULL;
     ALLEGRO_FONT *nametext = NULL;
+    ALLEGRO_FONT *infotext = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_FONT *fonte = NULL;
-	int sair = 0;
+    int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0; 
     al_init_font_addon(); 
@@ -65,19 +72,25 @@ int main(void){
     al_set_window_title(janela, "Projeto Taboão");
 
  
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    firstPersonaImage = al_load_bitmap("Images/playImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/playImages/sencondPersonaImage.png");
-    thirdPersonaImage = al_load_bitmap("Images/playImages/thirdPersonaImage.png");
-    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
+    fundo = al_load_bitmap("Images/playScreen/backgroung-black.png");
+    firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
+    sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
+    thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
+    pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
     soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
+    investiment = al_load_bitmap("Images/playScreen/investimento.png");
+    education = al_load_bitmap("Images/globalImages/education-btn.png");
+    fun = al_load_bitmap("Images/globalImages/fun-btn.png");
+    health = al_load_bitmap("Images/globalImages/health-btn.png");
+    sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
+    security = al_load_bitmap("Images/globalImages/security-btn.png"); 
     fonte = al_load_font("Font/arial.ttf", 11,00);
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
     
-    if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+    if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
         !contador || !fila_contador || !fila_eventos){
@@ -90,6 +103,7 @@ int main(void){
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
     nametext = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
+    infotext = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
@@ -125,14 +139,7 @@ int main(void){
     int saudeInd; 
     int segurancaInd; 
     int saneamentoInd; 
-    int lazerInd; 
-    /*majorName = "Escolha o seu Prefeito(a)";
-    majorDesc = NULL;
-    educacaoInd = 046; 
-    saudeInd = 046; 
-    segurancaInd = 046; 
-    saneamentoInd = 046; 
-    lazerInd = 046;*/ 
+    int lazerInd;  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -156,30 +163,18 @@ int main(void){
                 }
             }
         }
-    	while (!al_is_event_queue_empty(fila_eventos)){
-	        ALLEGRO_EVENT evento;
+        while (!al_is_event_queue_empty(fila_eventos)){
+            ALLEGRO_EVENT evento;
             ALLEGRO_TIMEOUT timeout;
             al_init_timeout(&timeout, 0.5);
  
-	        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
-	 
-	        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-	            sair = 1;
-	        }
-	 		
-	 		if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
-	            if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
-	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
-	                   candidato = 1;
-	            }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
-	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
-	                    candidato = 2;
-	            }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
-	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
-	                    candidato = 3;
-	                }
-	        }	        
-            else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+     
+            if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                sair = 1;
+            }
+            
+            /*if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
                 if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                        candidato = 1;
@@ -189,6 +184,15 @@ int main(void){
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 3;
+                    }
+            }           
+            else*/
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+                if (evento.mouse.x >= 320 && evento.mouse.x <= 425 &&
+                    evento.mouse.y >= 630 && evento.mouse.y <= 650){
+                       candidato = 1;
+                }
+                else{  candidato = 4;
                 }
             }
         }
@@ -235,14 +239,15 @@ int main(void){
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
+
         
-        al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
-        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_text(nametext, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
-        al_draw_bitmap(firstPersonaImage, 145, 330, 0);
-        al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
-        al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
+        al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(29,113,184));
+        al_draw_bitmap(fundo, 0, -10, 0);
+        //al_draw_text(nametext, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
+        //al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
+        al_draw_bitmap(firstPersonaImage, 145, 530, 0);
+        //al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
+        //al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
@@ -254,21 +259,22 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 515, ALLEGRO_ALIGN_RIGHT, "ATRIBUTOS DO(A) CANDIDATO(A)");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 240, 545, ALLEGRO_ALIGN_RIGHT, majorName);
-        al_draw_text(nametext, al_map_rgb(255, 255, 255), 240, 575, ALLEGRO_ALIGN_RIGHT, majorMoney);
-        al_draw_filled_rectangle(400, 525, 401, 665, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 530, ALLEGRO_ALIGN_RIGHT, "EDUCAÇÃO");
-        al_draw_filled_rectangle(400, 525, educacaoInd, 545, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 560, ALLEGRO_ALIGN_RIGHT, "SAÚDE");
-        al_draw_filled_rectangle(400, 555, saudeInd, 575, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 590, ALLEGRO_ALIGN_RIGHT, "SEGURANÇA");
-        al_draw_filled_rectangle(400, 585, segurancaInd, 605, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 620, ALLEGRO_ALIGN_RIGHT, "SANEAMENTO");
-        al_draw_filled_rectangle(400, 615, saneamentoInd, 635, al_map_rgb(255, 255, 255));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 390, 650, ALLEGRO_ALIGN_RIGHT, "LAZER");
-        al_draw_filled_rectangle(400, 645, lazerInd, 665, al_map_rgb(255, 255, 255));
+        
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+
+        //detalhe prefeito
+        al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));
+        al_draw_text(infotext, al_map_rgb(255, 255, 255), 335, 530, 0, "Informações");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão");
+        al_draw_text(firstText, al_map_rgb(203, 187, 160), 365, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, majorName);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, majorMoney);
+        al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
+        al_draw_bitmap(education, 390+75+50, 575, 0);
+        al_draw_bitmap(security, 445+75+50, 575, 0);
+        al_draw_bitmap(sanitation, 500+75+50, 575, 0);
+        al_draw_bitmap(health, 555+75+50, 575, 0);
+        al_draw_bitmap(fun, 610+75+50, 575, 0);
 
         al_flip_display();
     }
