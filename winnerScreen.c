@@ -41,7 +41,7 @@ int main(void)
     taboaoLogoImage = al_load_bitmap("Images/winnerScreen/winner-btn.png");
     fila_eventos = al_create_event_queue();
     font = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
-    if (!taboaoLogoImage || !fila_eventos || ! font ) {
+    if (!taboaoLogoImage || !fila_eventos || !font ) {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
         al_destroy_display(janela);
         return -1;
