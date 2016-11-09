@@ -135,7 +135,7 @@ int main(void){
     thirdMajor.segurancaInd = 40;
     thirdMajor.saneamentoInd = 10;
     thirdMajor.lazerInd = 10;
-
+    
     char *majorName; 
     char *majorDesc; 
     char *majorMoney; 
@@ -144,13 +144,7 @@ int main(void){
     int segurancaInd; 
     int saneamentoInd; 
     int lazerInd; 
-    /*majorName = "Escolha o seu Prefeito(a)";
-    majorDesc = NULL;
-    educacaoInd = 046; 
-    saudeInd = 046; 
-    segurancaInd = 046; 
-    saneamentoInd = 046; 
-    lazerInd = 046;*/ 
+    int value;
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -174,29 +168,28 @@ int main(void){
                 }
             }
         }
-    	while (!al_is_event_queue_empty(fila_eventos)){
-	        ALLEGRO_EVENT evento;
+        while (!al_is_event_queue_empty(fila_eventos)){
+            ALLEGRO_EVENT evento;
             ALLEGRO_TIMEOUT timeout;
             al_init_timeout(&timeout, 0.5);
  
-	        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
-	        int value;
-	        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-	            sair = 1;
-	        }
-	 		
-	 		if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
-	            if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
-	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
-	                   candidato = 1;
-	            }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
-	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
-	                    candidato = 2;
-	            }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
-	                evento.mouse.y >= 335 && evento.mouse.y <= 480){
-	                    candidato = 3;
-	                }
-	        }	        
+            int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+            if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                sair = 1;
+            }
+            
+            if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
+                if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
+                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
+                       candidato = 1;
+                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
+                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
+                        candidato = 2;
+                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
+                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
+                        candidato = 3;
+                    }
+            }           
             else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
