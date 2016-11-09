@@ -38,7 +38,7 @@ int main(void)
     al_set_window_title(janela, "Projeto Taboão");
 
  
-    taboaoLogoImage = al_load_bitmap("Images/winnerScreen/winner-btn.png");
+    taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
     fila_eventos = al_create_event_queue();
     font = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
     if (!taboaoLogoImage || !fila_eventos || ! font ) {
@@ -61,8 +61,8 @@ int main(void)
             break;
         }
         
-        al_draw_bitmap(taboaoLogoImage,  420, 200, 0);
-        al_draw_text(font, al_map_rgb(190,22,34),  (1024/2), 450, ALLEGRO_ALIGN_CENTRE, "PARABÉNS, VOCÊ GANHOU!");
+        al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
+        al_draw_text(font, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
 
         al_flip_display();
     }

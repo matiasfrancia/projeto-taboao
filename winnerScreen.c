@@ -61,8 +61,8 @@ int main(void)
             break;
         }
         
-        al_draw_bitmap(taboaoLogoImage,  420, 200, 0);
-        al_draw_text(font, al_map_rgb(0,150,64),  (1024/2), 450, ALLEGRO_ALIGN_CENTRE, "PARABÉNS, VOCÊ GANHOU!");
+        al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
+        al_draw_text(font, al_map_rgb(0,150,64),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "PARABÉNS, VOCÊ GANHOU!");
 
         al_flip_display();
     }

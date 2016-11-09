@@ -4,11 +4,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
- 
-// Para utilizarmos o fprintf
 #include <stdio.h>
- 
-// Atributos da tela
+
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
  
