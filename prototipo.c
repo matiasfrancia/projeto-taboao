@@ -619,7 +619,7 @@ int settingScreen(void){
         al_destroy_display(janela);
         return -1;
     }
-    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    musica = al_load_audio_stream("teste.ogg", 8, 1024);
     if (!musica)
     {
         fprintf(stderr, "Falha ao carregar audio.\n");
@@ -643,34 +643,16 @@ int settingScreen(void){
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
                 evento.mouse.y >= 558 && evento.mouse.y <= 578){
-                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());;
+                al_set_audio_stream_playing(musica, false);
+        }
+        else if (evento.mouse.x >= 200 && evento.mouse.x <= 400 &&
+                evento.mouse.y >= 558 && evento.mouse.y <= 578){
+               al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+              al_set_audio_stream_playing(musica, true);
         }
 
     }
-      while (!al_is_event_queue_empty(fila_eventos)){
-            ALLEGRO_EVENT evento;
-            ALLEGRO_TIMEOUT timeout;
-            al_init_timeout(&timeout, 0.5);
- 
-            int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
-     
-            if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-                sair = 1;
-            }
-            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
-            {
-                if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                       al_reserve_samples(0);
-                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        al_reserve_samples(1);
-                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        al_reserve_samples(2);
-                    }
-                }
-        }
+      
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -684,7 +666,8 @@ int settingScreen(void){
         al_draw_bitmap(voltar, 140, 568, 0);
         //al_draw_filled_rectangle(690, 197, 700, 237, al_map_rgb(255, 255, 255));
         al_draw_filled_rectangle(300, 212, 800, 222, al_map_rgb(255, 255, 255));
-        al_set_audio_stream_playing(musica, true);
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+        
 
         al_flip_display();
 
