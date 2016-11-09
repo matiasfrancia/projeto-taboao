@@ -241,7 +241,7 @@ int main(void){
         al_set_target_bitmap(al_get_backbuffer(janela));
 
         
-        al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(29,113,184));
+        al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(29,113,184));
         al_draw_bitmap(fundo, 0, -10, 0);
         al_draw_bitmap(firstPersonaImage, 145, 530, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
@@ -261,16 +261,21 @@ int main(void){
         //detalhe prefeito
         al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));
         al_draw_text(infotext, al_map_rgb(255, 255, 255), 335, 530, 0, "Informações");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão");
-        al_draw_text(firstText, al_map_rgb(203, 187, 160), 365, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
+        al_draw_text(firstText, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, majorName);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, majorMoney);
         al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
         al_draw_bitmap(education, 390+75+50, 575, 0);
+        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 390+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", educacaoInd);
         al_draw_bitmap(security, 445+75+50, 575, 0);
+        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 445+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", segurancaInd);
         al_draw_bitmap(sanitation, 500+75+50, 575, 0);
+        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 500+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", saneamentoInd);
         al_draw_bitmap(health, 555+75+50, 575, 0);
+        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 555+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", saudeInd);
         al_draw_bitmap(fun, 610+75+50, 575, 0);
+        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 610+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", lazerInd);
 
         al_flip_display();
     }
