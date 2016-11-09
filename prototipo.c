@@ -1,3 +1,6 @@
+/*gcc prototipo.c -o prototipo.exe $(pkg-config –cflags –libs allegro-5) -lallegro -lallegro_main -lallegro_image -lallegro_ttf -lallegro_font -lallegro_primitives -lallegro_audio -lallegro_acodec*/
+
+
 // Os arquivos de cabeçalho
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -264,7 +267,7 @@ int chooseScreen(){
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
-    firstMajor.nome = "Candidato Fernando Haddad";
+    firstMajor.nome = "Candidato Carlos Eduardo";
     firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
     firstMajor.dinheiro = "R$1000000,00";
     firstMajor.educacaoInd = 20; 
@@ -272,7 +275,7 @@ int chooseScreen(){
     firstMajor.segurancaInd = 20; 
     firstMajor.saneamentoInd = 10; 
     firstMajor.lazerInd = 30;
-    secondMajor.nome = "Candidata Luiza Erundina";
+    secondMajor.nome = "Candidata Luiza Maria";
     secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
     secondMajor.dinheiro = "R$10000,00";
     secondMajor.educacaoInd = 20;
@@ -280,7 +283,7 @@ int chooseScreen(){
     secondMajor.segurancaInd = 10;
     secondMajor.saneamentoInd = 30;
     secondMajor.lazerInd = 20;
-    thirdMajor.nome = "Candidato João Doria";
+    thirdMajor.nome = "Candidato Alberto Santos";
     thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
     thirdMajor.dinheiro = "R$100000000,00";
     thirdMajor.educacaoInd = 10;
@@ -347,15 +350,15 @@ int chooseScreen(){
                 if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 1;
-                        playScreen(sair);
+                        playScreen(sair, candidato);
                 }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 2;
-                        playScreen(sair);
+                        playScreen(sair, candidato);
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 3;
-                        playScreen(sair);
+                        playScreen(sair, candidato);
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 0){
                         value = 1;
@@ -458,7 +461,7 @@ int chooseScreen(){
 }
 
 
-int playScreen(){
+int playScreen(int sair, int candidato){
     fundo = al_load_bitmap("Images/playScreen/backgroung-black.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
@@ -494,7 +497,7 @@ int playScreen(){
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
-    firstMajor.nome = "Candidato Fernando Haddad";
+    firstMajor.nome = "Candidato Carlos Eduardo";
     firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
     firstMajor.dinheiro = "R$1000000,00";
     firstMajor.educacaoInd = 20; 
@@ -502,7 +505,7 @@ int playScreen(){
     firstMajor.segurancaInd = 20; 
     firstMajor.saneamentoInd = 10; 
     firstMajor.lazerInd = 30;
-    secondMajor.nome = "Candidata Luiza Erundina";
+    secondMajor.nome = "Candidata Maria";
     secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
     secondMajor.dinheiro = "R$10000,00";
     secondMajor.educacaoInd = 20;
@@ -510,7 +513,7 @@ int playScreen(){
     secondMajor.segurancaInd = 10;
     secondMajor.saneamentoInd = 30;
     secondMajor.lazerInd = 20;
-    thirdMajor.nome = "Candidato João Doria";
+    thirdMajor.nome = "CandiAlberto Santos";
     thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
     thirdMajor.dinheiro = "R$100000000,00";
     thirdMajor.educacaoInd = 10;
@@ -534,7 +537,7 @@ int playScreen(){
 
     al_start_timer(contador);
 
-    int candidato = 0;
+    //int candidato = 0;
     while (!sair){
         if (!al_is_event_queue_empty(fila_contador)){
             ALLEGRO_EVENT evento;
@@ -561,26 +564,10 @@ int playScreen(){
                 sair = 1;
             }
             
-            /*if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
-                if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                       candidato = 1;
-                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        candidato = 2;
-                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        candidato = 3;
-                    }
-            }           
-            else*/
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if (evento.mouse.x >= 320 && evento.mouse.x <= 425 &&
                     evento.mouse.y >= 630 && evento.mouse.y <= 650){
-                        candidato = 1;
                         budgetScreen(sair);
-                }
-                else{  candidato = 4;
                 }
             }
         }
@@ -640,9 +627,9 @@ int playScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM PISCINÃO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS CHUVAS ESTÃO PRÓXIMAS, PREPARE A CIDADE");
         
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
@@ -683,7 +670,7 @@ int playScreen(){
 
 
 
-int budgetScreen(void){
+int budgetScreen(int sair, int candidato){
 
     ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, *money = NULL, 
         *majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL, *saude = NULL,
@@ -707,9 +694,9 @@ int budgetScreen(void){
     saneamento = al_load_bitmap("Images/budgetScreen/sanitation-btn.png");
     garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
     investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
-    majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
-    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
-    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
+    majorImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
+    pauseBtnImage = al_load_bitmap("Images/globalImages/pauseBtnImage.png");
+    settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
@@ -729,9 +716,82 @@ int budgetScreen(void){
         return -1;
     }
 
+    prefeito firstMajor;
+    prefeito secondMajor;
+    prefeito thirdMajor;
+    firstMajor.nome = "Candidato Carlos Eduardo";
+    firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
+    firstMajor.dinheiro = "R$1000000,00";
+    firstMajor.educacaoInd = 20; 
+    firstMajor.saudeInd = 20; 
+    firstMajor.segurancaInd = 20; 
+    firstMajor.saneamentoInd = 10; 
+    firstMajor.lazerInd = 30;
+    secondMajor.nome = "Candidata Maria";
+    secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
+    secondMajor.dinheiro = "R$10000,00";
+    secondMajor.educacaoInd = 20;
+    secondMajor.saudeInd = 30;
+    secondMajor.segurancaInd = 10;
+    secondMajor.saneamentoInd = 30;
+    secondMajor.lazerInd = 20;
+    thirdMajor.nome = "CandiAlberto Santos";
+    thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
+    thirdMajor.dinheiro = "R$100000000,00";
+    thirdMajor.educacaoInd = 10;
+    thirdMajor.saudeInd = 20;
+    thirdMajor.segurancaInd = 40;
+    thirdMajor.saneamentoInd = 10;
+    thirdMajor.lazerInd = 10;
 
     char *majorName; 
-    char *majorDesc;  
+    char *majorDesc;
+    char *majorMoney; 
+    //int candidato;
+    int educacaoInd; 
+    int saudeInd; 
+    int segurancaInd; 
+    int saneamentoInd; 
+    int lazerInd;  
+
+
+       	if (candidato == 1){
+            majorName = firstMajor.nome;
+            majorMoney = firstMajor.dinheiro;
+            majorDesc = firstMajor.descricao;
+            educacaoInd = 401 + firstMajor.educacaoInd + 99; 
+            saudeInd = 401 + firstMajor.saudeInd + 99; 
+            segurancaInd = 401 + firstMajor.segurancaInd + 99; 
+            saneamentoInd = 401 + firstMajor.saneamentoInd + 99; 
+            lazerInd = 401 + firstMajor.lazerInd + 99; 
+        }else if (candidato == 2){
+            majorName = secondMajor.nome;
+            majorDesc = secondMajor.descricao;
+            majorMoney = secondMajor.dinheiro;
+            educacaoInd = 401 + secondMajor.educacaoInd + 99; 
+            saudeInd = 401 + secondMajor.saudeInd + 99; 
+            segurancaInd = 401 + secondMajor.segurancaInd + 99; 
+            saneamentoInd = 401 + secondMajor.saneamentoInd + 99; 
+            lazerInd = 401 + secondMajor.lazerInd + 99; 
+        }else if(candidato == 3){
+            majorName = thirdMajor.nome;
+            majorDesc = thirdMajor.descricao;
+            majorMoney = thirdMajor.dinheiro;
+            educacaoInd = 401 + thirdMajor.educacaoInd + 99; 
+            saudeInd = 401 + thirdMajor.saudeInd + 99; 
+            segurancaInd = 401 + thirdMajor.segurancaInd + 99; 
+            saneamentoInd = 401 + thirdMajor.saneamentoInd + 99; 
+            lazerInd = 401 + thirdMajor.lazerInd + 99; 
+        }else{
+            majorName = "Escolha o seu Prefeito(a)";
+            majorDesc = NULL;
+            majorMoney = "R$0,00";
+            educacaoInd = 401; 
+            saudeInd = 401; 
+            segurancaInd = 401; 
+            saneamentoInd = 401; 
+            lazerInd = 401;
+        }
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -739,7 +799,6 @@ int budgetScreen(void){
 
     al_start_timer(contador);
 
-    int candidato = 0;
 
     while (!sair){
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
@@ -748,10 +807,10 @@ int budgetScreen(void){
             sair = 1;
         }
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            /*if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
+            if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
                 evento.mouse.y >= 558 && evento.mouse.y <= 578){
-                playScreen(sair);
-        }*/
+                playScreen(sair, candidato);
+        }
 
     }
         if (!al_is_event_queue_empty(fila_contador)){
@@ -840,7 +899,7 @@ int budgetScreen(void){
         // 104 94 35
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 456, 82, 0);
-        al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ 2.000.000,00");
+        al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$1000000,00");
         al_draw_textf(firstText, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();

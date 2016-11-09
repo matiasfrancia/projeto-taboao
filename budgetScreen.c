@@ -63,8 +63,8 @@ int main(void){
     garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
     investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
     majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
-    pauseBtnImage = al_load_bitmap("Images/playImages/pauseBtnImage.png");
-    settingsBtnImage = al_load_bitmap("Images/playImages/settingsBtnImage.png");
+    pauseBtnImage = al_load_bitmap("Images/globalImages/pauseBtnImage.png");
+    settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
