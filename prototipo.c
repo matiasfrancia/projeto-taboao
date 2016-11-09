@@ -643,7 +643,7 @@ int settingScreen(void){
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
                 evento.mouse.y >= 558 && evento.mouse.y <= 578){
-                playScreen(sair);
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());;
         }
 
     }
@@ -684,7 +684,6 @@ int settingScreen(void){
         al_draw_bitmap(voltar, 140, 568, 0);
         //al_draw_filled_rectangle(690, 197, 700, 237, al_map_rgb(255, 255, 255));
         al_draw_filled_rectangle(300, 212, 800, 222, al_map_rgb(255, 255, 255));
-        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         al_set_audio_stream_playing(musica, true);
 
         al_flip_display();
