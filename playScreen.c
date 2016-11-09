@@ -243,11 +243,7 @@ int main(void){
         
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(29,113,184));
         al_draw_bitmap(fundo, 0, -10, 0);
-        //al_draw_text(nametext, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
-        //al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
         al_draw_bitmap(firstPersonaImage, 145, 530, 0);
-        //al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
-        //al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
