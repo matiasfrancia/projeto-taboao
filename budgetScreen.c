@@ -26,10 +26,10 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, *money = NULL, 
+    ALLEGRO_BITMAP *pauseBtnImage = NULL, *soundBtnImage = NULL, *fundo = NULL, *money = NULL, 
         *majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL, *saude = NULL,
-        *seguranca = NULL, *lazer = NULL, *saneamento = NULL, *clockBtnImage = NULL, *voltar = NULL;
-
+        *seguranca = NULL, *lazer = NULL, *saneamento = NULL, *clockBtnImage = NULL, *voltar = NULL, 
+        *muteBtnImage = NULL, *soundBackup = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
     ALLEGRO_TIMER *contador = 0;
@@ -54,7 +54,6 @@ int main(void){
 
     money = al_load_bitmap("Images/budgetScreen/money-btn.png");
     voltar = al_load_bitmap("Images/globalImages/back-btn.png");
-    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
     educacao = al_load_bitmap("Images/budgetScreen/education-btn.png");
     saude = al_load_bitmap("Images/budgetScreen/health-btn.png");
     seguranca = al_load_bitmap("Images/budgetScreen/security-btn.png");
@@ -64,7 +63,10 @@ int main(void){
     investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
     majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
     pauseBtnImage = al_load_bitmap("Images/globalImages/pauseBtnImage.png");
-    settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
+    muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
+    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
+    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
+    soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
@@ -76,17 +78,17 @@ int main(void){
 
     if (!janela || !garbage || !firstText || !secondText || !clockBtnImage ||
         !investir || !majorImage || !fila_eventos || !optionText || !moneyText ||
-        !fila_contador || !pauseBtnImage || !settingsBtnImage || 
-        !contador || !fundo || !al_install_mouse() ||  !money ||
+        !fila_contador || !pauseBtnImage || !soundBtnImage || !muteBtnImage || 
+        !contador || !fundo || !al_install_mouse() ||  !money || !soundBackup ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
         return -1;
     }
 
-
     char *majorName; 
-    char *majorDesc;  
+    char *majorDesc;
+    int toggleSound;  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -101,11 +103,9 @@ int main(void){
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
-            if (evento.type == ALLEGRO_EVENT_TIMER)
-            {
+            if (evento.type == ALLEGRO_EVENT_TIMER) {
                 seg--;
-                if (seg == -1)
-                {
+                if (seg == -1){
                     min--;
                     seg = 59;
                 }
@@ -121,17 +121,28 @@ int main(void){
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
                 sair = 1;
             }
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+                if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
+                        toggleSound = 1;
+                        soundBtnImage = muteBtnImage;
+                }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
+                        toggleSound = 0;
+                        soundBtnImage = soundBackup;
+                }
+            }
         }
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
         al_set_target_bitmap(al_get_backbuffer(janela));
         
-         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
-        al_draw_bitmap(clockBtnImage, 750, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
-        al_draw_bitmap(settingsBtnImage, 885, 22, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+        al_draw_bitmap(pauseBtnImage, 830, 25, 0);
+        al_draw_bitmap(clockBtnImage, 765, 20, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
+        al_draw_bitmap(soundBtnImage, 900, 20, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
@@ -179,11 +190,10 @@ int main(void){
         for (int i = 0; i < 6; i++){
             al_draw_filled_rectangle(140, (n+=1), 350, (n+=32), al_map_rgb(255, 255, 255));        
         }
-        // 104 94 35
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 456, 82, 0);
         al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ 2.000.000,00");
-        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
         

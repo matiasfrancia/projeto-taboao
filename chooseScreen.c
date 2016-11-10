@@ -1,4 +1,3 @@
-// Os arquivos de cabeçalho
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -23,27 +22,12 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *taboaoLogoImage = NULL;
-    ALLEGRO_BITMAP *firstPersonaImage = NULL;
-    ALLEGRO_BITMAP *sencondPersonaImage = NULL;
-    ALLEGRO_BITMAP *thirdPersonaImage = NULL;
-    ALLEGRO_BITMAP *fundo = NULL;
-    ALLEGRO_BITMAP *pauseBtnImage = NULL;
-    ALLEGRO_BITMAP *soundBtnImage = NULL;
-    ALLEGRO_BITMAP *muteBtnImage = NULL;
-    ALLEGRO_BITMAP *soundBackup = NULL;
-    ALLEGRO_BITMAP *clockBtnImage = NULL;
-    ALLEGRO_BITMAP *education = NULL;
-    ALLEGRO_BITMAP *fun = NULL;
-    ALLEGRO_BITMAP *health = NULL;
-    ALLEGRO_BITMAP *sanitation = NULL;
-    ALLEGRO_BITMAP *security = NULL;
-    ALLEGRO_BITMAP *fundo2 = NULL;
+    ALLEGRO_BITMAP *taboaoLogoImage = NULL, *thirdPersonaImage = NULL, *firstPersonaImage = NULL, 
+        *sencondPersonaImage = NULL, *fundo = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, 
+        *muteBtnImage = NULL, *soundBackup = NULL, *clockBtnImage = NULL, *education = NULL, 
+        *fun = NULL, *health = NULL, *sanitation = NULL, *security = NULL, *fundo2 = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL;
-    ALLEGRO_FONT *secondText = NULL;
-    ALLEGRO_FONT *nametext = NULL;
-    ALLEGRO_FONT *infotext = NULL;
+    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_FONT *fonte = NULL;
 	int sair = 0;
@@ -93,21 +77,21 @@ int main(void){
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
+    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
+    secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
+    nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
+    infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
     
     if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
+        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() || !infoText ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
-        !contador || !fila_contador || !fila_eventos){
+        !contador || !fila_contador || !fila_eventos || !firstText || !secondText || !nameText){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
     }
  
     
-    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
-    nametext = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
-    infotext = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
@@ -258,7 +242,7 @@ int main(void){
         
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_text(nametext, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
+        al_draw_text(nameText, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
         al_draw_bitmap(firstPersonaImage, 145, 330, 0);
         al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
@@ -279,7 +263,7 @@ int main(void){
 
         //al_draw_bitmap(fundo2, 0, 0, 0);
         al_draw_filled_rectangle(275, 510+50, 725, 530+50, al_map_rgb(87, 87, 86));
-        al_draw_text(infotext, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
+        al_draw_text(infoText, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 590+50, ALLEGRO_ALIGN_LEFT, "Taboão - ");
         al_draw_text(firstText, al_map_rgb(203, 187, 160), 320, 590+50, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 575+50, ALLEGRO_ALIGN_LEFT, majorName);
