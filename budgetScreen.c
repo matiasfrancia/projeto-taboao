@@ -4,11 +4,10 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
- 
-// Para utilizarmos o fprintf
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <stdio.h>
  
-// Atributos da tela
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
 
@@ -33,6 +32,7 @@ int main(void){
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
     ALLEGRO_TIMER *contador = 0;
+    ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0;  
@@ -80,11 +80,13 @@ int main(void){
         !investir || !majorImage || !fila_eventos || !optionText || !moneyText ||
         !fila_contador || !pauseBtnImage || !soundBtnImage || !muteBtnImage || 
         !contador || !fundo || !al_install_mouse() ||  !money || !soundBackup ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
+        ){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
         return -1;
     }
+    musica = al_load_audio_stream("teste.ogg", 8, 1024);
 
     char *majorName; 
     char *majorDesc;
@@ -126,10 +128,13 @@ int main(void){
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
                         toggleSound = 1;
                         soundBtnImage = muteBtnImage;
+                        al_set_audio_stream_playing(musica, false);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
                         toggleSound = 0;
                         soundBtnImage = soundBackup;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
                 }
             }
         }
@@ -194,11 +199,11 @@ int main(void){
         al_draw_bitmap(money, 456, 82, 0);
         al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ 2.000.000,00");
         al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
 
         al_flip_display();
-        
     }
-
+    al_destroy_audio_stream(musica);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
