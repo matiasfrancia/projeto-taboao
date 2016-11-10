@@ -3,6 +3,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <stdio.h>
  
 const int LARGURA_TELA = 1024;
@@ -30,6 +32,7 @@ int main(void){
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_FONT *fonte = NULL;
+    ALLEGRO_AUDIO_STREAM *musica = NULL;
 	int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0; 
@@ -85,10 +88,19 @@ int main(void){
     if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() || !infoText ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
-        !contador || !fila_contador || !fila_eventos || !firstText || !secondText || !nameText){
+        !contador || !fila_contador || !fila_eventos || !firstText || !secondText || !nameText || 
+        !al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
+    }
+    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    if (!musica)
+    {
+        fprintf(stderr, "Falha ao carregar audio.\n");
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_display(janela);
+        return false;
     }
  
     
@@ -188,10 +200,13 @@ int main(void){
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 0){
                         value = 1;
                         soundBtnImage = muteBtnImage;
+                        al_set_audio_stream_playing(musica, false);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 1){
                         value = 0;
                         soundBtnImage = soundBackup;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
                 }
             }
         }
@@ -258,6 +273,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 

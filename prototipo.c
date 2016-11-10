@@ -253,10 +253,19 @@ int chooseScreen(){
     if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
-        !contador || !fila_contador || !fila_eventos){
+        !contador || !fila_contador || !fila_eventos || !al_init_acodec_addon() || 
+        !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
+    }
+    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    if (!musica)
+    {
+        fprintf(stderr, "Falha ao carregar audio.\n");
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_display(janela);
+        return false;
     }
  
     
@@ -363,10 +372,13 @@ int chooseScreen(){
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 0){
                         value = 1;
                         soundBtnImage = muteBtnImage;
+                        al_set_audio_stream_playing(musica, false);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 1){
                         value = 0;
                         soundBtnImage = soundBackup;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
                 }
             }
         }
@@ -433,6 +445,7 @@ int chooseScreen(){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
@@ -483,10 +496,19 @@ int playScreen(int sair, int candidato){
     if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
-        !contador || !fila_contador || !fila_eventos){
+        !contador || !fila_contador || !fila_eventos || !al_init_acodec_addon() || 
+        !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
+    }
+    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    if (!musica)
+    {
+        fprintf(stderr, "Falha ao carregar audio.\n");
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_display(janela);
+        return false;
     }
  
     
@@ -529,7 +551,8 @@ int playScreen(int sair, int candidato){
     int saudeInd; 
     int segurancaInd; 
     int saneamentoInd; 
-    int lazerInd;  
+    int lazerInd; 
+    int value; 
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -568,6 +591,18 @@ int playScreen(int sair, int candidato){
                 if (evento.mouse.x >= 320 && evento.mouse.x <= 425 &&
                     evento.mouse.y >= 630 && evento.mouse.y <= 650){
                         budgetScreen(sair);
+                }
+                else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 0){
+                        value = 1;
+                        soundBtnImage = muteBtnImage;
+                        al_set_audio_stream_playing(musica, false);
+                }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 1){
+                        value = 0;
+                        soundBtnImage = soundBackup;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
                 }
             }
         }
