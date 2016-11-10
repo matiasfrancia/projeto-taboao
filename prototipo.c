@@ -680,7 +680,7 @@ int budgetScreen(int sair, int candidato){
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
     
     
-
+    int candidatob = candidato;
 
     al_set_window_title(janela, "Projeto Taboão");
 
@@ -735,7 +735,7 @@ int budgetScreen(int sair, int candidato){
     secondMajor.segurancaInd = 10;
     secondMajor.saneamentoInd = 30;
     secondMajor.lazerInd = 20;
-    thirdMajor.nome = "CandiAlberto Santos";
+    thirdMajor.nome = "Candidato Alberto Santos";
     thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
     thirdMajor.dinheiro = "R$100000000,00";
     thirdMajor.educacaoInd = 10;
@@ -809,6 +809,7 @@ int budgetScreen(int sair, int candidato){
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
                 evento.mouse.y >= 558 && evento.mouse.y <= 578){
+            	candidato = 1;
                 playScreen(sair, candidato);
         }
 
@@ -854,7 +855,7 @@ int budgetScreen(int sair, int candidato){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Epidemia de Dengue e Zica vírus é eminente.");
         //al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
         al_draw_bitmap(majorImage, 140, 152, 0);
         al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
