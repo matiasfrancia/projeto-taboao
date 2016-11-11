@@ -187,17 +187,17 @@ int main(void){
  
         al_set_target_bitmap(firstPersonaImage);
         if (candidato == 1){
-            *majorName = vetor_de_candidatos[0].nome;
+            majorName = *vetor_de_candidatos[0].nome;
             majorMoney = vetor_de_candidatos[0].dinheiro;
-            *majorDesc = vetor_de_candidatos[0].descricao;
+            majorDesc = vetor_de_candidatos[0].descricao;
             educacao = 401 + vetor_de_candidatos[0].educacao + 99; 
             saude = 401 + vetor_de_candidatos[0].saude + 99; 
             seguranca = 401 + vetor_de_candidatos[0].seguranca + 99; 
             saneamento = 401 + vetor_de_candidatos[0].saneamento + 99; 
             lazer = 401 + vetor_de_candidatos[0].lazer + 99; 
         }else if (candidato == 2){
-            *majorName = vetor_de_candidatos[1].nome;
-            *majorDesc = vetor_de_candidatos[1].descricao;
+            majorName = *vetor_de_candidatos[1].nome;
+            majorDesc = vetor_de_candidatos[1].descricao;
             majorMoney = vetor_de_candidatos[1].dinheiro;
             educacao = 401 + vetor_de_candidatos[1].educacao + 99; 
             saude = 401 + vetor_de_candidatos[1].saude + 99; 
@@ -205,8 +205,8 @@ int main(void){
             saneamento = 401 + vetor_de_candidatos[1].saneamento + 99; 
             lazer = 401 + vetor_de_candidatos[1].lazer + 99; 
         }else if(candidato == 3){
-            *majorName = vetor_de_candidatos[2].nome;
-            *majorDesc = vetor_de_candidatos[2].descricao;
+            majorName = *vetor_de_candidatos[2].nome;
+            majorDesc = vetor_de_candidatos[2].descricao;
             majorMoney = vetor_de_candidatos[2].dinheiro;
             educacao = 401 + vetor_de_candidatos[2].educacao + 99; 
             saude = 401 + vetor_de_candidatos[2].saude + 99; 
@@ -216,7 +216,7 @@ int main(void){
         }else{
             majorName = "Escolha o seu Prefeito(a)";
             majorDesc = NULL;
-            majorMoney = "R$0,00";
+            majorMoney = 0;
             educacao = 401; 
             saude = 401; 
             seguranca = 401; 
