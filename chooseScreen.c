@@ -1,4 +1,5 @@
 #include "structs.h"
+#include "itoa.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -7,6 +8,7 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <stdio.h>
+#include <stdlib.h>
  
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720; 
@@ -48,7 +50,7 @@ int main(void){
         return -1;
     }
 
-    al_set_wow_title(janela, "Projeto Taboão");
+    al_set_window_title(janela, "Projeto Taboão");
 
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
@@ -105,8 +107,7 @@ int main(void){
     
     
     char *majorName; 
-    char *majorDesc; 
-    int majorMoney; 
+    char *majorDesc;  
     int educacao; 
     int saude; 
     int seguranca; 
@@ -188,7 +189,6 @@ int main(void){
         al_set_target_bitmap(firstPersonaImage);
         if (candidato == 1){
             majorName = *vetor_de_candidatos[0].nome;
-            majorMoney = vetor_de_candidatos[0].dinheiro;
             majorDesc = vetor_de_candidatos[0].descricao;
             educacao = 401 + vetor_de_candidatos[0].educacao + 99; 
             saude = 401 + vetor_de_candidatos[0].saude + 99; 
@@ -198,7 +198,6 @@ int main(void){
         }else if (candidato == 2){
             majorName = *vetor_de_candidatos[1].nome;
             majorDesc = vetor_de_candidatos[1].descricao;
-            majorMoney = vetor_de_candidatos[1].dinheiro;
             educacao = 401 + vetor_de_candidatos[1].educacao + 99; 
             saude = 401 + vetor_de_candidatos[1].saude + 99; 
             seguranca = 401 + vetor_de_candidatos[1].seguranca + 99; 
@@ -207,7 +206,6 @@ int main(void){
         }else if(candidato == 3){
             majorName = *vetor_de_candidatos[2].nome;
             majorDesc = vetor_de_candidatos[2].descricao;
-            majorMoney = vetor_de_candidatos[2].dinheiro;
             educacao = 401 + vetor_de_candidatos[2].educacao + 99; 
             saude = 401 + vetor_de_candidatos[2].saude + 99; 
             seguranca = 401 + vetor_de_candidatos[2].seguranca + 99; 
@@ -216,7 +214,6 @@ int main(void){
         }else{
             majorName = "Escolha o seu Prefeito(a)";
             majorDesc = NULL;
-            majorMoney = 0;
             educacao = 401; 
             saude = 401; 
             seguranca = 401; 
@@ -255,7 +252,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 590+50, ALLEGRO_ALIGN_LEFT, "Taboão - ");
         al_draw_text(firstText, al_map_rgb(203, 187, 160), 320, 590+50, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 575+50, ALLEGRO_ALIGN_LEFT, majorName);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), 275, 550+50, ALLEGRO_ALIGN_LEFT, (char*)majorMoney);
+        
         al_draw_bitmap(education, 390+75, 555+50, 0);
         al_draw_bitmap(security, 445+75, 555+50, 0);
         al_draw_bitmap(sanitation, 500+75, 555+50, 0);
