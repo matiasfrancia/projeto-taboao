@@ -16,7 +16,7 @@ int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *taboaoLogoImage = NULL, *thirdPersonaImage = NULL, *firstPersonaImage = NULL, 
-        *sencondPersonaImage = NULL, *fundo = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, 
+        *secondPersonaImage = NULL, *fundo = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, 
         *muteBtnImage = NULL, *soundBackup = NULL, *clockBtnImage = NULL, *education = NULL, 
         *fun = NULL, *health = NULL, *sanitation = NULL, *security = NULL, *fundo2 = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
@@ -54,8 +54,8 @@ int main(void){
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
-    thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
+    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
+    
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
     clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
@@ -76,7 +76,7 @@ int main(void){
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
     
-    if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+    if (!taboaoLogoImage || !firstPersonaImage || !secondPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() || !infoText ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
         !contador || !fila_contador || !fila_eventos || !firstText || !secondText || !nameText || 
@@ -227,9 +227,24 @@ int main(void){
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_text(nameText, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
-        al_draw_bitmap(firstPersonaImage, 145, 330, 0);
-        al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
-        al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
+        if(vetor_de_candidatos[0].homem == 1){
+            al_draw_bitmap(firstPersonaImage, 145, 330, 0);    
+        }
+        else{
+            al_draw_bitmap(secondPersonaImage, 145, 330, 0);
+        }
+        if(vetor_de_candidatos[1].homem == 1){
+            al_draw_bitmap(firstPersonaImage, 415, 330, 0);
+        }
+        else{
+            al_draw_bitmap(secondPersonaImage, 415, 330, 0);
+        }
+        if(vetor_de_candidatos[2].homem == 1){
+            al_draw_bitmap(firstPersonaImage, 680, 330, 0);
+        }
+        else{
+            al_draw_bitmap(secondPersonaImage, 680, 330, 0);
+        }   
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
@@ -260,7 +275,7 @@ int main(void){
 
         al_flip_display();
     }
-    al_destroy_bitmap(sencondPersonaImage);
+    al_destroy_bitmap(secondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);

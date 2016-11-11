@@ -7,6 +7,8 @@ typedef struct candidatos{
 	
 	char **nome;
 	char *descricao;
+	int homem;
+
 	int saude;
 	int educacao;
 	int saneamento;
@@ -18,7 +20,7 @@ typedef struct candidatos{
 char *homem[] = {"Henrique", "Daniel", "Matheus", "Caio", "Luiz", "Antonio", "Carlos", "Felipe", "Mauricio", "Marcos"};
 char *mulher[] = {"Viviane", "Rosana", "Elaine", "Sonia", "Eliana", "Neuza", "Talita", "Leticia", "Caroline", "Lais", "Livia"};
 
-int name_select(char ***pessoa){
+int name_select(CANDIDATO *aux, char ***pessoa){
 
 	srand((unsigned)time(NULL));
 	int random = rand() % 2;
@@ -26,11 +28,13 @@ int name_select(char ***pessoa){
 	if(!random){
 		aux_busca = rand() % 10;
 		*pessoa = &homem[aux_busca];
+		aux->homem = 1;
 		return aux_busca;
 	}
 	else{
 		aux_busca = rand() % 11;
 		*pessoa = &mulher[aux_busca];
+		aux->homem = 0;
 		return aux_busca;
 	}
 }
@@ -174,7 +178,7 @@ CANDIDATO *select_candidato(){
 	int aux[3];
 	for(i = 0; i < 3; i++){
 		JUMP:
-		alocar = name_select(&pessoa);
+		alocar = name_select(&vector[i], &pessoa);
 		if(!i){
 			aux[0] = alocar;
 			vector[i].nome = pessoa;
