@@ -255,7 +255,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 590+50, ALLEGRO_ALIGN_LEFT, "Taboão - ");
         al_draw_text(firstText, al_map_rgb(203, 187, 160), 320, 590+50, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 575+50, ALLEGRO_ALIGN_LEFT, majorName);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), 275, 550+50, ALLEGRO_ALIGN_LEFT, majorMoney);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), 275, 550+50, ALLEGRO_ALIGN_LEFT, (char*)majorMoney);
         al_draw_bitmap(education, 390+75, 555+50, 0);
         al_draw_bitmap(security, 445+75, 555+50, 0);
         al_draw_bitmap(sanitation, 500+75, 555+50, 0);
