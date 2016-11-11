@@ -4,8 +4,11 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <stdio.h>
- 
+#include <stdlib.h>
+
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
 
@@ -23,7 +26,7 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *secondPersonaImage = NULL, 
+    ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *sencondPersonaImage = NULL, 
         *thirdPersonaImage = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, *clockBtnImage = NULL, 
         *investiment = NULL, *education = NULL, *fun = NULL, *health = NULL, *sanitation = NULL, 
         *security = NULL, *fundo2 = NULL, *muteBtnImage = NULL, *soundBackup = NULL;
@@ -31,6 +34,7 @@ int main(void){
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_FONT *fonte = NULL;
+    ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0; 
@@ -57,7 +61,7 @@ int main(void){
 
     fundo = al_load_bitmap("Images/playScreen/backgroung-black.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
+    sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
@@ -79,14 +83,23 @@ int main(void){
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
     
-    if (!fundo || !firstPersonaImage || !secondPersonaImage || !thirdPersonaImage ||
+    if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
         !contador || !fila_contador || !fila_eventos || !muteBtnImage || !soundBackup || !soundBtnImage ||
-        !firstText || !nameText || !infoText){
+        !firstText || !nameText || !infoText || !al_init_acodec_addon() || 
+        !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
+    }
+    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    if (!musica)
+    {
+        fprintf(stderr, "Falha ao carregar audio.\n");
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_display(janela);
+        return false;
     }
  
     prefeito firstMajor;
@@ -184,10 +197,13 @@ int main(void){
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
                         toggleSound = 1;
                         soundBtnImage = muteBtnImage;
+                        al_set_audio_stream_playing(musica, false);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
                         toggleSound = 0;
                         soundBtnImage = soundBackup;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
                 }
             }    
         }
@@ -249,6 +265,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
@@ -273,7 +290,7 @@ int main(void){
 
         al_flip_display();
     }
-    al_destroy_bitmap(secondPersonaImage);
+    al_destroy_bitmap(sencondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
