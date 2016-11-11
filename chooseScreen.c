@@ -1,3 +1,4 @@
+#include "structs.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -8,18 +9,7 @@
 #include <stdio.h>
  
 const int LARGURA_TELA = 1024;
-const int ALTURA_TELA = 720;
-
-typedef struct prefeito {
-      char *nome;
-      char *descricao;
-      char *dinheiro; 
-      int educacaoInd; 
-      int saudeInd; 
-      int segurancaInd; 
-      int saneamentoInd; 
-      int lazerInd;
-   }prefeito; 
+const int ALTURA_TELA = 720; 
   
 int main(void){
 
@@ -58,7 +48,7 @@ int main(void){
         return -1;
     }
 
-    al_set_window_title(janela, "Projeto Taboão");
+    al_set_wow_title(janela, "Projeto Taboão");
 
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
@@ -103,43 +93,25 @@ int main(void){
         return false;
     }
  
+    CANDIDATO *vetor_de_candidatos;
+    vetor_de_candidatos = select_candidato();
+
     
-    prefeito firstMajor;
-    prefeito secondMajor;
-    prefeito thirdMajor;
-    firstMajor.nome = "Candidato Fernando Haddad";
-    firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
-    firstMajor.dinheiro = "R$1000000,00";
-    firstMajor.educacaoInd = 20; 
-    firstMajor.saudeInd = 20; 
-    firstMajor.segurancaInd = 20; 
-    firstMajor.saneamentoInd = 10; 
-    firstMajor.lazerInd = 30;
-    secondMajor.nome = "Candidata Luiza Erundina";
-    secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
-    secondMajor.dinheiro = "R$10000,00";
-    secondMajor.educacaoInd = 20;
-    secondMajor.saudeInd = 30;
-    secondMajor.segurancaInd = 10;
-    secondMajor.saneamentoInd = 30;
-    secondMajor.lazerInd = 20;
-    thirdMajor.nome = "Candidato João Doria";
-    thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-    thirdMajor.dinheiro = "R$100000000,00";
-    thirdMajor.educacaoInd = 10;
-    thirdMajor.saudeInd = 20;
-    thirdMajor.segurancaInd = 40;
-    thirdMajor.saneamentoInd = 10;
-    thirdMajor.lazerInd = 10;
+    vetor_de_candidatos[0].descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
+    
+    vetor_de_candidatos[1].descricao = "Defende uma maior participação feminina e favorável à reforma política";
+    
+    vetor_de_candidatos[2].descricao = "É um empresário, jornalista, publicitário e político brasileiro";
+    
     
     char *majorName; 
     char *majorDesc; 
-    char *majorMoney; 
-    int educacaoInd; 
-    int saudeInd; 
-    int segurancaInd; 
-    int saneamentoInd; 
-    int lazerInd; 
+    int majorMoney; 
+    int educacao; 
+    int saude; 
+    int seguranca; 
+    int saneamento; 
+    int lazer; 
     int value;
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
@@ -215,41 +187,41 @@ int main(void){
  
         al_set_target_bitmap(firstPersonaImage);
         if (candidato == 1){
-            majorName = firstMajor.nome;
-            majorMoney = firstMajor.dinheiro;
-            majorDesc = firstMajor.descricao;
-            educacaoInd = 401 + firstMajor.educacaoInd + 99; 
-            saudeInd = 401 + firstMajor.saudeInd + 99; 
-            segurancaInd = 401 + firstMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + firstMajor.saneamentoInd + 99; 
-            lazerInd = 401 + firstMajor.lazerInd + 99; 
+            *majorName = vetor_de_candidatos[0].nome;
+            majorMoney = vetor_de_candidatos[0].dinheiro;
+            *majorDesc = vetor_de_candidatos[0].descricao;
+            educacao = 401 + vetor_de_candidatos[0].educacao + 99; 
+            saude = 401 + vetor_de_candidatos[0].saude + 99; 
+            seguranca = 401 + vetor_de_candidatos[0].seguranca + 99; 
+            saneamento = 401 + vetor_de_candidatos[0].saneamento + 99; 
+            lazer = 401 + vetor_de_candidatos[0].lazer + 99; 
         }else if (candidato == 2){
-            majorName = secondMajor.nome;
-            majorDesc = secondMajor.descricao;
-            majorMoney = secondMajor.dinheiro;
-            educacaoInd = 401 + secondMajor.educacaoInd + 99; 
-            saudeInd = 401 + secondMajor.saudeInd + 99; 
-            segurancaInd = 401 + secondMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + secondMajor.saneamentoInd + 99; 
-            lazerInd = 401 + secondMajor.lazerInd + 99; 
+            *majorName = vetor_de_candidatos[1].nome;
+            *majorDesc = vetor_de_candidatos[1].descricao;
+            majorMoney = vetor_de_candidatos[1].dinheiro;
+            educacao = 401 + vetor_de_candidatos[1].educacao + 99; 
+            saude = 401 + vetor_de_candidatos[1].saude + 99; 
+            seguranca = 401 + vetor_de_candidatos[1].seguranca + 99; 
+            saneamento = 401 + vetor_de_candidatos[1].saneamento + 99; 
+            lazer = 401 + vetor_de_candidatos[1].lazer + 99; 
         }else if(candidato == 3){
-            majorName = thirdMajor.nome;
-            majorDesc = thirdMajor.descricao;
-            majorMoney = thirdMajor.dinheiro;
-            educacaoInd = 401 + thirdMajor.educacaoInd + 99; 
-            saudeInd = 401 + thirdMajor.saudeInd + 99; 
-            segurancaInd = 401 + thirdMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + thirdMajor.saneamentoInd + 99; 
-            lazerInd = 401 + thirdMajor.lazerInd + 99; 
+            *majorName = vetor_de_candidatos[2].nome;
+            *majorDesc = vetor_de_candidatos[2].descricao;
+            majorMoney = vetor_de_candidatos[2].dinheiro;
+            educacao = 401 + vetor_de_candidatos[2].educacao + 99; 
+            saude = 401 + vetor_de_candidatos[2].saude + 99; 
+            seguranca = 401 + vetor_de_candidatos[2].seguranca + 99; 
+            saneamento = 401 + vetor_de_candidatos[2].saneamento + 99; 
+            lazer = 401 + vetor_de_candidatos[2].lazer + 99; 
         }else{
             majorName = "Escolha o seu Prefeito(a)";
             majorDesc = NULL;
             majorMoney = "R$0,00";
-            educacaoInd = 401; 
-            saudeInd = 401; 
-            segurancaInd = 401; 
-            saneamentoInd = 401; 
-            lazerInd = 401;
+            educacao = 401; 
+            saude = 401; 
+            seguranca = 401; 
+            saneamento = 401; 
+            lazer = 401;
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
