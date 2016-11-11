@@ -25,7 +25,7 @@ int main(void){
     ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *taboaoLogoImage = NULL;
     ALLEGRO_BITMAP *firstPersonaImage = NULL;
-    ALLEGRO_BITMAP *sencondPersonaImage = NULL;
+    ALLEGRO_BITMAP *secondPersonaImage = NULL;
     ALLEGRO_BITMAP *thirdPersonaImage = NULL;
     ALLEGRO_BITMAP *fundo = NULL;
     ALLEGRO_BITMAP *pauseBtnImage = NULL;
@@ -69,7 +69,7 @@ int main(void){
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
+    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
@@ -81,7 +81,7 @@ int main(void){
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
     
-    if (!taboaoLogoImage || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+    if (!taboaoLogoImage || !firstPersonaImage || !secondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() || !muteBtnImage ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
         !contador || !fila_contador || !fila_eventos){
@@ -253,7 +253,7 @@ int main(void){
         al_draw_text(nametext, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
         al_draw_bitmap(firstPersonaImage, 145, 330, 0);
-        al_draw_bitmap(sencondPersonaImage, 415, 330, 0);
+        al_draw_bitmap(secondPersonaImage, 415, 330, 0);
         al_draw_bitmap(thirdPersonaImage, 680, 330, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
@@ -284,7 +284,7 @@ int main(void){
 
         al_flip_display();
     }
-    al_destroy_bitmap(sencondPersonaImage);
+    al_destroy_bitmap(secondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);

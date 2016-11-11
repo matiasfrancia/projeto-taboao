@@ -23,7 +23,7 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *sencondPersonaImage = NULL, 
+    ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *secondPersonaImage = NULL, 
         *thirdPersonaImage = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, *clockBtnImage = NULL, 
         *investiment = NULL, *education = NULL, *fun = NULL, *health = NULL, *sanitation = NULL, 
         *security = NULL, *fundo2 = NULL, *muteBtnImage = NULL, *soundBackup = NULL;
@@ -57,7 +57,7 @@ int main(void){
 
     fundo = al_load_bitmap("Images/playScreen/backgroung-black.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
+    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
@@ -79,7 +79,7 @@ int main(void){
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
     
-    if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+    if (!fundo || !firstPersonaImage || !secondPersonaImage || !thirdPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
         !contador || !fila_contador || !fila_eventos || !muteBtnImage || !soundBackup || !soundBtnImage ||
@@ -273,7 +273,7 @@ int main(void){
 
         al_flip_display();
     }
-    al_destroy_bitmap(sencondPersonaImage);
+    al_destroy_bitmap(secondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
