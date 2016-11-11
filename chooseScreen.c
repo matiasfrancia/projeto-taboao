@@ -112,7 +112,7 @@ int main(void){
     int seguranca; 
     int saneamento; 
     int lazer; 
-    int value;
+    int teste_som = 1;
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -169,13 +169,13 @@ int main(void){
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 3;
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
-                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 0){
-                        value = 1;
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 0){
+                        teste_som = 1;
                         soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
-                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && value == 1){
-                        value = 0;
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 1){
+                        teste_som = 0;
                         soundBtnImage = soundBackup;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
