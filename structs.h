@@ -6,6 +6,7 @@
 typedef struct candidatos{
 	
 	char **nome;
+	char *descricao;
 	int saude;
 	int educacao;
 	int saneamento;
