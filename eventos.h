@@ -31,6 +31,7 @@ typedef struct evento_bom{
 	//eventos para longo prazo, objetivos até o fim do mandato.
 	//pode aceitar ou nao
 	int dinheiro;
+	char *text;
 	int investimento;
 	int saude;
 	int educacao;
@@ -45,6 +46,7 @@ typedef struct evento_ruim{
 	//nao tem opcao de aceitar.
 	int dinheiro;
 	int saude;
+	char *text;
 	int educacao;
 	int saneamento;
 	int seguranca;
@@ -60,6 +62,7 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 
 	//chuva insana
 	ruim[0].dinheiro = -100000; //dinheiro que vai ser perdido
+	ruim[0].text = "CUSTO DE R$100.000";
 	ruim[0].saude = -12;
 	ruim[0].saneamento = -10;
 	ruim[0].lazer = -5;
@@ -70,6 +73,7 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 	//Terremoto
 	ruim[1].dinheiro = -500000;
 	ruim[1].saude = 0;
+	ruim[1].text = "CUSTO DE R$500.000";
 	ruim[1].saneamento = -10;
 	ruim[1].lazer = -10;
 	ruim[1].seguranca = -10;
@@ -77,6 +81,7 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 
 	//Aliens invadiram Taboao
 	ruim[2].dinheiro = -1000000;
+	ruim[2].text = "CUSTO DE R$1.000.000";
 	ruim[2].saude = -20;
 	ruim[2].saneamento = 0;
 	ruim[2].lazer = -30;
@@ -86,6 +91,7 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 	int idx = rand() % 3; //seleciona um indice aleatorio do vetor ruim idem para EVENTO_BOM
 	aux->dinheiro = ruim[idx].dinheiro; //atribui valores a struct adicional
 	aux->seguranca = ruim[idx].seguranca;
+	aux->text = ruim[idx].text;
 	aux->saneamento = ruim[idx].saneamento;
 	aux->lazer = ruim[idx].lazer;
 	aux->saude = ruim[idx].saude;
@@ -103,6 +109,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 	//copa do mundo, objetivo a ser alcançado
 	bom[0].dinheiro = 2000000;
 	bom[0].investimento = 1000000;
+	bom[0].text = "INVESTIMENTO: R$1.000.000";
 	bom[0].seguranca = 70;
 	bom[0].lazer = 20;
 	bom[0].saude = 10;
@@ -112,6 +119,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 	//olimpiada
 	bom[1].dinheiro = 700000;
 	bom[1].investimento = 500000;
+	bom[1].text = "INVESTIMENTO: R$500.000";
 	bom[1].seguranca = 50;
 	bom[1].lazer = 30;
 	bom[1].saude = 5;
@@ -121,6 +129,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 	//campus party
 	bom[2].dinheiro = 800000;
 	bom[2].investimento = 250000;
+	bom[2].text = "INVESTIMENTO: R$250.000";
 	bom[2].seguranca = 90;
 	bom[2].lazer = 0;
 	bom[2].saude = 0;
@@ -131,6 +140,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 	int idx = rand() % 3;
 	aux->dinheiro = bom[idx].dinheiro;
 	aux->investimento = bom[idx].investimento;
+	aux->text = bom[idx].text;
 	aux->seguranca = bom[idx].seguranca;
 	aux->lazer = bom[idx].lazer;
 	aux->saude = bom[idx].saude;
