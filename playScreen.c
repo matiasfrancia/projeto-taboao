@@ -377,19 +377,19 @@ int main(void){
         //al_draw_text(firstText, al_map_rgb(255, 255, 255), 610+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", lazerInd);
 
         if(togglePopup == 1) {
-            al_draw_filled_rectangle(300, 250, 750, 350, al_map_rgb(255, 255, 255));
-            al_draw_bitmap(quietIcon, (1024/2), 265, 0);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 290, ALLEGRO_ALIGN_CENTRE, *texto_evento);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 310, ALLEGRO_ALIGN_CENTRE, bom.text);
-            al_draw_bitmap(quietBtn, 475, 320, 0);
+            al_draw_filled_rectangle(300, 260, 750, 375, al_map_rgb(255, 255, 255));
+            al_draw_bitmap(quietIcon, (1024/2), 270, 0);
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
+            al_draw_bitmap(quietBtn, 475, 340, 0);
 
         }
         else if(togglePopup == 0){
-            al_draw_filled_rectangle(300, 250, 750, 350, al_map_rgb(255, 255, 255));
-            al_draw_bitmap(cautionIcon, (1024/2), 265, 0);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 290, ALLEGRO_ALIGN_CENTRE, *texto_evento);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 310, ALLEGRO_ALIGN_CENTRE, ruim.text);
-            al_draw_bitmap(cautionBtn, 475, 320, 0);
+            al_draw_filled_rectangle(300, 260, 750, 375, al_map_rgb(255, 255, 255));
+            al_draw_bitmap(cautionIcon, (1024/2), 270, 0);
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, ruim.text);
+            al_draw_bitmap(cautionBtn, 475, 340, 0);
 
         }
 
