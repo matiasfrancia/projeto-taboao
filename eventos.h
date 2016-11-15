@@ -9,7 +9,7 @@ char *positivo[] = {"Sua Cidade foi escolhida para fazer a abertura dos Jogos Ol
 					"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui"
 					};
 
-char *negatico[] = {"Chuva muito forte, realmente muito forte, em Taboão",
+char *negativo[] = {"Chuva muito forte, realmente muito forte, em Taboão",
 					"Fortes ventos em Taboão",
 					"Um vírus misterioso atingiu Taboão",
 					"Uma bactéria misteriosa está infectando os moradores de Taboão",

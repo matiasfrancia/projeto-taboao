@@ -258,7 +258,7 @@ int main(void){
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
                 
-                }else if((togglePlay == 1 && togglePopup == 1) || togglePopup == 0 && evento.mouse.x >= 475 && 
+                }else if(togglePlay == 1 && togglePopup == 1 || togglePopup == 0 && evento.mouse.x >= 475 && 
                     evento.mouse.x <= 485 && evento.mouse.y >= 320 && evento.mouse.y <= 345){
                     
                         togglePopup = 3;
@@ -267,7 +267,7 @@ int main(void){
                 }else if(togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                 
-                        togglePlay = 0;
+                        togglePopup = 0;
                         pauseBtnImage = playBtnImage;
                         toggleSound = 0;
                         soundBtnImage = soundBackup;
@@ -278,7 +278,7 @@ int main(void){
                 }else if (togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
                 
-                        togglePlay = 1;
+                        togglePopup = 1;
                         pauseBtnImage = pauseBackup;
                         toggleSound = 1;
                         soundBtnImage = muteBtnImage;
