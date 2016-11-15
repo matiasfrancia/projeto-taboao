@@ -2,6 +2,31 @@
 #include <stdlib.h>
 #include <time.h>
 
+char *positivo[] = {"Sua Cidade foi escolhida para fazer a abertura dos Jogos Olimpicos", 
+					"O próximo Brasil Game Show acontecerá em Taboão da Serra",
+					"O São Paulo Fashion Week poderá ser em Taboão",
+					"O Lollapalooza desta vez será em Taboão",
+					"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui"
+					};
+
+char *negatico[] = {"Chuva muito forte, realmente muito forte, em Taboão",
+					"Fortes ventos em Taboão",
+					"Um vírus misterioso atingiu Taboão",
+					"Uma bactéria misteriosa está infectando os moradores de Taboão",
+					"Muitos raios antingem Taboão"
+					};
+
+void select_event_description(char ***text, int a){
+	srand((unsigned)time(NULL));
+	int idx = rand() % 5;
+	if(a == 0){
+		*text = &positivo[idx];
+	}
+	if(a == 1){
+		*text = &negativo[idx];
+	}
+}
+
 typedef struct evento_bom{
 	//eventos para longo prazo, objetivos até o fim do mandato.
 	//pode aceitar ou nao
