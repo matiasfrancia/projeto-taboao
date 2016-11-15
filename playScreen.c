@@ -31,7 +31,7 @@ int main(void){
 
     EVENTO_RUIM ruim;
     EVENTO_BOM bom;
-
+    char **texto_evento;
     ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *sencondPersonaImage = NULL, 
         *thirdPersonaImage = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, *clockBtnImage = NULL, 
@@ -182,7 +182,9 @@ int main(void){
     int saneamentoInd; 
     int lazerInd;
     int toggleSound = 1;
-    char **pauseText = "PAUSAR";  
+
+    char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
+    char *pauseText = "PAUSAR";  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -216,6 +218,8 @@ int main(void){
                     printf("SANEAMTENO: %d", bom.saneamento);
                     printf("EDUCACAO: %d\n", bom.educacao);
                     togglePopup = 1;
+                    select_event_description(&texto_evento, 0);
+                    news = *texto_evento;
                     al_stop_timer(contador);
                 }
                 else{
@@ -228,6 +232,8 @@ int main(void){
                     printf("SANEAMTENO: %d\n", ruim.saneamento);
                     printf("EDUCACAO: %d\n", ruim.educacao);
                     togglePopup = 0;
+                    select_event_description(&texto_evento, 1);
+                    news = *texto_evento;
                     al_stop_timer(contador);
                 }
             }
@@ -269,7 +275,7 @@ int main(void){
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                 
                         togglePlay = 0;
-                        *pauseText = "PAUSAR";
+                        pauseText = "PAUSAR";
                         pauseBtnImage = playBtnImage;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
@@ -280,7 +286,7 @@ int main(void){
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
                 
                         togglePlay = 1;
-                        *pauseText = "PLAY";
+                        pauseText = "PLAY";
                         pauseBtnImage = pauseBackup;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
@@ -338,7 +344,7 @@ int main(void){
         al_draw_bitmap(firstPersonaImage, 145, 530, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, *pauseText);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
@@ -346,7 +352,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "NADA DE MAIS ESTA ACONTECENDO NA CIDADE");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         
         al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
@@ -373,14 +379,14 @@ int main(void){
         if(togglePopup == 1) {
             al_draw_filled_rectangle(300, 250, 750, 350, al_map_rgb(255, 255, 255));
             al_draw_bitmap(quietIcon, (1024/2), 265, 0);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 295, ALLEGRO_ALIGN_CENTRE, "TRANQUILO E FAVORÁVEL! A CIDADE TA SUAVE.");
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 295, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_bitmap(quietBtn, 475, 320, 0);
 
         }
         else if(togglePopup == 0){
             al_draw_filled_rectangle(300, 250, 750, 350, al_map_rgb(255, 255, 255));
             al_draw_bitmap(cautionIcon, (1024/2), 265, 0);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 295, ALLEGRO_ALIGN_CENTRE, "VISH! ALGUMA MERDA ACONTECEU E VOCÊ SE FODEU.");
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 295, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_bitmap(cautionBtn, 475, 320, 0);
 
         }
