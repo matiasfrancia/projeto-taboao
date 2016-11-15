@@ -6,6 +6,8 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include "eventos.h"
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,6 +27,11 @@ typedef struct prefeito {
   
 int main(void){
 
+    srand((unsigned)time(NULL));
+
+    EVENTO_RUIM ruim;
+    EVENTO_BOM bom;
+
     ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *sencondPersonaImage = NULL, 
         *thirdPersonaImage = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, *clockBtnImage = NULL, 
@@ -37,7 +44,10 @@ int main(void){
     ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
-    int min = 5, seg = 0; 
+    int min = 5, seg = 0, global = 60 * min; 
+    //int random_value = rand() % 600; para teste usaremos valor fixo
+    int random_value = 295;
+    fprintf(stderr, "VALOR ALEATORIO: %d\n", random_value);
     al_init_font_addon(); 
     al_init_ttf_addon();
 
@@ -163,7 +173,7 @@ int main(void){
     int segurancaInd; 
     int saneamentoInd; 
     int lazerInd;
-    int toggleSound;  
+    int toggleSound = 1;  //inicializado com 1 pois o jogo comeca com audio!!!
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -182,6 +192,30 @@ int main(void){
                 if (seg == -1) {
                     min--;
                     seg = 59;
+                }
+            }
+            global = (60 * min) + seg;
+            if(global == random_value){
+                random_value = rand() % 2;
+                if(!random_value){
+                    select_evento_bom(&bom);
+                    printf("EVENTO BOM\nSAUDE: %d\n", bom.saude);
+                    printf("DINHEIRO: %d\n", bom.dinheiro);
+                    printf("INVESTIMENTO: %d\n", bom.investimento);
+                    printf("SEGURANCA: %d\n", bom.seguranca);
+                    printf("LAZER: %d\n", bom.lazer);
+                    printf("SANEAMTENO: %d", bom.saneamento);
+                    printf("EDUCACAO: %d\n", bom.educacao);
+                }
+                else{
+                    select_evento_ruim(&ruim);
+                    fprintf(stderr, "GASTO: %d\n", ruim.dinheiro);
+                    printf("EVENTO RUIM\nSAUDE: %d\n", ruim.saude);
+                    printf("DINHEIRO: %d\n", ruim.dinheiro);
+                    printf("SEGURANCA: %d\n", ruim.seguranca);
+                    printf("LAZER: %d\n", ruim.lazer);
+                    printf("SANEAMTENO: %d\n", ruim.saneamento);
+                    printf("EDUCACAO: %d\n", ruim.educacao);
                 }
             }
         }
