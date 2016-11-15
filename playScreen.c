@@ -181,7 +181,8 @@ int main(void){
     int segurancaInd; 
     int saneamentoInd; 
     int lazerInd;
-    int toggleSound = 1;  
+    int toggleSound = 1;
+    char **pauseText = "PAUSAR";  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -268,6 +269,7 @@ int main(void){
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                 
                         togglePlay = 0;
+                        *pauseText = "PAUSAR";
                         pauseBtnImage = playBtnImage;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
@@ -278,6 +280,7 @@ int main(void){
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
                 
                         togglePlay = 1;
+                        *pauseText = "PLAY";
                         pauseBtnImage = pauseBackup;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
@@ -335,7 +338,7 @@ int main(void){
         al_draw_bitmap(firstPersonaImage, 145, 530, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, *pauseText);
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
