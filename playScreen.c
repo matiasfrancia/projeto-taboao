@@ -267,10 +267,9 @@ int main(void){
                 }else if(togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                 
-                        togglePopup = 0;
+                        togglePlay = 0;
                         pauseBtnImage = playBtnImage;
                         toggleSound = 0;
-                        soundBtnImage = soundBackup;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
                         al_stop_timer(contador);
@@ -278,10 +277,9 @@ int main(void){
                 }else if (togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
                 
-                        togglePopup = 1;
+                        togglePlay = 1;
                         pauseBtnImage = pauseBackup;
                         toggleSound = 1;
-                        soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
                         al_start_timer(contador);
                 
