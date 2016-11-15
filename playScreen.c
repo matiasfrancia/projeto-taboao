@@ -59,7 +59,7 @@ int main(void){
 
     al_set_window_title(janela, "Projeto Taboão");
 
-    fundo = al_load_bitmap("Images/playScreen/background-blakc.png");
+    fundo = al_load_bitmap("Images/playScreen/background-black.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     sencondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
