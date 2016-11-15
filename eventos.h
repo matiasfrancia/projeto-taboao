@@ -105,6 +105,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 
 	int idx = rand() % 3;
 	aux->dinheiro = bom[idx].dinheiro;
+	aux->investimento = bom[idx].investimento;
 	aux->seguranca = bom[idx].seguranca;
 	aux->lazer = bom[idx].lazer;
 	aux->saude = bom[idx].saude;
