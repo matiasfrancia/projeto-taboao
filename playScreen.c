@@ -61,7 +61,7 @@ int main(void){
 
     fundo = al_load_bitmap("Images/playScreen/background-blakc.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
+    sencondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
