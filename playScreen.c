@@ -59,7 +59,7 @@ int main(void){
 
     al_set_window_title(janela, "Projeto Taboão");
 
-    fundo = al_load_bitmap("Images/playScreen/backgroung-black.png");
+    fundo = al_load_bitmap("Images/playScreen/background-blakc.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     sencondPersonaImage = al_load_bitmap("Images/chooseImages/sencondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
@@ -73,26 +73,51 @@ int main(void){
     fun = al_load_bitmap("Images/globalImages/fun-btn.png");
     health = al_load_bitmap("Images/globalImages/health-btn.png");
     sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
-    security = al_load_bitmap("Images/globalImages/security-btn.png"); 
+    security = al_load_bitmap("Images/globalImages/security-btn.png");
+
     fonte = al_load_font("Font/arial.ttf", 11,00);
-    contador = al_create_timer(1.0);
-    fila_contador = al_create_event_queue();
-    fila_eventos = al_create_event_queue();
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
+
+    contador = al_create_timer(1.0);
+    fila_contador = al_create_event_queue();
+    fila_eventos = al_create_event_queue();
+
     
+    if(!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
+        fprintf(stderr, "Falha ao setar o mouse.\n");
+        return -1;
+    }
+
     if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
-        !contador || !fila_contador || !fila_eventos || !muteBtnImage || !soundBackup || !soundBtnImage ||
-        !firstText || !nameText || !infoText || !al_init_acodec_addon() || 
-        !al_install_audio() || !al_reserve_samples(1)){
+        !pauseBtnImage || !clockBtnImage || !muteBtnImage || !soundBackup || !soundBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
     }
+
+    if(!contador){
+        fprintf(stderr, "Falha ao carregar o contador.\n");
+        return -1;
+    }
+
+    if(!fila_eventos || !fila_contador){
+        fprintf(stderr, "Falha ao carregar a fila de enventos.\n");
+        return -1;
+    }
+
+    if(!firstText || !secondText || !nameText || !infoText || !fonte){
+        fprintf(stderr, "Falha ao carregar os arquivos de texto.\n");
+        return -1;
+    }
+
+    if(!al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
+        fprintf(stderr, "Falha ao carregar o audio.\n");
+        return -1;
+    }
+
     musica = al_load_audio_stream("teste.ogg", 4, 1024);
     if (!musica)
     {

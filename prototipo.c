@@ -475,7 +475,7 @@ int chooseScreen(){
 
 
 int playScreen(int sair, int candidato){
-    fundo = al_load_bitmap("Images/playScreen/backgroung-black.png");
+    fundo = al_load_bitmap("Images/playScreen/background-blakc.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
