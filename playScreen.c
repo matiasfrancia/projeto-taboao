@@ -36,11 +36,11 @@ int main(void){
     ALLEGRO_BITMAP *fundo = NULL, *firstPersonaImage = NULL, *sencondPersonaImage = NULL, 
         *thirdPersonaImage = NULL, *pauseBtnImage = NULL, *soundBtnImage = NULL, *clockBtnImage = NULL, 
         *investiment = NULL, *education = NULL, *fun = NULL, *health = NULL, *sanitation = NULL, 
-        *security = NULL, *fundo2 = NULL, *muteBtnImage = NULL, *soundBackup = NULL;
+        *security = NULL, *fundo2 = NULL, *muteBtnImage = NULL, *soundBackup = NULL, *pauseBackup = NULL, 
+        *cautionBtn = NULL,  *cautionIcon = NULL,  *quietBtn = NULL,  *quietIcon = NULL, *playBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL;
     ALLEGRO_TIMER *contador = 0;
-    ALLEGRO_FONT *fonte = NULL;
     ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
@@ -74,6 +74,8 @@ int main(void){
     sencondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     thirdPersonaImage = al_load_bitmap("Images/chooseImages/thirdPersonaImage.png");
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
+    pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
+    playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
     clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
     soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
@@ -84,8 +86,11 @@ int main(void){
     health = al_load_bitmap("Images/globalImages/health-btn.png");
     sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
     security = al_load_bitmap("Images/globalImages/security-btn.png");
+    cautionBtn = al_load_bitmap("Images/globalImages/caution-btn.png");
+    cautionIcon = al_load_bitmap("Images/globalImages/caution-icon.png");
+    quietBtn = al_load_bitmap("Images/globalImages/quiet-btn.png");
+    quietIcon = al_load_bitmap("Images/globalImages/quiet-icon.png");
 
-    fonte = al_load_font("Font/arial.ttf", 11,00);
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
@@ -102,7 +107,8 @@ int main(void){
     }
 
     if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !muteBtnImage || !soundBackup || !soundBtnImage){
+        !pauseBtnImage || !clockBtnImage || !muteBtnImage || !soundBackup || !pauseBackup || !soundBtnImage || 
+        !cautionBtn || !cautionIcon || !quietBtn || !quietIcon){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
         return -1;
@@ -118,7 +124,7 @@ int main(void){
         return -1;
     }
 
-    if(!firstText || !secondText || !nameText || !infoText || !fonte){
+    if(!firstText || !secondText || !nameText || !infoText){
         fprintf(stderr, "Falha ao carregar os arquivos de texto.\n");
         return -1;
     }
@@ -136,7 +142,7 @@ int main(void){
         al_destroy_display(janela);
         return false;
     }
- 
+
     prefeito firstMajor;
     prefeito secondMajor;
     prefeito thirdMajor;
@@ -165,6 +171,8 @@ int main(void){
     thirdMajor.saneamentoInd = 10;
     thirdMajor.lazerInd = 10;
 
+    int togglePopup = 3;
+    int togglePlay = 1;
     char *majorName; 
     char *majorDesc; 
     char *majorMoney; 
@@ -173,7 +181,7 @@ int main(void){
     int segurancaInd; 
     int saneamentoInd; 
     int lazerInd;
-    int toggleSound = 1;  //inicializado com 1 pois o jogo comeca com audio!!!
+    int toggleSound = 1;  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -206,6 +214,8 @@ int main(void){
                     printf("LAZER: %d\n", bom.lazer);
                     printf("SANEAMTENO: %d", bom.saneamento);
                     printf("EDUCACAO: %d\n", bom.educacao);
+                    togglePopup = 1;
+                    al_stop_timer(contador);
                 }
                 else{
                     select_evento_ruim(&ruim);
@@ -216,6 +226,8 @@ int main(void){
                     printf("LAZER: %d\n", ruim.lazer);
                     printf("SANEAMTENO: %d\n", ruim.saneamento);
                     printf("EDUCACAO: %d\n", ruim.educacao);
+                    togglePopup = 0;
+                    al_stop_timer(contador);
                 }
             }
         }
@@ -230,41 +242,49 @@ int main(void){
                 sair = 1;
             }
             
-            /*if (evento.type == ALLEGRO_EVENT_MOUSE_AXES){
-                if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                       candidato = 1;
-                }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        candidato = 2;
-                }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
-                    evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                        candidato = 3;
-                    }
-            }           
-            else
-            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-                if (evento.mouse.x >= 320 && evento.mouse.x <= 425 &&
-                    evento.mouse.y >= 630 && evento.mouse.y <= 650){
-                       candidato = 1;
-                }
-                else{  candidato = 4;
-                }
-            }*/
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
+                        
                         toggleSound = 1;
                         soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
+               
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
+                
                         toggleSound = 0;
                         soundBtnImage = soundBackup;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
+                
+                }else if(togglePlay == 1 && (togglePopup == 1 || togglePopup == 0) && evento.mouse.x >= 475 && 
+                    evento.mouse.x <= 485 && evento.mouse.y >= 320 && evento.mouse.y <= 345){
+                    
+                        togglePopup = 3;
+                        al_start_timer(contador);
+                
+                }else if(togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
+                    evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
+                
+                        al_stop_timer(contador);
+                        togglePlay = 0;
+                        pauseBtnImage = playBtnImage;
+                        toggleSound = 0;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
+                
+                }else if (togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
+                    evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
+                
+                        al_start_timer(contador);
+                        togglePlay = 1;
+                        pauseBtnImage = pauseBackup;
+                        toggleSound = 1;
+                        al_set_audio_stream_playing(musica, false);
+                
                 }
-            }    
+            } 
         }
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -326,7 +346,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "NADA DE MAIS ESTA ACONTECENDO NA CIDADE");
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         
-        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         //detalhe prefeito
         al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));
@@ -346,6 +366,21 @@ int main(void){
         //al_draw_text(firstText, al_map_rgb(255, 255, 255), 555+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", saudeInd);
         al_draw_bitmap(fun, 610+75+50, 575, 0);
         //al_draw_text(firstText, al_map_rgb(255, 255, 255), 610+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", lazerInd);
+
+        if(togglePopup == 1) {
+            al_draw_filled_rectangle(300, 250, 750, 350, al_map_rgb(255, 255, 255));
+            al_draw_bitmap(quietIcon, (1024/2), 265, 0);
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 295, ALLEGRO_ALIGN_CENTRE, "TRANQUILO E FAVORÁVEL! A CIDADE TA SUAVE.");
+            al_draw_bitmap(quietBtn, 475, 320, 0);
+
+        }
+        else if(togglePopup == 0){
+            al_draw_filled_rectangle(300, 250, 750, 350, al_map_rgb(255, 255, 255));
+            al_draw_bitmap(cautionIcon, (1024/2), 265, 0);
+            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 295, ALLEGRO_ALIGN_CENTRE, "VISH! ALGUMA MERDA ACONTECEU E VOCÊ SE FODEU.");
+            al_draw_bitmap(cautionBtn, 475, 320, 0);
+
+        }
 
         al_flip_display();
     }
