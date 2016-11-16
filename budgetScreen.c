@@ -33,6 +33,7 @@ int main(void){
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
     ALLEGRO_TIMER *contador = 0;
+    ALLEGRO_BITMAP *botao_sair = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0;  
@@ -97,8 +98,8 @@ int main(void){
     int candidato = 0;
 
     while (!sair){
+        ALLEGRO_EVENT evento;
         if (!al_is_event_queue_empty(fila_contador)){
-            ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
             if (evento.type == ALLEGRO_EVENT_TIMER)
@@ -111,6 +112,7 @@ int main(void){
                 }
             }
         }
+ 
         while (!al_is_event_queue_empty(fila_eventos)){
             ALLEGRO_EVENT evento;
             ALLEGRO_TIMEOUT timeout;
@@ -119,15 +121,43 @@ int main(void){
             int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
      
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                break;
+        
+            }
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            if (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
+                evento.mouse.y >= 163 && evento.mouse.y <= 265){
                 sair = 1;
+            }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                      evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                      sair = 1;
+            }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                      evento.mouse.y >= 439 && evento.mouse.y <= 539){
+                      sair = 1;
+            }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
+                      evento.mouse.y >= 163 && evento.mouse.y <= 263){
+                      sair = 1;
+            }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
+                      evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                      sair = 1;
+            }else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
+                      evento.mouse.y >= 25 && evento.mouse.y <= 30){
+                      sair = 1;
+            }else if (evento.mouse.x >= 885 && evento.mouse.x <= 905 &&
+                      evento.mouse.y >= 22 && evento.mouse.y <= 33){
+                      sair = 1;
+            }else if (evento.mouse.x >= 140 && evento.mouse.x <= 150 &&
+                      evento.mouse.y >= 568 && evento.mouse.y <= 571){
+                      sair = 1;
             }
         }
+        }      
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
         al_set_target_bitmap(al_get_backbuffer(janela));
         
-         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+        al_draw_bitmap(pauseBtnImage, 815, 25, 0);
         al_draw_bitmap(clockBtnImage, 750, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
         al_draw_bitmap(settingsBtnImage, 885, 22, 0);
@@ -189,6 +219,7 @@ int main(void){
         
     }
 
+    al_destroy_bitmap(botao_sair);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
