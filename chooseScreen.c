@@ -11,6 +11,22 @@
  
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720; 
+      int r =0;
+      int g =150; 
+      int b = 64;
+
+void colorValidation(int n, int *r, int *g, int *b){
+    if (n < 50) {
+            *r = 0;
+            *g = 150;
+            *b = 64; 
+        }else {
+            *r = 190;
+            *g = 22;
+            *b = 34;
+        }
+}
+
   
 int main(void){
 
@@ -25,7 +41,6 @@ int main(void){
     ALLEGRO_FONT *fonte = NULL;
     ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
-    int r = 0, g = 0, b = 0;
     int min = 5, seg = 0; 
     al_init_font_addon(); 
     al_init_ttf_addon();
@@ -104,7 +119,6 @@ int main(void){
     vetor_de_candidatos[1].descricao = "Defende uma maior participação feminina e favorável à reforma política";
     
     vetor_de_candidatos[2].descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-    
     
     char *majorName; 
     char *majorDesc;  
@@ -190,35 +204,35 @@ int main(void){
         if (candidato == 1){
             majorName = *vetor_de_candidatos[0].nome;
             majorDesc = vetor_de_candidatos[0].descricao;
-            educacao = 401 + vetor_de_candidatos[0].educacao + 99; 
-            saude = 401 + vetor_de_candidatos[0].saude + 99; 
-            seguranca = 401 + vetor_de_candidatos[0].seguranca + 99; 
-            saneamento = 401 + vetor_de_candidatos[0].saneamento + 99; 
-            lazer = 401 + vetor_de_candidatos[0].lazer + 99; 
+            educacao = vetor_de_candidatos[0].educacao; 
+            saude = vetor_de_candidatos[0].saude; 
+            seguranca = vetor_de_candidatos[0].seguranca; 
+            saneamento = vetor_de_candidatos[0].saneamento; 
+            lazer = vetor_de_candidatos[0].lazer; 
         }else if (candidato == 2){
             majorName = *vetor_de_candidatos[1].nome;
             majorDesc = vetor_de_candidatos[1].descricao;
-            educacao = 401 + vetor_de_candidatos[1].educacao + 99; 
-            saude = 401 + vetor_de_candidatos[1].saude + 99; 
-            seguranca = 401 + vetor_de_candidatos[1].seguranca + 99; 
-            saneamento = 401 + vetor_de_candidatos[1].saneamento + 99; 
-            lazer = 401 + vetor_de_candidatos[1].lazer + 99; 
+            educacao = vetor_de_candidatos[1].educacao; 
+            saude = vetor_de_candidatos[1].saude; 
+            seguranca = vetor_de_candidatos[1].seguranca; 
+            saneamento = vetor_de_candidatos[1].saneamento; 
+            lazer = vetor_de_candidatos[1].lazer; 
         }else if(candidato == 3){
             majorName = *vetor_de_candidatos[2].nome;
             majorDesc = vetor_de_candidatos[2].descricao;
-            educacao = 401 + vetor_de_candidatos[2].educacao + 99; 
-            saude = 401 + vetor_de_candidatos[2].saude + 99; 
-            seguranca = 401 + vetor_de_candidatos[2].seguranca + 99; 
-            saneamento = 401 + vetor_de_candidatos[2].saneamento + 99; 
-            lazer = 401 + vetor_de_candidatos[2].lazer + 99; 
+            educacao = vetor_de_candidatos[2].educacao; 
+            saude = vetor_de_candidatos[2].saude; 
+            seguranca = vetor_de_candidatos[2].seguranca; 
+            saneamento = vetor_de_candidatos[2].saneamento; 
+            lazer = vetor_de_candidatos[2].lazer; 
         }else{
             majorName = "Escolha o seu Prefeito(a)";
             majorDesc = NULL;
-            educacao = 401; 
-            saude = 401; 
-            seguranca = 401; 
-            saneamento = 401; 
-            lazer = 401;
+            educacao = 0; 
+            saude = 0; 
+            seguranca = 0; 
+            saneamento = 0; 
+            lazer = 0;
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
@@ -274,11 +288,17 @@ int main(void){
         al_draw_bitmap(health, 555+75, 555+40, 0);
         al_draw_bitmap(fun, 610+75, 555+40, 0);
         
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 475, 640, 0, "90%%");
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 530, 640, 0, "90%%");
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 585, 640, 0, "90%%");
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 640, 640, 0, "90%%");
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 695, 640, 0, "90%%");
+        colorValidation(educacao, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 475, 640, 0, "%d", educacao);
+        colorValidation(saude, &r, &g, &b);
+        printf("penis\n");
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 530, 640, 0, "%d", saude);
+        colorValidation(saneamento, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 640, 640, 0, "%d", saneamento);
+        colorValidation(seguranca, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 585, 640, 0, "%d", seguranca);
+        colorValidation(lazer, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 695, 640, 0, "%d", lazer);
 
 
         al_flip_display();
