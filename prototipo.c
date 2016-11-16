@@ -40,7 +40,6 @@ typedef struct prefeito {
    }prefeito; 
 
 
-
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *instrucaoBtnImage = NULL,
@@ -65,16 +64,25 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *soundBackup = NULL,
                 *pauseBackup = NULL,
                 *playBtnImage = NULL,
+                *money = NULL,
+                *garbage = NULL,
                 *education = NULL,
+                *educacao = NULL,
                 *fun = NULL,
+                *lazer = NULL,
                 *health = NULL,
+                *saude = NULL,
                 *sanitation = NULL,
+                *saneamento = NULL,
                 *security = NULL,
+                *seguranca = NULL,
                 *fundo2 = NULL,
+                *majorImage = NULL,
                 *investiment = NULL,
                 *cautionBtn = NULL,
                 *cautionIcon = NULL,
                 *quietBtn = NULL,
+                *investir = NULL,
                 *quietIcon = NULL;
 
 
@@ -90,7 +98,8 @@ ALLEGRO_FONT *firstText = NULL,
              *configText = NULL,
              *nameText = NULL,
              *infoText = NULL,
-             *optionText =  NULL;
+             *optionText =  NULL,
+             *moneyText = NULL;
 ALLEGRO_AUDIO_STREAM *musica = NULL;
 ALLEGRO_TIMER *contador = 0;
 ALLEGRO_EVENT evento;
@@ -489,7 +498,7 @@ int chooseScreen(){
 }
 
 
-int playScreen(int sair, int candidato){
+int playScreen(){
     
     srand((unsigned)time(NULL));
 
@@ -697,7 +706,12 @@ int playScreen(int sair, int candidato){
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
                 
-                }else if((togglePopup == 1 || togglePopup == 0) || evento.mouse.x >= 475 && 
+                }else if (evento.mouse.x >= 325 && evento.mouse.x <= 400 &&
+                    evento.mouse.y >= 630 && evento.mouse.y <= 640 && toggleSound == 1){
+                    budgetScreen(sair);
+                }
+
+                else if((togglePopup == 1 || togglePopup == 0) || evento.mouse.x >= 475 && 
                     evento.mouse.x <= 485 && evento.mouse.y >= 320 && evento.mouse.y <= 345){
                     
                         togglePopup = 3;
@@ -837,19 +851,8 @@ int playScreen(int sair, int candidato){
 
 
 
+int budgetScreen(){
 
-
-
-
-int budgetScreen(int sair, int candidato){
-
-    ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, *money = NULL, 
-        *majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL, *saude = NULL,
-        *seguranca = NULL, *lazer = NULL, *saneamento = NULL, *clockBtnImage = NULL, *voltar = NULL;
-
-    ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
-    
     
     int candidatob = candidato;
 
@@ -865,7 +868,7 @@ int budgetScreen(int sair, int candidato){
     saneamento = al_load_bitmap("Images/budgetScreen/sanitation-btn.png");
     garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
     investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
-    majorImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
+    majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
     pauseBtnImage = al_load_bitmap("Images/globalImages/pauseBtnImage.png");
     settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
@@ -877,7 +880,7 @@ int budgetScreen(int sair, int candidato){
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
 
-    if ( !garbage || !firstText || !secondText || !clockBtnImage ||
+    if (!janela || !garbage || !firstText || !secondText || !clockBtnImage ||
         !investir || !majorImage || !fila_eventos || !optionText || !moneyText ||
         !fila_contador || !pauseBtnImage || !settingsBtnImage || 
         !contador || !fundo || !al_install_mouse() ||  !money ||
@@ -887,82 +890,9 @@ int budgetScreen(int sair, int candidato){
         return -1;
     }
 
-    prefeito firstMajor;
-    prefeito secondMajor;
-    prefeito thirdMajor;
-    firstMajor.nome = "Candidato Carlos Eduardo";
-    firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
-    firstMajor.dinheiro = "R$1000000,00";
-    firstMajor.educacaoInd = 20; 
-    firstMajor.saudeInd = 20; 
-    firstMajor.segurancaInd = 20; 
-    firstMajor.saneamentoInd = 10; 
-    firstMajor.lazerInd = 30;
-    secondMajor.nome = "Candidata Maria";
-    secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
-    secondMajor.dinheiro = "R$10000,00";
-    secondMajor.educacaoInd = 20;
-    secondMajor.saudeInd = 30;
-    secondMajor.segurancaInd = 10;
-    secondMajor.saneamentoInd = 30;
-    secondMajor.lazerInd = 20;
-    thirdMajor.nome = "Candidato Alberto Santos";
-    thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-    thirdMajor.dinheiro = "R$100000000,00";
-    thirdMajor.educacaoInd = 10;
-    thirdMajor.saudeInd = 20;
-    thirdMajor.segurancaInd = 40;
-    thirdMajor.saneamentoInd = 10;
-    thirdMajor.lazerInd = 10;
 
     char *majorName; 
-    char *majorDesc;
-    char *majorMoney; 
-    //int candidato;
-    int educacaoInd; 
-    int saudeInd; 
-    int segurancaInd; 
-    int saneamentoInd; 
-    int lazerInd;  
-
-
-       	if (candidato == 1){
-            majorName = firstMajor.nome;
-            majorMoney = firstMajor.dinheiro;
-            majorDesc = firstMajor.descricao;
-            educacaoInd = 401 + firstMajor.educacaoInd + 99; 
-            saudeInd = 401 + firstMajor.saudeInd + 99; 
-            segurancaInd = 401 + firstMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + firstMajor.saneamentoInd + 99; 
-            lazerInd = 401 + firstMajor.lazerInd + 99; 
-        }else if (candidato == 2){
-            majorName = secondMajor.nome;
-            majorDesc = secondMajor.descricao;
-            majorMoney = secondMajor.dinheiro;
-            educacaoInd = 401 + secondMajor.educacaoInd + 99; 
-            saudeInd = 401 + secondMajor.saudeInd + 99; 
-            segurancaInd = 401 + secondMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + secondMajor.saneamentoInd + 99; 
-            lazerInd = 401 + secondMajor.lazerInd + 99; 
-        }else if(candidato == 3){
-            majorName = thirdMajor.nome;
-            majorDesc = thirdMajor.descricao;
-            majorMoney = thirdMajor.dinheiro;
-            educacaoInd = 401 + thirdMajor.educacaoInd + 99; 
-            saudeInd = 401 + thirdMajor.saudeInd + 99; 
-            segurancaInd = 401 + thirdMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + thirdMajor.saneamentoInd + 99; 
-            lazerInd = 401 + thirdMajor.lazerInd + 99; 
-        }else{
-            majorName = "Escolha o seu Prefeito(a)";
-            majorDesc = NULL;
-            majorMoney = "R$0,00";
-            educacaoInd = 401; 
-            saudeInd = 401; 
-            segurancaInd = 401; 
-            saneamentoInd = 401; 
-            lazerInd = 401;
-        }
+    char *majorDesc;  
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -972,34 +902,21 @@ int budgetScreen(int sair, int candidato){
 
 
     while (!sair){
-        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
-        
-        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-            sair = 1;
-        }
-        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
-                evento.mouse.y >= 558 && evento.mouse.y <= 578){
-            	candidato = 1;
-                playScreen(sair, candidato);
-        }
-
-    }
+        ALLEGRO_EVENT evento;
         if (!al_is_event_queue_empty(fila_contador)){
-            ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
-            if (evento.type == ALLEGRO_EVENT_TIMER){
+            if (evento.type == ALLEGRO_EVENT_TIMER)
+            {
                 seg--;
-                if (seg == -1){
+                if (seg == -1)
+                {
                     min--;
                     seg = 59;
                 }
-                else if(min == 0 && seg == 0 ){
-                    sair = 1;
-                }
             }
         }
+ 
         while (!al_is_event_queue_empty(fila_eventos)){
             ALLEGRO_EVENT evento;
             ALLEGRO_TIMEOUT timeout;
@@ -1008,15 +925,43 @@ int budgetScreen(int sair, int candidato){
             int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
      
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                break;
+        
+            }
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            if (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
+                evento.mouse.y >= 163 && evento.mouse.y <= 265){
                 sair = 1;
+            }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                      evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                      sair = 1;
+            }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                      evento.mouse.y >= 439 && evento.mouse.y <= 539){
+                      sair = 1;
+            }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
+                      evento.mouse.y >= 163 && evento.mouse.y <= 263){
+                      sair = 1;
+            }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
+                      evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                      sair = 1;
+            }else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
+                      evento.mouse.y >= 25 && evento.mouse.y <= 30){
+                      sair = 1;
+            }else if (evento.mouse.x >= 885 && evento.mouse.x <= 905 &&
+                      evento.mouse.y >= 22 && evento.mouse.y <= 33){
+                      sair = 1;
+            }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
+                      evento.mouse.y >= 558 && evento.mouse.y <= 578){
+                     playScreen(sair);
             }
         }
+        }      
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
         al_set_target_bitmap(al_get_backbuffer(janela));
         
-         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
+        al_draw_bitmap(pauseBtnImage, 815, 25, 0);
         al_draw_bitmap(clockBtnImage, 750, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
         al_draw_bitmap(settingsBtnImage, 885, 22, 0);
@@ -1026,7 +971,7 @@ int budgetScreen(int sair, int candidato){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Epidemia de Dengue e Zica vírus é eminente.");
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
         //al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
         al_draw_bitmap(majorImage, 140, 152, 0);
         al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
@@ -1071,7 +1016,7 @@ int budgetScreen(int sair, int candidato){
         // 104 94 35
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 456, 82, 0);
-        al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$1000000,00");
+        al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ 2.000.000,00");
         al_draw_textf(firstText, al_map_rgb(255, 255, 255), 785, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
