@@ -12,7 +12,7 @@
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720; 
 
-void valicao(int n, int r, int g, int b){
+void colorValidation(int n, int r, int g, int b){
     if (n >= 50) {
             r = 190;
             g = 22;
@@ -279,15 +279,15 @@ int main(void){
         al_draw_bitmap(health, 555+75, 555+40, 0);
         al_draw_bitmap(fun, 610+75, 555+40, 0);
         int r, g, b;
-        valicao(educacao, r, g, b);
+        colorValidation(educacao, r, g, b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 475, 640, 0, "%d", educacao);
-        valicao(saude, r, g, b);
+        colorValidation(saude, r, g, b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 530, 640, 0, "%d", saude);
-        valicao(saneamento, r, g, b);
+        colorValidation(saneamento, r, g, b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 640, 640, 0, "%d", saneamento);
-        valicao(seguranca, r, g, b);
+        colorValidation(seguranca, r, g, b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 585, 640, 0, "%d", seguranca);
-        valicao(lazer, r, g, b);
+        colorValidation(lazer, r, g, b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 695, 640, 0, "%d", lazer);
 
         al_flip_display();
