@@ -322,7 +322,6 @@ int chooseScreen(){
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
 
-    al_start_timer(contador);
 
     int candidato = 0;
     while (!sair){
@@ -365,15 +364,18 @@ int chooseScreen(){
             else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if (evento.mouse.x >= 145 && evento.mouse.x <= 315 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
-                       candidato = 1;
-                   playScreen(sair);
+                        candidato = 1;
+                        al_set_audio_stream_playing(musica, false);
+                        playScreen(sair);
                 }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 2;
+                        al_set_audio_stream_playing(musica, false);
                         playScreen(sair);
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 3;
+                        al_set_audio_stream_playing(musica, false);
                         playScreen(sair);
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 0){
@@ -801,6 +803,7 @@ int playScreen(){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         
         al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
 
         //detalhe prefeito
         al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));
