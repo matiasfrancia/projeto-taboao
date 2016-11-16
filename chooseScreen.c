@@ -20,7 +20,7 @@ int main(void){
         *muteBtnImage = NULL, *soundBackup = NULL, *clockBtnImage = NULL, *education = NULL, 
         *fun = NULL, *health = NULL, *sanitation = NULL, *security = NULL, *fundo2 = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL;
+    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL, *optionText =  NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_FONT *fonte = NULL;
     ALLEGRO_AUDIO_STREAM *musica = NULL;
@@ -75,10 +75,11 @@ int main(void){
     secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
+    optionText = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     
     if (!taboaoLogoImage || !firstPersonaImage || !secondPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() || !infoText ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte ||
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte || !optionText ||
         !contador || !fila_contador || !fila_eventos || !firstText || !secondText || !nameText || 
         !al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
@@ -267,11 +268,17 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(203, 187, 160), 320, 590+30, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 575+30, ALLEGRO_ALIGN_LEFT, majorName);
         
-        al_draw_bitmap(education, 390+75, 555+50, 0);
-        al_draw_bitmap(security, 445+75, 555+50, 0);
-        al_draw_bitmap(sanitation, 500+75, 555+50, 0);
-        al_draw_bitmap(health, 555+75, 555+50, 0);
-        al_draw_bitmap(fun, 610+75, 555+50, 0);
+        al_draw_bitmap(education, 390+75, 555+40, 0);
+        al_draw_bitmap(security, 445+75, 555+40, 0);
+        al_draw_bitmap(sanitation, 500+75, 555+40, 0);
+        al_draw_bitmap(health, 555+75, 555+40, 0);
+        al_draw_bitmap(fun, 610+75, 555+40, 0);
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 475, 640, 0, "90%%");
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 530, 640, 0, "90%%");
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 585, 640, 0, "90%%");
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 640, 640, 0, "90%%");
+        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 695, 640, 0, "90%%");
+
 
         al_flip_display();
     }
