@@ -347,7 +347,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
-        al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
+        al_draw_filled_rectangle(310, 10, 730, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
