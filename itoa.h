@@ -26,6 +26,17 @@
          s[i++] = '-';
      s[i] = '\0';
      reverse(s);
+     if (n >= 50) {
+            int r = 190;
+            int g = 22;
+            int b = 34; 
+        }
+        else {
+            int r = 0;
+            int g = 150;
+            int b = 64; 
+        }
+
  }
 
 

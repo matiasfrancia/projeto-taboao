@@ -273,6 +273,7 @@ int main(void){
         al_draw_bitmap(sanitation, 500+75, 555+40, 0);
         al_draw_bitmap(health, 555+75, 555+40, 0);
         al_draw_bitmap(fun, 610+75, 555+40, 0);
+        
         al_draw_textf(optionText, al_map_rgb(0, 150, 64), 475, 640, 0, "90%%");
         al_draw_textf(optionText, al_map_rgb(0, 150, 64), 530, 640, 0, "90%%");
         al_draw_textf(optionText, al_map_rgb(0, 150, 64), 585, 640, 0, "90%%");
