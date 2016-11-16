@@ -80,8 +80,7 @@ int main(void){
         !investir || !majorImage || !fila_eventos || !optionText || !moneyText ||
         !fila_contador || !pauseBtnImage || !soundBtnImage || !muteBtnImage || 
         !contador || !fundo || !al_install_mouse() ||  !money || !soundBackup ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
-        ){
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
         return -1;
