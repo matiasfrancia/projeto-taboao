@@ -4,6 +4,12 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
+#include "eventos.h"
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
  
 // Para utilizarmos o fprintf
 #include <stdio.h>
@@ -26,14 +32,16 @@ typedef struct prefeito {
 int main(void){
 
     ALLEGRO_DISPLAY *janela = NULL;
-    ALLEGRO_BITMAP *pauseBtnImage = NULL, *settingsBtnImage = NULL, *fundo = NULL, *money = NULL, 
-        *majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL, *saude = NULL,
-        *seguranca = NULL, *lazer = NULL, *saneamento = NULL, *clockBtnImage = NULL, *voltar = NULL;
+    ALLEGRO_BITMAP *pauseBtnImage = NULL, *soundBtnImage = NULL, *soundBackup = NULL, *fundo = NULL,
+        *money = NULL,*majorImage = NULL, *investir = NULL, *garbage = NULL, *educacao = NULL,
+        *saude = NULL,*seguranca = NULL, *lazer = NULL, *saneamento = NULL, *clockBtnImage = NULL,
+        *voltar = NULL, *pauseBackup = NULL, *playBtnImage = NULL;
 
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
     ALLEGRO_FONT *firstText = NULL, *secondText = NULL, * optionText = NULL, *moneyText = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_BITMAP *botao_sair = NULL;
+    ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
     int r = 0, g = 0, b = 0;
     int min = 5, seg = 0;  
@@ -65,7 +73,11 @@ int main(void){
     investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
     majorImage = al_load_bitmap("Images/budgetScreen/secondMajor.png");
     pauseBtnImage = al_load_bitmap("Images/globalImages/pauseBtnImage.png");
-    settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
+    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
+    soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
+    playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
+    pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
+    //settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
@@ -75,9 +87,9 @@ int main(void){
     fila_contador = al_create_event_queue();
     fila_eventos = al_create_event_queue();
 
-    if (!janela || !garbage || !firstText || !secondText || !clockBtnImage ||
-        !investir || !majorImage || !fila_eventos || !optionText || !moneyText ||
-        !fila_contador || !pauseBtnImage || !settingsBtnImage || 
+    if (!janela || !garbage || !firstText || !secondText || !clockBtnImage || !soundBtnImage || !soundBackup ||
+        !investir || !majorImage || !fila_eventos || !optionText || !moneyText || !pauseBackup ||
+        !fila_contador || !pauseBtnImage || 
         !contador || !fundo || !al_install_mouse() ||  !money ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
@@ -85,9 +97,27 @@ int main(void){
         return -1;
     }
 
+    if(!al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
+        fprintf(stderr, "Falha ao carregar o audio.\n");
+        return -1;
+    }
+
+    musica = al_load_audio_stream("teste.ogg", 4, 1024);
+    if (!musica)
+    {
+        fprintf(stderr, "Falha ao carregar audio.\n");
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_display(janela);
+        return false;
+    }
 
     char *majorName; 
-    char *majorDesc;  
+    char *majorDesc;
+    char *pauseText = "PAUSAR";
+
+    int togglePopup = 3;
+    int togglePlay = 1;
+    int toggleSound = 1; 
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -140,16 +170,38 @@ int main(void){
             }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                       evento.mouse.y >= 301 && evento.mouse.y <= 401){
                       sair = 1;
-            }else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
-                      evento.mouse.y >= 25 && evento.mouse.y <= 30){
+            }/*else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
+                      evento.mouse.y >= 25 && evento.mouse.y <= 37){
                       sair = 1;
-            }else if (evento.mouse.x >= 885 && evento.mouse.x <= 905 &&
-                      evento.mouse.y >= 22 && evento.mouse.y <= 33){
+            }*/
+            else if (evento.mouse.x >= 900 && evento.mouse.x <= 950 &&
+                    evento.mouse.y >= 20 && evento.mouse.y <= 40){
                       sair = 1;
             }else if (evento.mouse.x >= 140 && evento.mouse.x <= 150 &&
                       evento.mouse.y >= 568 && evento.mouse.y <= 571){
                       sair = 1;
-            }
+            }else if(togglePopup == 3 && evento.mouse.x >= 815 && evento.mouse.x <= 845 &&
+                    evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
+                
+                        togglePlay = 0;
+                        pauseText = "PAUSAR";
+                        pauseBtnImage = playBtnImage;
+                        toggleSound = 0;
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
+                        al_stop_timer(contador);
+                
+                }else if (togglePopup == 3 && evento.mouse.x >= 815 && evento.mouse.x <= 845 && 
+                    evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
+                
+                        togglePlay = 1;
+                        pauseText = "PLAY";
+                        pauseBtnImage = pauseBackup;
+                        toggleSound = 1;
+                        al_set_audio_stream_playing(musica, false);
+                        al_start_timer(contador);
+                
+                }
         }
         }      
 
@@ -160,8 +212,12 @@ int main(void){
         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
         al_draw_bitmap(clockBtnImage, 750, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
-        al_draw_bitmap(settingsBtnImage, 885, 22, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+        //al_draw_bitmap(settingsBtnImage, 885, 22, 0);
+        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
+        al_draw_bitmap(soundBtnImage, 900, 20, 0);
+        al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
+        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
