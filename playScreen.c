@@ -13,6 +13,9 @@
 
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
+int r =0;
+int g =150; 
+int b = 64;
 
 typedef struct prefeito {
       char *nome;
@@ -24,7 +27,20 @@ typedef struct prefeito {
       int saneamentoInd; 
       int lazerInd;
    }prefeito; 
-  
+ 
+
+void colorValidation(int n, int *r, int *g, int *b){
+    if (n < 50) {
+            *r = 0;
+            *g = 150;
+            *b = 64; 
+        }else {
+            *r = 190;
+            *g = 22;
+            *b = 34;
+        }
+}  
+
 int main(void){
 
     srand((unsigned)time(NULL));
@@ -39,7 +55,7 @@ int main(void){
         *security = NULL, *fundo2 = NULL, *muteBtnImage = NULL, *soundBackup = NULL, *pauseBackup = NULL, 
         *cautionBtn = NULL,  *cautionIcon = NULL,  *quietBtn = NULL,  *quietIcon = NULL, *playBtnImage = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL;
+    ALLEGRO_FONT *firstText = NULL, *secondText = NULL, *nameText = NULL, *infoText = NULL, *optionText = NULL;
     ALLEGRO_TIMER *contador = 0;
     ALLEGRO_AUDIO_STREAM *musica = NULL;
     int sair = 0;
@@ -95,6 +111,8 @@ int main(void){
     secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
     nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
     infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
+    optionText = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
+
 
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
@@ -106,7 +124,7 @@ int main(void){
         return -1;
     }
 
-    if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage ||
+    if (!fundo || !firstPersonaImage || !sencondPersonaImage || !thirdPersonaImage || !optionText ||
         !pauseBtnImage || !clockBtnImage || !muteBtnImage || !soundBackup || !pauseBackup || !soundBtnImage || 
         !cautionBtn || !cautionIcon || !quietBtn || !quietIcon){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
@@ -142,34 +160,6 @@ int main(void){
         al_destroy_display(janela);
         return false;
     }
-
-    prefeito firstMajor;
-    prefeito secondMajor;
-    prefeito thirdMajor;
-    firstMajor.nome = "Candidato Fernando Haddad";
-    firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
-    firstMajor.dinheiro = "R$1000000,00";
-    firstMajor.educacaoInd = 20; 
-    firstMajor.saudeInd = 20; 
-    firstMajor.segurancaInd = 20; 
-    firstMajor.saneamentoInd = 10; 
-    firstMajor.lazerInd = 30;
-    secondMajor.nome = "Candidata Luiza Erundina";
-    secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
-    secondMajor.dinheiro = "R$10000,00";
-    secondMajor.educacaoInd = 20;
-    secondMajor.saudeInd = 30;
-    secondMajor.segurancaInd = 10;
-    secondMajor.saneamentoInd = 30;
-    secondMajor.lazerInd = 20;
-    thirdMajor.nome = "Candidato João Doria";
-    thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-    thirdMajor.dinheiro = "R$100000000,00";
-    thirdMajor.educacaoInd = 10;
-    thirdMajor.saudeInd = 20;
-    thirdMajor.segurancaInd = 40;
-    thirdMajor.saneamentoInd = 10;
-    thirdMajor.lazerInd = 10;
 
     int togglePopup = 3;
     int togglePlay = 1;
@@ -303,38 +293,38 @@ int main(void){
             majorName = firstMajor.nome;
             majorMoney = firstMajor.dinheiro;
             majorDesc = firstMajor.descricao;
-            educacaoInd = 401 + firstMajor.educacaoInd + 99; 
-            saudeInd = 401 + firstMajor.saudeInd + 99; 
-            segurancaInd = 401 + firstMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + firstMajor.saneamentoInd + 99; 
-            lazerInd = 401 + firstMajor.lazerInd + 99; 
+            educacaoInd = firstMajor.educacaoInd; 
+            saudeInd = firstMajor.saudeInd; 
+            segurancaInd = firstMajor.segurancaInd; 
+            saneamentoInd = firstMajor.saneamentoInd; 
+            lazerInd = firstMajor.lazerInd; 
         }else if (candidato == 2){
             majorName = secondMajor.nome;
             majorDesc = secondMajor.descricao;
             majorMoney = secondMajor.dinheiro;
-            educacaoInd = 401 + secondMajor.educacaoInd + 99; 
-            saudeInd = 401 + secondMajor.saudeInd + 99; 
-            segurancaInd = 401 + secondMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + secondMajor.saneamentoInd + 99; 
-            lazerInd = 401 + secondMajor.lazerInd + 99; 
+            educacaoInd = secondMajor.educacaoInd; 
+            saudeInd = secondMajor.saudeInd; 
+            segurancaInd = secondMajor.segurancaInd; 
+            saneamentoInd = secondMajor.saneamentoInd; 
+            lazerInd = secondMajor.lazerInd; 
         }else if(candidato == 3){
             majorName = thirdMajor.nome;
             majorDesc = thirdMajor.descricao;
             majorMoney = thirdMajor.dinheiro;
-            educacaoInd = 401 + thirdMajor.educacaoInd + 99; 
-            saudeInd = 401 + thirdMajor.saudeInd + 99; 
-            segurancaInd = 401 + thirdMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + thirdMajor.saneamentoInd + 99; 
-            lazerInd = 401 + thirdMajor.lazerInd + 99; 
+            educacaoInd = thirdMajor.educacaoInd; 
+            saudeInd = thirdMajor.saudeInd; 
+            segurancaInd = thirdMajor.segurancaInd; 
+            saneamentoInd = thirdMajor.saneamentoInd; 
+            lazerInd = thirdMajor.lazerInd; 
         }else{
             majorName = "Escolha o seu Prefeito(a)";
             majorDesc = NULL;
             majorMoney = "R$0,00";
-            educacaoInd = 401; 
-            saudeInd = 401; 
-            segurancaInd = 401; 
-            saneamentoInd = 401; 
-            lazerInd = 401;
+            educacaoInd = 0; 
+            saudeInd = 0; 
+            segurancaInd = 0; 
+            saneamentoInd = 0; 
+            lazerInd = 0;
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
@@ -382,7 +372,6 @@ int main(void){
             al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
             al_draw_bitmap(quietBtn, 475, 340, 0);
-
         }
         else if(togglePopup == 0){
             al_draw_filled_rectangle(300, 260, 750, 375, al_map_rgb(255, 255, 255));
@@ -390,8 +379,18 @@ int main(void){
             al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, ruim.text);
             al_draw_bitmap(cautionBtn, 475, 340, 0);
-
         }
+        colorValidation(educacaoInd, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 475+55, 615, 0, "%d", educacaoInd);
+        colorValidation(saudeInd, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 530+55, 615, 0, "%d", saudeInd);
+        colorValidation(saneamentoInd, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 640+55, 615, 0, "%d", saneamentoInd);
+        colorValidation(segurancaInd, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 585+55, 615, 0, "%d", segurancaInd);
+        colorValidation(lazerInd, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 695+55, 615, 0, "%d", lazerInd);
+
 
         al_flip_display();
     }

@@ -31,7 +31,7 @@ const int ALTURA_TELA = 720;
 typedef struct prefeito {
       char *nome;
       char *descricao;
-      char *dinheiro; 
+      int dinheiro; 
       int educacaoInd; 
       int saudeInd; 
       int segurancaInd; 
@@ -254,7 +254,6 @@ int nivelScreen(){
 }
 
 int chooseScreen(){
-
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
@@ -307,7 +306,12 @@ int chooseScreen(){
     vetor_de_candidatos[1].descricao = "Defende uma maior participação feminina e favorável à reforma política";
     
     vetor_de_candidatos[2].descricao = "É um empresário, jornalista, publicitário e político brasileiro";
+
+    vetor_de_candidatos[0].dinheiro = 10000;
     
+    vetor_de_candidatos[1].dinheiro = 10000;
+    
+    vetor_de_candidatos[2].dinheiro = 10000;
     
     char *majorName; 
     char *majorDesc;  
@@ -366,17 +370,17 @@ int chooseScreen(){
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 1;
                         al_set_audio_stream_playing(musica, false);
-                        playScreen(sair);
+                        playScreen(vetor_de_candidatos[0]);
                 }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 2;
                         al_set_audio_stream_playing(musica, false);
-                        playScreen(sair);
+                        playScreen(vetor_de_candidatos[1]);
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                         candidato = 3;
                         al_set_audio_stream_playing(musica, false);
-                        playScreen(sair);
+                        playScreen(vetor_de_candidatos[2]);
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 0){
                         teste_som = 1;
@@ -500,7 +504,7 @@ int chooseScreen(){
 }
 
 
-int playScreen(){
+int playScreen(CANDIDATO felipe){
     
     srand((unsigned)time(NULL));
 
@@ -588,32 +592,13 @@ int playScreen(){
     }
 
     prefeito firstMajor;
-    prefeito secondMajor;
-    prefeito thirdMajor;
-    firstMajor.nome = "Candidato Fernando Haddad";
-    firstMajor.descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
-    firstMajor.dinheiro = "R$1000000,00";
-    firstMajor.educacaoInd = 20; 
-    firstMajor.saudeInd = 20; 
-    firstMajor.segurancaInd = 20; 
-    firstMajor.saneamentoInd = 10; 
-    firstMajor.lazerInd = 30;
-    secondMajor.nome = "Candidata Luiza Erundina";
-    secondMajor.descricao = "Defende uma maior participação feminina e favorável à reforma política";
-    secondMajor.dinheiro = "R$10000,00";
-    secondMajor.educacaoInd = 20;
-    secondMajor.saudeInd = 30;
-    secondMajor.segurancaInd = 10;
-    secondMajor.saneamentoInd = 30;
-    secondMajor.lazerInd = 20;
-    thirdMajor.nome = "Candidato João Doria";
-    thirdMajor.descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-    thirdMajor.dinheiro = "R$100000000,00";
-    thirdMajor.educacaoInd = 10;
-    thirdMajor.saudeInd = 20;
-    thirdMajor.segurancaInd = 40;
-    thirdMajor.saneamentoInd = 10;
-    thirdMajor.lazerInd = 10;
+    firstMajor.nome = *felipe.nome;
+    firstMajor.dinheiro = felipe.dinheiro;
+    firstMajor.educacaoInd = felipe.educacao; 
+    firstMajor.saudeInd = felipe.saude; 
+    firstMajor.segurancaInd = felipe.seguranca; 
+    firstMajor.saneamentoInd = felipe.saneamento; 
+    firstMajor.lazerInd = felipe.lazer;
 
     int togglePopup = 3;
     int togglePlay = 1;
@@ -710,7 +695,7 @@ int playScreen(){
                 
                 }else if (evento.mouse.x >= 325 && evento.mouse.x <= 400 &&
                     evento.mouse.y >= 630 && evento.mouse.y <= 640 && toggleSound == 1){
-                    budgetScreen(sair);
+                    budgetScreen(firstMajor);
                 }
 
                 else if((togglePopup == 1 || togglePopup == 0) || evento.mouse.x >= 475 && 
@@ -747,44 +732,7 @@ int playScreen(){
         al_clear_to_color(al_map_rgb(0, 0, 0));
  
         al_set_target_bitmap(firstPersonaImage);
-        if (candidato == 1){
-            majorName = firstMajor.nome;
-            majorMoney = firstMajor.dinheiro;
-            majorDesc = firstMajor.descricao;
-            educacaoInd = 401 + firstMajor.educacaoInd + 99; 
-            saudeInd = 401 + firstMajor.saudeInd + 99; 
-            segurancaInd = 401 + firstMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + firstMajor.saneamentoInd + 99; 
-            lazerInd = 401 + firstMajor.lazerInd + 99; 
-        }else if (candidato == 2){
-            majorName = secondMajor.nome;
-            majorDesc = secondMajor.descricao;
-            majorMoney = secondMajor.dinheiro;
-            educacaoInd = 401 + secondMajor.educacaoInd + 99; 
-            saudeInd = 401 + secondMajor.saudeInd + 99; 
-            segurancaInd = 401 + secondMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + secondMajor.saneamentoInd + 99; 
-            lazerInd = 401 + secondMajor.lazerInd + 99; 
-        }else if(candidato == 3){
-            majorName = thirdMajor.nome;
-            majorDesc = thirdMajor.descricao;
-            majorMoney = thirdMajor.dinheiro;
-            educacaoInd = 401 + thirdMajor.educacaoInd + 99; 
-            saudeInd = 401 + thirdMajor.saudeInd + 99; 
-            segurancaInd = 401 + thirdMajor.segurancaInd + 99; 
-            saneamentoInd = 401 + thirdMajor.saneamentoInd + 99; 
-            lazerInd = 401 + thirdMajor.lazerInd + 99; 
-        }else{
-            majorName = "Escolha o seu Prefeito(a)";
-            majorDesc = NULL;
-            majorMoney = "R$0,00";
-            educacaoInd = 401; 
-            saudeInd = 401; 
-            segurancaInd = 401; 
-            saneamentoInd = 401; 
-            lazerInd = 401;
-        }
-
+     
         al_set_target_bitmap(al_get_backbuffer(janela));
         
         al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(29,113,184));
@@ -854,7 +802,7 @@ int playScreen(){
 
 
 
-int budgetScreen(){
+int budgetScreen(CANDIDATO felipe){
 
     
     int candidatob = candidato;
@@ -955,7 +903,7 @@ int budgetScreen(){
                       sair = 1;
             }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
                       evento.mouse.y >= 558 && evento.mouse.y <= 578){
-                     playScreen(sair);
+                     playScreen(felipe);
             }
         }
         }      

@@ -11,9 +11,9 @@
  
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720; 
-      int r =0;
-      int g =150; 
-      int b = 64;
+int r =0;
+int g =150; 
+int b = 64;
 
 void colorValidation(int n, int *r, int *g, int *b){
     if (n < 50) {
@@ -26,7 +26,6 @@ void colorValidation(int n, int *r, int *g, int *b){
             *b = 34;
         }
 }
-
   
 int main(void){
 
@@ -291,7 +290,6 @@ int main(void){
         colorValidation(educacao, &r, &g, &b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 475, 640, 0, "%d", educacao);
         colorValidation(saude, &r, &g, &b);
-        printf("penis\n");
         al_draw_textf(optionText, al_map_rgb(r, g, b), 530, 640, 0, "%d", saude);
         colorValidation(saneamento, &r, &g, &b);
         al_draw_textf(optionText, al_map_rgb(r, g, b), 640, 640, 0, "%d", saneamento);

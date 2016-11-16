@@ -8,7 +8,7 @@ typedef struct candidatos{
 	char **nome;
 	char *descricao;
 	int homem;
-
+	int dinheiro;
 	int saude;
 	int educacao;
 	int saneamento;
