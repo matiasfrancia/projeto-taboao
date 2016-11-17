@@ -140,11 +140,9 @@ int main(void){
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
-            if (evento.type == ALLEGRO_EVENT_TIMER)
-            {
+            if (evento.type == ALLEGRO_EVENT_TIMER){
                 seg--;
-                if (seg == -1)
-                {
+                if (seg == -1){
                     min--;
                     seg = 59;
                 }

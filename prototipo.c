@@ -28,23 +28,11 @@ int settingScreen();
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
 
-typedef struct prefeito {
-      char *nome;
-      char *descricao;
-      int dinheiro; 
-      int educacaoInd; 
-      int saudeInd; 
-      int segurancaInd; 
-      int saneamentoInd; 
-      int lazerInd;
-   }prefeito; 
-
 CANDIDATO cidade;
 
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *instrucaoBtnImage = NULL,
-                *configBtnImage = NULL,
                 *creditBtnImage = NULL,
                 *jogarBtnImage = NULL,
                 *facilBtnImage = NULL,
@@ -111,6 +99,18 @@ int sair = 0;
 int r = 0, g = 0, b = 0;
 int min = 5, seg = 0;
 int candidato = 0;
+
+void colorValidation(int n, int *r, int *g, int *b){
+    if (n < 50) {
+            *r = 190;
+            *g = 22;
+            *b = 34;
+        }else {
+            *r = 0;
+            *g = 150;
+            *b = 64; 
+        }
+}
  
 int main(void){
 
@@ -139,7 +139,6 @@ int main(void){
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
     jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
     instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
-    configBtnImage = al_load_bitmap("Images/mainImages/configuracoes-botao.png");
     creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
     fila_eventos = al_create_event_queue();
     firstText = al_load_ttf_font("Font/arial.ttf", 32,0 );
@@ -147,7 +146,7 @@ int main(void){
     thirdText = al_load_ttf_font("Font/arial.ttf", 24,0 );
     
     if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)||
-        !taboaoLogoImage || !jogarBtnImage || !instrucaoBtnImage || !configBtnImage || !creditBtnImage ||
+        !taboaoLogoImage || !jogarBtnImage || !instrucaoBtnImage || !creditBtnImage ||
         !fila_eventos){
         fprintf(stderr, "Falha ao inicializar o mouse.\n");
         al_destroy_display(janela);
@@ -190,8 +189,7 @@ int main(void){
         al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
         al_draw_bitmap(jogarBtnImage, 400, 450, 0);
         al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
-        al_draw_bitmap(configBtnImage, 400, 550, 0);
-        al_draw_bitmap(creditBtnImage, 400, 600, 0);
+        al_draw_bitmap(creditBtnImage, 400, 550, 0);
         
         al_flip_display();
     }
@@ -429,12 +427,12 @@ int chooseScreen(){
             lazer =  vetor_de_candidatos[2].lazer ; 
         }else{
             majorName = "Escolha o seu Prefeito(a)";
-            majorDesc = NULL;
-            educacao = 401; 
-            saude = 401; 
-            seguranca = 401; 
-            saneamento = 401; 
-            lazer = 401;
+            majorDesc = 0;
+            educacao = 0; 
+            saude = 0; 
+            seguranca = 0; 
+            saneamento = 0; 
+            lazer = 0;
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
@@ -489,13 +487,18 @@ int chooseScreen(){
         al_draw_bitmap(sanitation, 500+75, 555+40, 0);
         al_draw_bitmap(health, 555+75, 555+40, 0);
         al_draw_bitmap(fun, 610+75, 555+40, 0);
-        
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 475, 640, 0, "%d%%", educacao);
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 530, 640, 0, "%d%%", seguranca);
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 585, 640, 0, "%d%%", saneamento);
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 640, 640, 0, "%d%%", saude);
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 695, 640, 0, "%d%%", lazer);
-        
+        if(educacao != 0 || saude != 0 || saneamento != 0 || seguranca != 0 || lazer != 0){
+            colorValidation(educacao, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 475, 640, 0, "%d%%", educacao);
+            colorValidation(saude, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 530, 640, 0, "%d%%", saude);
+            colorValidation(saneamento, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 640, 640, 0, "%d%%", saneamento);
+            colorValidation(seguranca, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 585, 640, 0, "%d%%", seguranca);
+            colorValidation(lazer, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 695, 640, 0, "%d%%", lazer);
+        }
 
         al_flip_display();
     }
@@ -600,12 +603,7 @@ int playScreen(){
     int togglePlay = 1;
     char *majorName; 
     char *majorDesc; 
-    char *majorMoney; 
-    int educacaoInd; 
-    int saudeInd; 
-    int segurancaInd; 
-    int saneamentoInd; 
-    int lazerInd;
+    char *majorMoney;
     int toggleSound = 1;
 
     
@@ -791,6 +789,17 @@ int playScreen(){
 
         }
 
+            colorValidation(cidade.educacao, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 475+50, 620, 0, "%d%%", cidade.educacao);
+            colorValidation(cidade.saude, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 530+50, 620, 0, "%d%%", cidade.saude);
+            colorValidation(cidade.saneamento, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 640+50, 620, 0, "%d%%", cidade.saneamento);
+            colorValidation(cidade.seguranca, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 585+50, 620, 0, "%d%%", cidade.seguranca);
+            colorValidation(cidade.lazer, &r, &g, &b);
+            al_draw_textf(optionText, al_map_rgb(r, g, b), 695+50, 620, 0, "%d%%", cidade.lazer);
+
         al_flip_display();
     }
     al_destroy_bitmap(sencondPersonaImage);
@@ -854,15 +863,13 @@ int budgetScreen(){
 
 
     while (!sair){
-        ALLEGRO_EVENT evento;
         if (!al_is_event_queue_empty(fila_contador)){
+            ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
-            if (evento.type == ALLEGRO_EVENT_TIMER)
-            {
+            if (evento.type == ALLEGRO_EVENT_TIMER){
                 seg--;
-                if (seg == -1)
-                {
+                if (seg == -1){
                     min--;
                     seg = 59;
                 }
@@ -877,36 +884,35 @@ int budgetScreen(){
             int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
      
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-                break;
-        
+                sair = 1;
             }
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            if (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
-                evento.mouse.y >= 163 && evento.mouse.y <= 265){
-                sair = 1;
-            }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                      evento.mouse.y >= 301 && evento.mouse.y <= 401){
-                      sair = 1;
-            }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                      evento.mouse.y >= 439 && evento.mouse.y <= 539){
-                      sair = 1;
-            }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                      evento.mouse.y >= 163 && evento.mouse.y <= 263){
-                      sair = 1;
-            }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                      evento.mouse.y >= 301 && evento.mouse.y <= 401){
-                      sair = 1;
-            }else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
-                      evento.mouse.y >= 25 && evento.mouse.y <= 30){
-                      sair = 1;
-            }else if (evento.mouse.x >= 885 && evento.mouse.x <= 905 &&
-                      evento.mouse.y >= 22 && evento.mouse.y <= 33){
-                      sair = 1;
-            }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
-                      evento.mouse.y >= 558 && evento.mouse.y <= 578){
-                     playScreen();
+                if (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
+                    evento.mouse.y >= 163 && evento.mouse.y <= 265){
+                    sair = 1;
+                }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                          evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                          sair = 1;
+                }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                          evento.mouse.y >= 439 && evento.mouse.y <= 539){
+                          sair = 1;
+                }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
+                          evento.mouse.y >= 163 && evento.mouse.y <= 263){
+                          sair = 1;
+                }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
+                          evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                          sair = 1;
+                }else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
+                          evento.mouse.y >= 25 && evento.mouse.y <= 30){
+                          sair = 1;
+                }else if (evento.mouse.x >= 885 && evento.mouse.x <= 905 &&
+                          evento.mouse.y >= 22 && evento.mouse.y <= 33){
+                          sair = 1;
+                }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
+                          evento.mouse.y >= 558 && evento.mouse.y <= 578){
+                         playScreen();
+                }
             }
-        }
         }      
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -960,11 +966,18 @@ int budgetScreen(){
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 323, 378, 0, "%d%%", cidade.educacao);
-        al_draw_textf(optionText, al_map_rgb(0, 150, 64), 323, 411, 0, "%d%%", cidade.saude);
-        al_draw_textf(optionText, al_map_rgb(190, 22, 34), 323, 444, 0, "%d%%", cidade.seguranca);
-        al_draw_textf(optionText, al_map_rgb(190, 22, 34), 323, 477, 0, "%d%%", cidade.lazer);
-        al_draw_textf(optionText, al_map_rgb(05, 150, 64), 323, 510, 0, "%d%%", cidade.saneamento);
+        
+        colorValidation(cidade.educacao, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
+        colorValidation(cidade.saude, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
+        colorValidation(cidade.seguranca, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
+        colorValidation(cidade.lazer, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
+        colorValidation(cidade.saneamento, &r, &g, &b);
+        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
+        
         int n = 337;
         for (int i = 0; i < 6; i++){
             al_draw_filled_rectangle(140, (n+=1), 350, (n+=32), al_map_rgb(255, 255, 255));        
