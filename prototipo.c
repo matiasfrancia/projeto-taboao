@@ -852,9 +852,6 @@ int budgetScreen(){
         return -1;
     }
 
-
-
-
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
@@ -961,6 +958,13 @@ int budgetScreen(){
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
+
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$");
+        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$");
+        
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
         al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
