@@ -25,6 +25,9 @@ const int ALTURA_TELA = 720;
 
 CANDIDATO cidade;
 
+ITEM compra;
+
+
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *instrucaoBtnImage = NULL,
@@ -842,7 +845,9 @@ int budgetScreen(){
 
     al_start_timer(contador);
 
-
+    if(&compra == NULL){
+        inicia_item(&compra);
+    }
     while (!sair){
         if (!al_is_event_queue_empty(fila_contador)){
             ALLEGRO_EVENT evento;
@@ -874,7 +879,7 @@ int budgetScreen(){
                     sair = 1;
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401){
-                          sair = 1;
+                          compra_educacao(&cidade, &compra);
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539){
                           sair = 1;
