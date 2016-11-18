@@ -21,7 +21,6 @@ int nivelScreen();
 int chooseScreen();
 int playScreen();
 int budgetScreen();
-int settingScreen();
 int loserScreen();
 
 
@@ -97,7 +96,7 @@ ALLEGRO_TIMEOUT timeout;
 int botao = 0;
 int sair = 0;
 int r = 0, g = 0, b = 0;
-int min = 0, seg = 5;
+int min = 5, seg = 0;
 int candidato = 0;
 
 void colorValidation(int n, int *r, int *g, int *b){
@@ -173,9 +172,6 @@ int main(void){
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                       evento.mouse.y >= 500 && evento.mouse.y <= 535){
                       nivelScreen(sair);
-            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
-                      evento.mouse.y >= 550 && evento.mouse.y <= 585){
-                      settingScreen(sair);
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                       evento.mouse.y >= 600 && evento.mouse.y <= 635){
                       nivelScreen(sair);
@@ -622,7 +618,7 @@ int playScreen(){
                 }
             }
             if (min == 0 && seg == 0){
-                loserScreen();
+                loserScreen(sair);
             } 
             global = (60 * min) + seg;
             if(global == random_value){
@@ -1026,6 +1022,7 @@ taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
             }
         }
     }    
+        al_clear_to_color(al_map_rgb(0, 0, 0));
         
         al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
         al_draw_text(fontLoser, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
