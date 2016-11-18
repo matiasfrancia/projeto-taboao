@@ -82,8 +82,6 @@ ALLEGRO_FONT *firstText = NULL,
              *thirdText = NULL,
              *fonte = NULL,
              *songText = NULL,
-             *nametext = NULL,
-             *infotext = NULL,
              *configText = NULL,
              *nameText = NULL,
              *infoText = NULL,
@@ -159,8 +157,6 @@ int main(void){
     al_flip_display();
  
     while (!sair){
-        //ALLEGRO_EVENT evento;
-        //ALLEGRO_TIMEOUT timeout;
         al_init_timeout(&timeout, 0.5);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
@@ -208,9 +204,6 @@ int nivelScreen(){
     }
     
     while (!sair){
-        //janela = NULL;
-        //ALLEGRO_EVENT evento;
-        //ALLEGRO_TIMEOUT timeout;
         al_init_timeout(&timeout, 0.5);
  
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
@@ -306,11 +299,11 @@ int chooseScreen(){
     
     vetor_de_candidatos[2].descricao = "É um empresário, jornalista, publicitário e político brasileiro";
 
-    vetor_de_candidatos[0].dinheiro = 10000;
+    vetor_de_candidatos[0].dinheiro = 10000000;
     
-    vetor_de_candidatos[1].dinheiro = 10000;
+    vetor_de_candidatos[1].dinheiro = 10000000;
     
-    vetor_de_candidatos[2].dinheiro = 10000;
+    vetor_de_candidatos[2].dinheiro = 10000000;
     
     char *majorName; 
     char *majorDesc;  
@@ -475,7 +468,6 @@ int chooseScreen(){
         
         al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
-        //al_draw_bitmap(fundo2, 0, 0, 0);
         al_draw_filled_rectangle(275, 510+50, 725, 530+50, al_map_rgb(87, 87, 86));
         al_draw_text(infoText, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 590+30, ALLEGRO_ALIGN_LEFT, "Taboão - ");
@@ -574,7 +566,7 @@ int playScreen(){
     }
 
     if(!fila_eventos || !fila_contador){
-        fprintf(stderr, "Falha ao carregar a fila de enventos.\n");
+        fprintf(stderr, "Falha ao carregar a fila de eventos.\n");
         return -1;
     }
 
@@ -762,15 +754,10 @@ int playScreen(){
         al_draw_textf(secondText, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
         al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
         al_draw_bitmap(education, 390+75+50, 575, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 390+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", educacaoInd);
         al_draw_bitmap(security, 445+75+50, 575, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 445+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", segurancaInd);
         al_draw_bitmap(sanitation, 500+75+50, 575, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 500+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", saneamentoInd);
         al_draw_bitmap(health, 555+75+50, 575, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 555+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", saudeInd);
         al_draw_bitmap(fun, 610+75+50, 575, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 610+75+50, 620, ALLEGRO_ALIGN_LEFT, "%d", lazerInd);
 
         if(togglePopup == 1) {
             al_draw_filled_rectangle(300, 260, 750, 375, al_map_rgb(255, 255, 255));
@@ -986,7 +973,6 @@ int budgetScreen(){
         for (int i = 0; i < 6; i++){
             al_draw_filled_rectangle(140, (n+=1), 350, (n+=32), al_map_rgb(255, 255, 255));        
         }
-        // 104 94 35
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 456, 82, 0);
         al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ %d", cidade.dinheiro);

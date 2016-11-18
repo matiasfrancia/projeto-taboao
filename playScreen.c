@@ -172,6 +172,9 @@ int main(void){
     int saneamentoInd; 
     int lazerInd;
     int toggleSound = 1;
+    prefeito firstMajor;
+    prefeito secondMajor;
+    prefeito thirdMajor;
 
     char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
     char *pauseText = "PAUSAR";  
