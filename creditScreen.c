@@ -50,21 +50,7 @@ int main(void)
    
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
- 
-    //al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
-    //al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-    //al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
-    //al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-    //al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-    //al_draw_text(font, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "CREDITOS");
-    //al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "*              Caio Luzano");
-    //al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "*              Daniel Moniz");
-    //al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "*              Henrique Shodi");
-    //al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "*              Luiz Frederico");
-    //al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "*              Matheus Souza");
-    //al_draw_filled_rectangle(250, 50, 750, 650, al_map_rgb(52, 52, 51));
-    //al_draw_bitmap(mainScreen, 400, 450, 0);
- 
+
     while(1){
         ALLEGRO_EVENT evento;
         ALLEGRO_TIMEOUT timeout;
@@ -87,9 +73,7 @@ int main(void)
         al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "*                     Henrique Shodi");
         al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "*                     Luiz Frederico");
         al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "*                     Matheus Souza");
-        //al_draw_filled_rectangle(250, 50, 750, 650, al_map_rgb(52, 52, 51));
-        //al_draw_bitmap(mainScreen, 400, 450, 0);
-
+        
         al_flip_display();
     }
 

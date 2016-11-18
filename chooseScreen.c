@@ -113,11 +113,11 @@ int main(void){
     vetor_de_candidatos = select_candidato();
 
     
-    vetor_de_candidatos[0].descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
+    vetor_de_candidatos[0].descricao = "Professor(a) de Agronomia da UNICAMP";
     
-    vetor_de_candidatos[1].descricao = "Defende uma maior participação feminina e favorável à reforma política";
+    vetor_de_candidatos[1].descricao = "Criador(a) de animais silvestres e artista de rua";
     
-    vetor_de_candidatos[2].descricao = "É um empresário, jornalista, publicitário e político brasileiro";
+    vetor_de_candidatos[2].descricao = "É um(a) empresário(a), jornalista, publicitário(a)";
     
     char *majorName; 
     char *majorDesc;  

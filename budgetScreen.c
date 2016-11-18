@@ -170,11 +170,7 @@ int main(void){
             }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                       evento.mouse.y >= 301 && evento.mouse.y <= 401){
                       sair = 1;
-            }/*else if (evento.mouse.x >= 815 && evento.mouse.x <= 835 &&
-                      evento.mouse.y >= 25 && evento.mouse.y <= 37){
-                      sair = 1;
-            }*/
-            else if (evento.mouse.x >= 900 && evento.mouse.x <= 950 &&
+            }else if (evento.mouse.x >= 900 && evento.mouse.x <= 950 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 40){
                       sair = 1;
             }else if (evento.mouse.x >= 140 && evento.mouse.x <= 150 &&
@@ -212,8 +208,6 @@ int main(void){
         al_draw_bitmap(pauseBtnImage, 815, 25, 0);
         al_draw_bitmap(clockBtnImage, 750, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 827, 23, 0, "PAUSAR");
-        //al_draw_bitmap(settingsBtnImage, 885, 22, 0);
-        //al_draw_text(firstText, al_map_rgb(255, 255, 255), 908, 23, 0, "CONFIGURAÇÕES");
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
@@ -224,7 +218,7 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "Manifestantes queimam materiais e interditam Régis Bittencourt.");
-        //al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
+        
         al_draw_bitmap(majorImage, 140, 152, 0);
         al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
@@ -265,7 +259,6 @@ int main(void){
         for (int i = 0; i < 6; i++){
             al_draw_filled_rectangle(140, (n+=1), 350, (n+=32), al_map_rgb(255, 255, 255));        
         }
-        // 104 94 35
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 456, 82, 0);
         al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ 2.000.000,00");

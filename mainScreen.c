@@ -65,36 +65,15 @@ int main(void)
     }
  
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
-    if (!taboaoLogoImage)
+    jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
+    instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
+    creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
+    if (!taboaoLogoImage || !jogarBtnImage || !instrucaoBtnImage || !creditBtnImage)
     {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
         return -1;
     }
-    jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
-    if (!jogarBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
-    if (!instrucaoBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    configBtnImage = al_load_bitmap("Images/mainImages/configuracoes-botao.png");
-    if (!configBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
-    if (!creditBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
- 
     fila_eventos = al_create_event_queue();
     if (!fila_eventos)
     {
@@ -107,14 +86,7 @@ int main(void)
  
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
-    
-    //al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
-    //al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
-    //al_draw_bitmap(jogarBtnImage, 400, 450, 0);
-    //al_draw_bitmap(configBtnImage, 400, 550, 0);
-    //al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
-    //al_draw_bitmap(creditBtnImage, 400, 600, 0);
- 
+
     al_flip_display();
  
     while (!sair){
@@ -148,8 +120,7 @@ int main(void)
         al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
         al_draw_bitmap(jogarBtnImage, 400, 450, 0);
         al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
-        al_draw_bitmap(configBtnImage, 400, 550, 0);
-        al_draw_bitmap(creditBtnImage, 400, 600, 0);
+        al_draw_bitmap(creditBtnImage, 400, 550, 0);
         
         al_flip_display();
     }
