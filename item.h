@@ -12,23 +12,24 @@ typedef struct item{
 
 }ITEM;
 
-ITEM quantidade;
-	 quantidade.saude = 0;
-	 quantidade.saneamento = 0;
-	 quantidade.seguranca = 0;
-	 quantidade.educacao = 0;
-	 quantidade.lazer = 0;
+void inicia_item(ITEM *aux){
+	aux->saude = 0;
+	aux->saneamento = 0;
+	aux->seguranca = 0;
+	aux->educacao = 0;
+	aux->lazer = 0;
+}
 
-int compra_saude(){
+int compra_saude(CANDIDATO *cidade, ITEM *quantidade){
 
-	if(quantidade.saude < (sizeof(inc) / sizeof(int))){
-		if(cidade.dinheiro < precos[quantidade.saude]){
+	if(quantidade->saude < (sizeof(inc) / sizeof(int))){
+		if(cidade->dinheiro < precos[quantidade->saude]){
 			return -1;
 		}
 		else{
-			cidade.dinheiro -= precos[quantidade.saude];
-			cidade.saude += inc[quantidade.saude];
-			quantidade.saude++;
+			cidade->dinheiro -= precos[quantidade->saude];
+			cidade->saude += inc[quantidade->saude];
+			quantidade->saude++;
 		}
 	}
 	else{
@@ -37,16 +38,16 @@ int compra_saude(){
 
 }
 
-int compra_saneamento(){
+int compra_saneamento(CANDIDATO *cidade, ITEM *quantidade){
 
-	if(quantidade.saneamento < (sizeof(inc) / sizeof(int))){
-		if(cidade.dinheiro < precos[quantidade.saneamento]){
+	if(quantidade->saneamento < (sizeof(inc) / sizeof(int))){
+		if(cidade->dinheiro < precos[quantidade->saneamento]){
 			return -1;
 		}
 		else{
-			cidade.dinheiro -= precos[quantidade.saneamento];
-			cidade.saneamento += inc[quantidade.saneamento];
-			quantidade.saneamento++;
+			cidade->dinheiro -= precos[quantidade->saneamento];
+			cidade->saneamento += inc[quantidade->saneamento];
+			quantidade->saneamento++;
 		}
 	}
 	else{
@@ -55,16 +56,16 @@ int compra_saneamento(){
 
 }
 
-int compra_seguranca(){
+int compra_seguranca(CANDIDATO *cidade, ITEM *quantidade){
 
-	if(quantidade.seguranca < (sizeof(inc) / sizeof(int))){
-		if(cidade.dinheiro < precos[quantidade.seguranca]){
+	if(quantidade->seguranca < (sizeof(inc) / sizeof(int))){
+		if(cidade->dinheiro < precos[quantidade->seguranca]){
 			return -1;
 		}
 		else{
-			cidade.dinheiro -= precos[quantidade.seguranca];
-			cidade.seguranca += inc[quantidade.seguranca];
-			quantidade.seguranca++;
+			cidade->dinheiro -= precos[quantidade->seguranca];
+			cidade->seguranca += inc[quantidade->seguranca];
+			quantidade->seguranca++;
 		}
 	}
 	else{
@@ -73,16 +74,16 @@ int compra_seguranca(){
 
 }
 
-int compra_educacao(){
+int compra_educacao(CANDIDATO *cidade, ITEM *quantidade){
 
-	if(quantidade.educacao < (sizeof(inc) / sizeof(int))){
-		if(cidade.educacao < precos[quantidade.educacao]){
+	if(quantidade->educacao < (sizeof(inc) / sizeof(int))){
+		if(cidade->educacao < precos[quantidade->educacao]){
 			return -1;
 		}
 		else{
-			cidade.dinheiro -= precos[quantidade.educacao];
-			cidade.educacao += inc[quantidade.educacao];
-			quantidade.educacao++;
+			cidade->dinheiro -= precos[quantidade->educacao];
+			cidade->educacao += inc[quantidade->educacao];
+			quantidade->educacao++;
 		}
 	}
 	else{
@@ -91,16 +92,16 @@ int compra_educacao(){
 
 }
 
-int compra_lazer(){
+int compra_lazer(CANDIDATO *cidade, ITEM *quantidade){
 
-	if(quantidade.lazer < (sizeof(inc) / sizeof(int))){
-		if(cidade.lazer < precos[quantidade.lazer]){
+	if(quantidade->lazer < (sizeof(inc) / sizeof(int))){
+		if(cidade->lazer < precos[quantidade->lazer]){
 			return -1;
 		}
 		else{
-			cidade.dinheiro -= precos[quantidade.lazer];
-			cidade.lazer += inc[quantidade.lazer];
-			quantidade.lazer++;
+			cidade->dinheiro -= precos[quantidade->lazer];
+			cidade->lazer += inc[quantidade->lazer];
+			quantidade->lazer++;
 		}
 	}
 	else{
