@@ -1,7 +1,5 @@
 /*gcc prototipo.c -o prototipo.exe $(pkg-config –cflags –libs allegro-5) -lallegro -lallegro_main -lallegro_image -lallegro_ttf -lallegro_font -lallegro_primitives -lallegro_audio -lallegro_acodec*/
 
-
-// Os arquivos de cabeçalho
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -12,10 +10,7 @@
 #include "structs.h"
 #include "eventos.h"
 #include <time.h>
- 
-// Para utilizarmos o fprintf
 #include <stdio.h>
-
 
 int nivelScreen();
 int chooseScreen();
