@@ -993,33 +993,6 @@ int budgetScreen(){
     al_destroy_event_queue(fila_contador);
 
     return 0;
-}
-
-        al_clear_to_color(al_map_rgb(0, 0, 0));
-
-        al_set_target_bitmap(al_get_backbuffer(janela));
-
-        
-        al_draw_filled_rectangle(100, 45, 900, 666, al_map_rgb(87, 87, 86));
-        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_text(configText, al_map_rgb(255, 255, 255), (1024/2), 70, ALLEGRO_ALIGN_CENTRE, "CONFIGURAÇÕES");
-        al_draw_text(songText, al_map_rgb(255, 255, 255), 200, 200, 0, "Volume");
-        al_draw_bitmap(voltar, 140, 568, 0);
-        //al_draw_filled_rectangle(690, 197, 700, 237, al_map_rgb(255, 255, 255));
-        al_draw_filled_rectangle(300, 212, 800, 222, al_map_rgb(255, 255, 255));
-        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
-        
-
-        al_flip_display();
-
-
-    }
-
-    al_destroy_audio_stream(musica);
-    al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
-
-    return 0;
 
 }
 
