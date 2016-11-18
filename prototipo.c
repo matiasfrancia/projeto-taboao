@@ -22,6 +22,7 @@ int chooseScreen();
 int playScreen();
 int budgetScreen();
 int settingScreen();
+int loserScreen();
 
 
 // Atributos da tela
@@ -86,7 +87,8 @@ ALLEGRO_FONT *firstText = NULL,
              *nameText = NULL,
              *infoText = NULL,
              *optionText =  NULL,
-             *moneyText = NULL;
+             *moneyText = NULL,
+             *fontLoser = NULL;
 ALLEGRO_AUDIO_STREAM *musica = NULL;
 ALLEGRO_TIMER *contador = 0;
 ALLEGRO_EVENT evento;
@@ -95,7 +97,7 @@ ALLEGRO_TIMEOUT timeout;
 int botao = 0;
 int sair = 0;
 int r = 0, g = 0, b = 0;
-int min = 5, seg = 0;
+int min = 0, seg = 5;
 int candidato = 0;
 
 void colorValidation(int n, int *r, int *g, int *b){
@@ -619,6 +621,9 @@ int playScreen(){
                     seg = 59;
                 }
             }
+            if (min == 0 && seg == 0){
+                loserScreen();
+            } 
             global = (60 * min) + seg;
             if(global == random_value){
                 random_value = rand() % 2;
@@ -658,7 +663,7 @@ int playScreen(){
             al_init_timeout(&timeout, 0.5);
  
             int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
-     
+
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
                 sair = 1;
             }
@@ -712,7 +717,7 @@ int playScreen(){
                         al_start_timer(contador);
                 
                 }
-            } 
+            }
         }
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -870,6 +875,7 @@ int budgetScreen(){
             if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
                 sair = 1;
             }
+
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
                     evento.mouse.y >= 163 && evento.mouse.y <= 265){
@@ -987,53 +993,7 @@ int budgetScreen(){
     al_destroy_event_queue(fila_contador);
 
     return 0;
-
 }
-int settingScreen(void){
-    voltar = al_load_bitmap("Images/globalImages/back-btn.png");
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    fila_eventos = al_create_event_queue();
-    
-    if (!taboaoLogoImage || !al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)||
-     !al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(1) || !fila_eventos){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-    musica = al_load_audio_stream("teste.ogg", 8, 1024);
-    if (!musica)
-    {
-        fprintf(stderr, "Falha ao carregar audio.\n");
-        al_destroy_event_queue(fila_eventos);
-        al_destroy_display(janela);
-        return false;
-    }
-
-    configText = al_load_ttf_font("Font/arial.ttf", 33,0 );
-    songText = al_load_ttf_font("Font/arial.ttf", 25,0 );
-
-    al_register_event_source(fila_eventos, al_get_mouse_event_source());
-    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
-
-    while (!sair){
-        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
-        
-        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-            sair = 1;
-        }
-        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            if (evento.mouse.x >= 130 && evento.mouse.x <= 200 &&
-                evento.mouse.y >= 558 && evento.mouse.y <= 578){
-                al_set_audio_stream_playing(musica, false);
-        }
-        else if (evento.mouse.x >= 200 && evento.mouse.x <= 400 &&
-                evento.mouse.y >= 558 && evento.mouse.y <= 578){
-               al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
-              al_set_audio_stream_playing(musica, true);
-        }
-
-    }
-      
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -1061,4 +1021,47 @@ int settingScreen(void){
 
     return 0;
 
+}
+
+int loserScreen(void){
+taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
+    fila_eventos = al_create_event_queue();
+    fontLoser = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
+    if (!taboaoLogoImage || !fila_eventos || !fontLoser ) {
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+   
+ 
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+ 
+    while (!sair){
+        if (!al_is_event_queue_empty(fila_contador)){
+            ALLEGRO_EVENT evento;
+            al_wait_for_event(fila_contador, &evento);
+ 
+        while (!al_is_event_queue_empty(fila_eventos)){
+            ALLEGRO_EVENT evento;
+            ALLEGRO_TIMEOUT timeout;
+            al_init_timeout(&timeout, 0.5);
+ 
+            int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+     
+            if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                sair = 1;
+            }
+        }
+    }    
+        
+        al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
+        al_draw_text(fontLoser, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
+
+        al_flip_display();
+    }
+
+    al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);
+ 
+    return 0;
 }
