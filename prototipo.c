@@ -675,8 +675,8 @@ int playScreen(){
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
                 
-                }else if (evento.mouse.x >= 325 && evento.mouse.x <= 400 &&
-                    evento.mouse.y >= 630 && evento.mouse.y <= 640 && toggleSound == 1){
+                }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
+                    evento.mouse.y >= 630 && evento.mouse.y <= 660 && toggleSound == 1){
                     budgetScreen();
                 }
 
