@@ -1,2 +1,110 @@
-int precos[] = {100000, 500000, 1000000, 5000000, 10000000};
+int precos[] = {1000000, 5000000, 10000000, 50000000, 100000000};
 
+int inc[] = {5, 5, 10, 10, 25};
+
+typedef struct item{
+
+	int saude:4;
+	int saneamento:4;
+	int seguranca:4;
+	int educacao:4;
+	int lazer:4;
+
+}ITEM;
+
+ITEM quantidade;
+	 quantidade.saude = 0;
+	 quantidade.saneamento = 0;
+	 quantidade.seguranca = 0;
+	 quantidade.educacao = 0;
+	 quantidade.lazer = 0;
+
+int compra_saude(){
+
+	if(quantidade.saude < (sizeof(inc) / sizeof(int))){
+		if(cidade.dinheiro < precos[quantidade.saude]){
+			return -1;
+		}
+		else{
+			cidade.dinheiro -= precos[quantidade.saude];
+			cidade.saude += inc[quantidade.saude];
+			quantidade.saude++;
+		}
+	}
+	else{
+		return -1;
+	}
+
+}
+
+int compra_saneamento(){
+
+	if(quantidade.saneamento < (sizeof(inc) / sizeof(int))){
+		if(cidade.dinheiro < precos[quantidade.saneamento]){
+			return -1;
+		}
+		else{
+			cidade.dinheiro -= precos[quantidade.saneamento];
+			cidade.saneamento += inc[quantidade.saneamento];
+			quantidade.saneamento++;
+		}
+	}
+	else{
+		return -1;
+	}
+
+}
+
+int compra_seguranca(){
+
+	if(quantidade.seguranca < (sizeof(inc) / sizeof(int))){
+		if(cidade.dinheiro < precos[quantidade.seguranca]){
+			return -1;
+		}
+		else{
+			cidade.dinheiro -= precos[quantidade.seguranca];
+			cidade.seguranca += inc[quantidade.seguranca];
+			quantidade.seguranca++;
+		}
+	}
+	else{
+		return -1;
+	}
+
+}
+
+int compra_educacao(){
+
+	if(quantidade.educacao < (sizeof(inc) / sizeof(int))){
+		if(cidade.educacao < precos[quantidade.educacao]){
+			return -1;
+		}
+		else{
+			cidade.dinheiro -= precos[quantidade.educacao];
+			cidade.educacao += inc[quantidade.educacao];
+			quantidade.educacao++;
+		}
+	}
+	else{
+		return -1;
+	}
+
+}
+
+int compra_lazer(){
+
+	if(quantidade.lazer < (sizeof(inc) / sizeof(int))){
+		if(cidade.lazer < precos[quantidade.lazer]){
+			return -1;
+		}
+		else{
+			cidade.dinheiro -= precos[quantidade.lazer];
+			cidade.lazer += inc[quantidade.lazer];
+			quantidade.lazer++;
+		}
+	}
+	else{
+		return -1;
+	}
+
+}
