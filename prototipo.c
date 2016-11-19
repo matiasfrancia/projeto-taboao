@@ -144,8 +144,6 @@ void globalDeclarations(){
     quietBtn = al_load_bitmap("Images/globalImages/quiet-btn.png");
     quietIcon = al_load_bitmap("Images/globalImages/quiet-icon.png");
 
-
-
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
     quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     quinzePx = al_load_ttf_font("Font/arial.ttf", 15,0 );
@@ -161,13 +159,6 @@ void globalDeclarations(){
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
 } 
-/*void mainScreenImages(){
-    taboaoMiniLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
-    jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
-    instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
-    creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
-}*/
-
 void colorValidation(int n, int *r, int *g, int *b){
     if (n < 50) {
             *r = 190;
@@ -319,12 +310,10 @@ int chooseScreen(){
 
     globalDeclarations();
          
-    if (!firstPersonaImage || !secondPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
+    if (!al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
-        !contador || !fila_contador || 
         !al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
+        fprintf(stderr, "Falha ao carregar o audio ou a mouse.\n");
         al_destroy_display(janela);
         return -1;
     }
@@ -342,15 +331,11 @@ int chooseScreen(){
 
     
     vetor_de_candidatos[0].descricao = "Professor de Ciência Política da USP e foi ministro da Educação";
-    
     vetor_de_candidatos[1].descricao = "Defende uma maior participação feminina e favorável à reforma política";
-    
     vetor_de_candidatos[2].descricao = "É um empresário, jornalista, publicitário e político brasileiro";
-
-    vetor_de_candidatos[0].dinheiro = 10000000;
-    
+   
+    vetor_de_candidatos[0].dinheiro = 10000000; 
     vetor_de_candidatos[1].dinheiro = 10000000;
-    
     vetor_de_candidatos[2].dinheiro = 10000000;
     
     char *majorName; 
@@ -365,7 +350,6 @@ int chooseScreen(){
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
-
 
     int candidato = 0;
     while (!sair){
@@ -548,8 +532,9 @@ int chooseScreen(){
     return 0;
 }
 
-
 int playScreen(){
+
+    globalDeclarations();
     
     srand((unsigned)time(NULL));
 
@@ -560,19 +545,9 @@ int playScreen(){
     int global = 60 * min;
     int random_value = 295;
     fprintf(stderr, "VALOR ALEATORIO: %d\n", random_value);
-    globalDeclarations();
 
-    
     if(!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao setar o mouse.\n");
-        return -1;
-    }
-
-    if (!firstPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !muteBtnImage || !soundBackup || !pauseBackup || !soundBtnImage || 
-        !cautionBtn || !cautionIcon || !quietBtn || !quietIcon){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
-        al_destroy_display(janela);
         return -1;
     }
 
@@ -588,9 +563,7 @@ int playScreen(){
         al_destroy_event_queue(fila_eventos);
         al_destroy_display(janela);
         return false;
-    }
-
-    
+    } 
 
     int togglePopup = 3;
     char *majorName; 
@@ -798,7 +771,6 @@ int budgetScreen(){
     
     globalDeclarations();
     
-
     if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o mouse.\n");
         al_destroy_display(janela);
@@ -978,9 +950,7 @@ int budgetScreen(){
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
-        
     }
-
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
@@ -989,6 +959,7 @@ int budgetScreen(){
 }
 
 int loserScreen(){
+
     globalDeclarations();
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -1026,6 +997,7 @@ int loserScreen(){
 
 
 int helpScreen(){
+
     globalDeclarations();   
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
