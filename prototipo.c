@@ -794,15 +794,18 @@ int budgetScreen(){
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
  
-            if (evento.type == ALLEGRO_EVENT_TIMER){
+            if (evento.type == ALLEGRO_EVENT_TIMER) {
                 seg--;
-                if (seg == -1){
+                if (seg == -1) {
                     min--;
                     seg = 59;
                 }
             }
+            if (min == 0 && seg == 0){
+                loserScreen(sair);
+            } 
         }
- 
+        
         while (!al_is_event_queue_empty(fila_eventos)){
             ALLEGRO_EVENT evento;
             ALLEGRO_TIMEOUT timeout;
