@@ -17,6 +17,9 @@ int chooseScreen();
 int playScreen();
 int budgetScreen();
 int loserScreen();
+int winnerScreen();
+int helpScreen();
+int creditScreen();
 
 
 // Atributos da tela
@@ -85,7 +88,8 @@ ALLEGRO_FONT *firstText = NULL,
              *infoText = NULL,
              *optionText =  NULL,
              *moneyText = NULL,
-             *fontLoser = NULL;
+             *fontLoser = NULL,
+             *nomes = NULL;
 ALLEGRO_AUDIO_STREAM *musica = NULL;
 ALLEGRO_TIMER *contador = 0;
 ALLEGRO_EVENT evento;
@@ -172,10 +176,10 @@ int main(void){
                 nivelScreen(sair);
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                       evento.mouse.y >= 500 && evento.mouse.y <= 535){
-                      nivelScreen(sair);
+                      helpScreen(sair);
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
-                      evento.mouse.y >= 600 && evento.mouse.y <= 635){
-                      nivelScreen(sair);
+                      evento.mouse.y >= 550 && evento.mouse.y <= 585){
+                      creditScreen(sair);
             }
         }
         
@@ -1058,6 +1062,111 @@ taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
         al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
         al_draw_text(fontLoser, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
 
+        al_flip_display();
+    }
+
+    al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);
+ 
+    return 0;
+}
+
+
+int helpScreen(){
+
+    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
+    fila_eventos = al_create_event_queue();
+    fonte = al_load_ttf_font("Font/arial.ttf", 38,0 );
+    nomes = al_load_ttf_font("Font/arial.ttf", 15,0 );
+    if (!taboaoLogoImage || !fila_eventos || ! fonte || !nomes) {
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+   
+ 
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+
+    while(!sair){
+        ALLEGRO_EVENT evento;
+        ALLEGRO_TIMEOUT timeout;
+        al_init_timeout(&timeout, 0.5);
+ 
+        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+        al_register_event_source(fila_eventos, al_get_mouse_event_source());
+        al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+ 
+        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+            sair = 1;
+        }
+        if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            main();
+        }
+
+        al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
+        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
+        al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
+        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
+        al_draw_text(fonte, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        
+        al_flip_display();
+    }
+
+    al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);
+ 
+    return 0;
+}
+
+int creditScreen(){
+
+    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
+    fila_eventos = al_create_event_queue();
+    fonte = al_load_ttf_font("Font/arial.ttf", 38,0 );
+    nomes = al_load_ttf_font("Font/arial.ttf", 15,0 );
+    if (!taboaoLogoImage || !fila_eventos || ! fonte || !nomes) {
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+   
+ 
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+
+    while(!sair){
+        ALLEGRO_EVENT evento;
+        ALLEGRO_TIMEOUT timeout;
+        al_init_timeout(&timeout, 0.5);
+ 
+        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+        al_register_event_source(fila_eventos, al_get_mouse_event_source());
+        al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+ 
+        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+            sair = 1;
+        }
+        if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            main();
+        }
+
+        al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
+        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
+        al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
+        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
+        al_draw_text(fonte, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "CREDITOS");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "*                     Caio Luzano");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "*                     Daniel Moniz");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "*                     Henrique Shodi");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "*                     Luiz Frederico");
+        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "*                     Matheus Souza");
+        
         al_flip_display();
     }
 
