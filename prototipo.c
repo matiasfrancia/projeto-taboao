@@ -143,6 +143,9 @@ void globalDeclarations(){
     cautionIcon = al_load_bitmap("Images/globalImages/caution-icon.png");
     quietBtn = al_load_bitmap("Images/globalImages/quiet-btn.png");
     quietIcon = al_load_bitmap("Images/globalImages/quiet-icon.png");
+    facilBtnImage = al_load_bitmap("Images/nivelImages/facilBtnImage.png");
+    medioBtnImage = al_load_bitmap("Images/nivelImages/medioBtnImage.png");
+    dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
 
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
     quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
@@ -254,15 +257,16 @@ int mainScreen(){
 
 int nivelScreen(){
 
-    facilBtnImage = al_load_bitmap("Images/nivelImages/facilBtnImage.png");
-    medioBtnImage = al_load_bitmap("Images/nivelImages/medioBtnImage.png");
-    dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
+    globalDeclarations();
 
-    if (!facilBtnImage || !medioBtnImage || !dificilBtnImage){
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
+    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
+        fprintf(stderr, "Falha ao carregar o mouse.\n");
         al_destroy_display(janela);
         return -1;
     }
+
+    al_register_event_source(fila_eventos, al_get_mouse_event_source());
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));    
     
     while (!sair){
         al_init_timeout(&timeout, 0.5);
