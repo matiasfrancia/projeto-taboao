@@ -104,8 +104,8 @@ char *pauseText = "PAUSAR";
 int togglePlay = 1;
     
 void globalDeclarations(){    
+
     al_set_window_title(janela, "Projeto Taboão");
-    
     //Global Images
     taboaoMiniLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
     jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
@@ -146,7 +146,7 @@ void globalDeclarations(){
     facilBtnImage = al_load_bitmap("Images/nivelImages/facilBtnImage.png");
     medioBtnImage = al_load_bitmap("Images/nivelImages/medioBtnImage.png");
     dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
-
+    //Global fontes
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
     quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     quinzePx = al_load_ttf_font("Font/arial.ttf", 15,0 );
@@ -157,11 +157,12 @@ void globalDeclarations(){
     trintaDoisPx = al_load_ttf_font("Font/arial.ttf", 32,0 );
     trintaQuatroBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
     trintaOitopx = al_load_ttf_font("Font/arial.ttf", 38,0 );
-
+    //Global Allegro 
     fila_eventos = al_create_event_queue();
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
 } 
+
 void colorValidation(int n, int *r, int *g, int *b){
     if (n < 50) {
             *r = 190;
