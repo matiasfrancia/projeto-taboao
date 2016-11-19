@@ -823,7 +823,7 @@ int budgetScreen(){
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
 
     if (!janela || !garbage || !clockBtnImage ||
-        !investir || !firstPersonaImage || !secondPersonaImage|| !pauseBtnImage || !settingsBtnImage || 
+        !investir || !firstPersonaImage || !secondPersonaImage|| !pauseBtnImage || !settingsBtnImage
         || !fundo || !al_install_mouse() ||  !money ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
@@ -1061,7 +1061,7 @@ int loserScreen(void){
 
 
 int helpScreen(){
-
+    declaration();
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
 
     if (!taboaoLogoImage) {
