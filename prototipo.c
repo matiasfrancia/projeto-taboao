@@ -35,6 +35,7 @@ ITEM compra;
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *taboaoMiniLogoImage = NULL,
+                *taboaoLogoImageloser = NULL,
                 *instrucaoBtnImage = NULL,
                 *creditBtnImage = NULL,
                 *jogarBtnImage = NULL,
@@ -44,11 +45,9 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *botao_sair = NULL,
                 *firstPersonaImage = NULL,
                 *secondPersonaImage = NULL,
-                *sencondPersonaImage = NULL,
                 *thirdPersonaImage = NULL,
                 *fundo = NULL,
                 *pauseBtnImage = NULL,
-                *settingsBtnImage = NULL,
                 *voltar = NULL,
                 *clockBtnImage = NULL,
                 *soundBtnImage = NULL,
@@ -68,14 +67,14 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *saneamento = NULL,
                 *security = NULL,
                 *seguranca = NULL,
-                *fundo2 = NULL,
                 *majorImage = NULL,
                 *investiment = NULL,
                 *cautionBtn = NULL,
                 *cautionIcon = NULL,
                 *quietBtn = NULL,
                 *investir = NULL,
-                *quietIcon = NULL;
+                *quietIcon = NULL,
+                *blackBack = NULL;
 
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
@@ -98,20 +97,55 @@ ALLEGRO_TIMEOUT timeout;
 int botao = 0;
 int sair = 0;
 int r = 0, g = 0, b = 0;
-int min = 5, seg = 0;
+int min = 0, seg = 5;
 int candidato = 0;
 int toggleSound = 1;    
 char *pauseText = "PAUSAR";  
 int togglePlay = 1;
     
-void declaration(){    
+void globalDeclarations(){    
     al_set_window_title(janela, "Projeto Taboão");
     
+    //Global Images
     taboaoMiniLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
     jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
     instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
     creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
-    
+    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
+    taboaoLogoImageloser = al_load_bitmap("Images/loserScreen/game-over.png");
+    money = al_load_bitmap("Images/budgetScreen/money-btn.png");
+    voltar = al_load_bitmap("Images/globalImages/back-btn.png");
+    pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
+    pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
+    playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
+    muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
+    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
+    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
+    soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
+    educacao = al_load_bitmap("Images/budgetScreen/education-btn.png");
+    saude = al_load_bitmap("Images/budgetScreen/health-btn.png");
+    seguranca = al_load_bitmap("Images/budgetScreen/security-btn.png");
+    lazer = al_load_bitmap("Images/budgetScreen/laze-btn.png");
+    saneamento = al_load_bitmap("Images/budgetScreen/sanitation-btn.png");
+    garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
+    investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
+    firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
+    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
+    fundo = al_load_bitmap("Images/budgetScreen/tela.png");
+    education = al_load_bitmap("Images/globalImages/education-btn.png");
+    fun = al_load_bitmap("Images/globalImages/fun-btn.png");
+    health = al_load_bitmap("Images/globalImages/health-btn.png");
+    sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
+    security = al_load_bitmap("Images/globalImages/security-btn.png");
+    blackBack = al_load_bitmap("Images/playScreen/background-black.png");
+    investiment = al_load_bitmap("Images/playScreen/investimento.png");
+    cautionBtn = al_load_bitmap("Images/globalImages/caution-btn.png");
+    cautionIcon = al_load_bitmap("Images/globalImages/caution-icon.png");
+    quietBtn = al_load_bitmap("Images/globalImages/quiet-btn.png");
+    quietIcon = al_load_bitmap("Images/globalImages/quiet-icon.png");
+
+
+
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
     quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     quinzePx = al_load_ttf_font("Font/arial.ttf", 15,0 );
@@ -127,6 +161,12 @@ void declaration(){
     contador = al_create_timer(1.0);
     fila_contador = al_create_event_queue();
 } 
+/*void mainScreenImages(){
+    taboaoMiniLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
+    jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
+    instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
+    creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
+}*/
 
 void colorValidation(int n, int *r, int *g, int *b){
     if (n < 50) {
@@ -140,7 +180,7 @@ void colorValidation(int n, int *r, int *g, int *b){
         }
 }
  
-int main(void){
+int main(){
 
 
     al_init_font_addon(); 
@@ -165,15 +205,15 @@ int main(void){
     mainScreen();
 
     return 0;
-
 }
 
 int mainScreen(){
 
-    declaration();    
-    
-    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
-        !jogarBtnImage || !instrucaoBtnImage || !creditBtnImage || !fila_eventos){
+    globalDeclarations(); 
+
+    //mainScreenImages();
+
+    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao inicializar o mouse.\n");
         al_destroy_display(janela);
         return -1;
@@ -195,13 +235,13 @@ int mainScreen(){
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 450 && evento.mouse.y <= 485){
-                nivelScreen(sair);
+                    nivelScreen(sair);
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
-                      evento.mouse.y >= 500 && evento.mouse.y <= 535){
-                      helpScreen(sair);
+                evento.mouse.y >= 500 && evento.mouse.y <= 535){
+                    helpScreen(sair);
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
-                      evento.mouse.y >= 550 && evento.mouse.y <= 585){
-                      creditScreen(sair);
+                evento.mouse.y >= 550 && evento.mouse.y <= 585){
+                    creditScreen(sair);
             }
         }
         
@@ -214,8 +254,11 @@ int mainScreen(){
         
         al_flip_display();
     }
+    al_destroy_bitmap(botao_sair);
+    al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);
 
-
+    return 0;
 }
 
 int nivelScreen(){
@@ -242,13 +285,13 @@ int nivelScreen(){
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             if (evento.mouse.x >= 165 && evento.mouse.x <= 352 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                chooseScreen(sair);
+                    chooseScreen(sair);
             }else if (evento.mouse.x >= 415 && evento.mouse.x <= 595 &&
-                      evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                      chooseScreen(sair);
+                evento.mouse.y >= 250 && evento.mouse.y <= 437){
+                    chooseScreen(sair);
             }else if (evento.mouse.x >= 665 && evento.mouse.x <= 845 &&
-                      evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                      chooseScreen(sair);
+                evento.mouse.y >= 250 && evento.mouse.y <= 437){
+                    chooseScreen(sair);
             }
         }
         
@@ -274,24 +317,8 @@ int nivelScreen(){
 
 int chooseScreen(){
 
-    declaration();
-
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
-    
-    pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
-    muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
-    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
-    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
-    soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
-    education = al_load_bitmap("Images/globalImages/education-btn.png");
-    fun = al_load_bitmap("Images/globalImages/fun-btn.png");
-    health = al_load_bitmap("Images/globalImages/health-btn.png");
-    sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
-    security = al_load_bitmap("Images/globalImages/security-btn.png"); 
-    fundo2 = al_load_bitmap("Images/chooseImages/chooseScreen.png");
-    
+    globalDeclarations();
+         
     if (!firstPersonaImage || !secondPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
@@ -533,28 +560,7 @@ int playScreen(){
     int global = 60 * min;
     int random_value = 295;
     fprintf(stderr, "VALOR ALEATORIO: %d\n", random_value);
-    declaration();
-    
-    fundo = al_load_bitmap("Images/playScreen/background-black.png");
-    firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    sencondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
-    pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
-    playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
-    muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
-    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
-    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
-    soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
-    investiment = al_load_bitmap("Images/playScreen/investimento.png");
-    education = al_load_bitmap("Images/globalImages/education-btn.png");
-    fun = al_load_bitmap("Images/globalImages/fun-btn.png");
-    health = al_load_bitmap("Images/globalImages/health-btn.png");
-    sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
-    security = al_load_bitmap("Images/globalImages/security-btn.png");
-    cautionBtn = al_load_bitmap("Images/globalImages/caution-btn.png");
-    cautionIcon = al_load_bitmap("Images/globalImages/caution-icon.png");
-    quietBtn = al_load_bitmap("Images/globalImages/quiet-btn.png");
-    quietIcon = al_load_bitmap("Images/globalImages/quiet-icon.png");
-
+    globalDeclarations();
 
     
     if(!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
@@ -562,21 +568,11 @@ int playScreen(){
         return -1;
     }
 
-    if (!fundo || !firstPersonaImage || !sencondPersonaImage ||
+    if (!firstPersonaImage ||
         !pauseBtnImage || !clockBtnImage || !muteBtnImage || !soundBackup || !pauseBackup || !soundBtnImage || 
         !cautionBtn || !cautionIcon || !quietBtn || !quietIcon){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
-        return -1;
-    }
-
-    if(!contador){
-        fprintf(stderr, "Falha ao carregar o contador.\n");
-        return -1;
-    }
-
-    if(!fila_eventos || !fila_contador){
-        fprintf(stderr, "Falha ao carregar a fila de eventos.\n");
         return -1;
     }
 
@@ -725,7 +721,7 @@ int playScreen(){
         al_set_target_bitmap(al_get_backbuffer(janela));
         
         al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(29,113,184));
-        al_draw_bitmap(fundo, 0, -10, 0);
+        al_draw_bitmap(blackBack, 0, -10, 0);
         if(cidade.homem){
             al_draw_bitmap(firstPersonaImage, 145, 530, 0);    
         }
@@ -790,7 +786,7 @@ int playScreen(){
 
         al_flip_display();
     }
-    al_destroy_bitmap(sencondPersonaImage);
+    al_destroy_bitmap(secondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_event_queue(fila_contador);
@@ -800,33 +796,11 @@ int playScreen(){
 
 int budgetScreen(){    
     
-    declaration();
-    money = al_load_bitmap("Images/budgetScreen/money-btn.png");
-    voltar = al_load_bitmap("Images/globalImages/back-btn.png");
-    pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
-    pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
-    playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
-    muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
-    clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
-    soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
-    soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
-    educacao = al_load_bitmap("Images/budgetScreen/education-btn.png");
-    saude = al_load_bitmap("Images/budgetScreen/health-btn.png");
-    seguranca = al_load_bitmap("Images/budgetScreen/security-btn.png");
-    lazer = al_load_bitmap("Images/budgetScreen/laze-btn.png");
-    saneamento = al_load_bitmap("Images/budgetScreen/sanitation-btn.png");
-    garbage = al_load_bitmap("Images/budgetScreen/delete-btn.png");
-    investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
-    firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
-    secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
-    settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
-    fundo = al_load_bitmap("Images/budgetScreen/tela.png");
+    globalDeclarations();
+    
 
-    if (!janela || !garbage || !clockBtnImage ||
-        !investir || !firstPersonaImage || !secondPersonaImage|| !pauseBtnImage || !settingsBtnImage
-        || !fundo || !al_install_mouse() ||  !money ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
-        fprintf(stderr, "Falha ao carregar o arquivo.\n");
+    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
+        fprintf(stderr, "Falha ao carregar o mouse.\n");
         al_destroy_display(janela);
         return -1;
     }
@@ -1012,19 +986,10 @@ int budgetScreen(){
     al_destroy_event_queue(fila_contador);
 
     return 0;
-
 }
 
-int loserScreen(void){
-    declaration();
-    taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
-
-    if (!taboaoLogoImage || !fila_eventos) {
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-   
+int loserScreen(){
+    globalDeclarations();
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
  
@@ -1047,7 +1012,7 @@ int loserScreen(void){
     }    
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
-        al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
+        al_draw_bitmap(taboaoLogoImageloser,  460, 200, 0);
         al_draw_text(trintaQuatroBoldPx, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
 
         al_flip_display();
@@ -1061,15 +1026,7 @@ int loserScreen(void){
 
 
 int helpScreen(){
-    declaration();
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-
-    if (!taboaoLogoImage) {
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-   
+    globalDeclarations();   
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
 
@@ -1112,16 +1069,7 @@ int helpScreen(){
 
 int creditScreen(){
     
-    declaration();
-
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-
-    if (!taboaoLogoImage ) {
-        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
-        al_destroy_display(janela);
-        return -1;
-    }
-   
+    globalDeclarations();
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
 
