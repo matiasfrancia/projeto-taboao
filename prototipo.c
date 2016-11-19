@@ -880,23 +880,28 @@ int budgetScreen(){
                 if       (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 265){
                           //botão investimento EDUCAÇÃO
+                          printf("botao1\n");
                           compra_educacao(&cidade, &compra);
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401){
                           //botão investimento SEGURANÇA
                           printf("botao 2\n");
+                          compra_seguranca(&cidade, &compra);
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539){
                           //botão investimento SANEAMENTO
                           printf("botao 3\n");
+                          compra_saneamento(&cidade, &compra);
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 263){
                           //botão investimento SAÚDE
                           printf("botao 4\n");
+                          compra_saude(&cidade, &compra);
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401){
                           //botão investimento LAZER
                           printf("botao 5\n" );
+                          compra_lazer(&cidade, &compra);
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
                           evento.mouse.y >= 558 && evento.mouse.y <= 578){
                           //botão de VOLTAR
@@ -991,11 +996,11 @@ int budgetScreen(){
         al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
         al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
 
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", precos[compra.educacao]);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", precos[compra.seguranca]);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", precos[compra.saneamento]);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", precos[compra.saude]);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", precos[compra.lazer]);
         
         al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
