@@ -422,7 +422,6 @@ int chooseScreen(){
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                 // candidato random 1
                         candidato = 1;
-                        al_set_audio_stream_playing(musica, false);
                         cidade = vetor_de_candidatos[0];
                         playScreen();
             
@@ -430,14 +429,12 @@ int chooseScreen(){
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                 // candidato random 2
                         candidato = 2;
-                        al_set_audio_stream_playing(musica, false);
                         cidade = vetor_de_candidatos[1];
                         playScreen();
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                 // candidato random 3
                         candidato = 3;
-                        al_set_audio_stream_playing(musica, false);
                         cidade = vetor_de_candidatos[2];
                         playScreen();
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
@@ -600,15 +597,6 @@ int playScreen(){
         fprintf(stderr, "Falha ao carregar o audio.\n");
         return -1;
     }
-
-    musica = al_load_audio_stream("teste.ogg", 4, 1024);
-    if (!musica)
-    {
-        fprintf(stderr, "Falha ao carregar audio.\n");
-        al_destroy_event_queue(fila_eventos);
-        al_destroy_display(janela);
-        return false;
-    } 
 
     int togglePopup = 3;
     char *majorName; 
@@ -774,7 +762,6 @@ int playScreen(){
         
         // relogio
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
-        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
 
         // detalhe prefeito
         al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
