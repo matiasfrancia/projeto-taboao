@@ -43,6 +43,26 @@ int inc[] = {5, 5, 10, 10, 25};
 char *homem[] = {"Henrique", "Daniel", "Matheus", "Caio", "Luiz", "Antonio", "Carlos", "Felipe", "Mauricio", "Marcos"};
 char *mulher[] = {"Viviane", "Rosana", "Elaine", "Sonia", "Eliana", "Neuza", "Talita", "Leticia", "Caroline", "Lais", "Livia"};
 
+void print_candidato(CANDIDATO *cand){
+
+	printf("SAUDE: %d\n", cand->saude);
+	printf("SANEAMENTO: %d\n", cand->saneamento);
+	printf("SEGURANCA: %d\n", cand->seguranca);
+	printf("EDUCACAO: %d\n,", cand->educacao);
+	printf("LAZER: %d\n", cand->lazer);
+
+}
+
+void print_item(ITEM *quantidade){
+
+	printf("COMPRADO SAUDE: %d\n", quantidade->saude);
+	printf("COMPRADO SANEAMENTO: %d\n", quantidade->saneamento);
+	printf("COMPRADO SEGURANCA: %d\n", quantidade->seguranca);
+	printf("COMPRADO EDUCACAO: %d\n,", quantidade->educacao);
+	printf("COMPRADO LAZER: %d\n", quantidade->lazer);	
+
+}
+
 int name_select(CANDIDATO *aux, char ***pessoa){
 
 	srand((unsigned)time(NULL));
@@ -237,94 +257,106 @@ CANDIDATO *select_candidato(){
 
 
 int compra_saude(CANDIDATO *cidade, ITEM *quantidade){
-
+	print_item(quantidade);
 	if(quantidade->saude < (sizeof(inc) / sizeof(int))){
 		if(cidade->dinheiro < precos[quantidade->saude]){
+			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
 		else{
 			cidade->dinheiro -= precos[quantidade->saude];
 			cidade->saude += inc[quantidade->saude];
 			quantidade->saude++;
+			print_candidato(cidade);
 		}
 	}
 	else{
+		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
 		return -1;
 	}
 
 }
 
 int compra_saneamento(CANDIDATO *cidade, ITEM *quantidade){
-
+	print_item(quantidade);
 	if(quantidade->saneamento < (sizeof(inc) / sizeof(int))){
 		if(cidade->dinheiro < precos[quantidade->saneamento]){
+			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
 		else{
 			cidade->dinheiro -= precos[quantidade->saneamento];
 			cidade->saneamento += inc[quantidade->saneamento];
 			quantidade->saneamento++;
+			print_candidato(cidade);
 		}
 	}
 	else{
+		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
 		return -1;
 	}
 
 }
 
 int compra_seguranca(CANDIDATO *cidade, ITEM *quantidade){
-
+	print_item(quantidade);
 	if(quantidade->seguranca < (sizeof(inc) / sizeof(int))){
 		if(cidade->dinheiro < precos[quantidade->seguranca]){
+			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
 		else{
 			cidade->dinheiro -= precos[quantidade->seguranca];
 			cidade->seguranca += inc[quantidade->seguranca];
 			quantidade->seguranca++;
+			print_candidato(cidade);
 		}
 	}
 	else{
+		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
 		return -1;
 	}
 
 }
 
 int compra_educacao(CANDIDATO *cidade, ITEM *quantidade){
-
+	print_item(quantidade);
 	if(quantidade->educacao < (sizeof(inc) / sizeof(int))){
-		if(cidade->educacao < precos[quantidade->educacao]){
+		if(cidade->dinheiro < precos[quantidade->educacao]){
+			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
 		else{
 			cidade->dinheiro -= precos[quantidade->educacao];
 			cidade->educacao += inc[quantidade->educacao];
 			quantidade->educacao++;
+			print_candidato(cidade);
 		}
 	}
 	else{
+		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
 		return -1;
 	}
 
 }
 
 int compra_lazer(CANDIDATO *cidade, ITEM *quantidade){
-
+	print_item(quantidade);
 	if(quantidade->lazer < (sizeof(inc) / sizeof(int))){
-		if(cidade->lazer < precos[quantidade->lazer]){
+		if(cidade->dinheiro < precos[quantidade->lazer]){
+			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
 		else{
 			cidade->dinheiro -= precos[quantidade->lazer];
 			cidade->lazer += inc[quantidade->lazer];
 			quantidade->lazer++;
+			print_candidato(cidade);
 		}
 	}
 	else{
+		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
 		return -1;
 	}
 
 }
-
-
-
