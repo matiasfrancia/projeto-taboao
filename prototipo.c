@@ -22,7 +22,6 @@ int winnerScreen();
 int helpScreen();
 int creditScreen();
 
-
 // Atributos da tela
 const int LARGURA_TELA = 1024;
 const int ALTURA_TELA = 720;
@@ -30,7 +29,6 @@ const int ALTURA_TELA = 720;
 CANDIDATO cidade;
 
 ITEM compra;
-
 
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
@@ -103,7 +101,7 @@ int toggleSound = 1;
 char *pauseText = "PAUSAR";  
 int togglePlay = 1;
     
-void globalDeclarations(){    
+void globalDeclarations(){
 
     al_set_window_title(janela, "Projeto Taboão");
     //Global Images
@@ -772,7 +770,7 @@ int playScreen(){
     return 0;
 }
 
-int budgetScreen(){    
+int budgetScreen(){
     
     globalDeclarations();
     
@@ -999,7 +997,6 @@ int loserScreen(){
  
     return 0;
 }
-
 
 int helpScreen(){
 
