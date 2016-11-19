@@ -12,6 +12,7 @@
 #include <time.h>
 #include <stdio.h>
 
+int mainScreen();
 int nivelScreen();
 int chooseScreen();
 int playScreen();
@@ -138,6 +139,14 @@ int main(void){
         return -1;
     }
 
+    mainScreen();
+
+    return 0;
+
+}
+
+int mainScreen(){
+
     al_set_window_title(janela, "Projeto Taboão");
 
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
@@ -192,6 +201,7 @@ int main(void){
         
         al_flip_display();
     }
+
 
 }
 
@@ -1100,7 +1110,7 @@ int helpScreen(){
             sair = 1;
         }
         if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            main();
+            mainScreen();
         }
 
         al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
@@ -1152,7 +1162,7 @@ int creditScreen(){
             sair = 1;
         }
         if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            main();
+            mainScreen();
         }
 
         al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
