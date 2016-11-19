@@ -34,6 +34,7 @@ ITEM compra;
 
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
+                *taboaoMiniLogoImage = NULL,
                 *instrucaoBtnImage = NULL,
                 *creditBtnImage = NULL,
                 *jogarBtnImage = NULL,
@@ -79,18 +80,16 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
-ALLEGRO_FONT *firstText = NULL,
-             *secondText = NULL,
-             *thirdText = NULL,
-             *fonte = NULL,
-             *songText = NULL,
-             *configText = NULL,
-             *nameText = NULL,
-             *infoText = NULL,
-             *optionText =  NULL,
-             *moneyText = NULL,
-             *fontLoser = NULL,
-             *nomes = NULL;
+ALLEGRO_FONT *onzePx = NULL,
+            *quatorzePx =  NULL,
+            *quinzePx = NULL,
+            *dezesseisPx = NULL,
+            *dezoitoPx = NULL,
+            *vinteDoisPx = NULL,
+            *vinteQuatroPx = NULL,
+            *trintaDoisPx = NULL,
+            *trintaQuatroBoldPx = NULL,
+            *trintaOitopx = NULL;
 ALLEGRO_AUDIO_STREAM *musica = NULL;
 ALLEGRO_TIMER *contador = 0;
 ALLEGRO_EVENT evento;
@@ -104,6 +103,30 @@ int candidato = 0;
 int toggleSound = 1;    
 char *pauseText = "PAUSAR";  
 int togglePlay = 1;
+    
+void declaration(){    
+    al_set_window_title(janela, "Projeto Taboão");
+    
+    taboaoMiniLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
+    jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
+    instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
+    creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
+    
+    onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
+    quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
+    quinzePx = al_load_ttf_font("Font/arial.ttf", 15,0 );
+    dezesseisPx = al_load_ttf_font("Font/Arial_Bold.ttf", 16,0 );
+    dezoitoPx = al_load_ttf_font("Font/arial.ttf", 18,0 );
+    vinteDoisPx = al_load_ttf_font("Font/arial.ttf", 22,0 );
+    vinteQuatroPx = al_load_ttf_font("Font/arial.ttf", 24,0 );
+    trintaDoisPx = al_load_ttf_font("Font/arial.ttf", 32,0 );
+    trintaQuatroBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
+    trintaOitopx = al_load_ttf_font("Font/arial.ttf", 38,0 );
+
+    fila_eventos = al_create_event_queue();
+    contador = al_create_timer(1.0);
+    fila_contador = al_create_event_queue();
+} 
 
 void colorValidation(int n, int *r, int *g, int *b){
     if (n < 50) {
@@ -147,20 +170,10 @@ int main(void){
 
 int mainScreen(){
 
-    al_set_window_title(janela, "Projeto Taboão");
-
-    taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoMiniLogoImage.png");
-    jogarBtnImage = al_load_bitmap("Images/mainImages/jogar-botao.png");
-    instrucaoBtnImage = al_load_bitmap("Images/mainImages/instrucoes-botao.png");
-    creditBtnImage = al_load_bitmap("Images/mainImages/creditos-botao.png");
-    fila_eventos = al_create_event_queue();
-    firstText = al_load_ttf_font("Font/arial.ttf", 32,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 18,0 );
-    thirdText = al_load_ttf_font("Font/arial.ttf", 24,0 );
+    declaration();    
     
-    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)||
-        !taboaoLogoImage || !jogarBtnImage || !instrucaoBtnImage || !creditBtnImage ||
-        !fila_eventos){
+    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
+        !jogarBtnImage || !instrucaoBtnImage || !creditBtnImage || !fila_eventos){
         fprintf(stderr, "Falha ao inicializar o mouse.\n");
         al_destroy_display(janela);
         return -1;
@@ -193,8 +206,8 @@ int mainScreen(){
         }
         
         al_draw_filled_rectangle(0, 0, 1080, 720, al_map_rgb(0, 0, 0));
-        al_draw_text(firstText, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
-        al_draw_bitmap(taboaoLogoImage, 420, 200, 0);
+        al_draw_text(trintaDoisPx, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
+        al_draw_bitmap(taboaoMiniLogoImage, 420, 200, 0);
         al_draw_bitmap(jogarBtnImage, 400, 450, 0);
         al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
         al_draw_bitmap(creditBtnImage, 400, 550, 0);
@@ -210,6 +223,7 @@ int nivelScreen(){
     facilBtnImage = al_load_bitmap("Images/nivelImages/facilBtnImage.png");
     medioBtnImage = al_load_bitmap("Images/nivelImages/medioBtnImage.png");
     dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
+
     if (!facilBtnImage || !medioBtnImage || !dificilBtnImage){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
         al_destroy_display(janela);
@@ -239,14 +253,14 @@ int nivelScreen(){
         }
         
         al_draw_filled_rectangle(0, 0, 1080, 720, al_map_rgb(0, 0, 0));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "ESCOLHA UM NÍVEL");
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, "Selecione um nível abaixo para começar.");
+        al_draw_text(trintaDoisPx, al_map_rgb(255, 255, 255), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "ESCOLHA UM NÍVEL");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/2), 150, ALLEGRO_ALIGN_CENTRE, "Selecione um nível abaixo para começar.");
         al_draw_bitmap(facilBtnImage, 165, 250, 0);
         al_draw_bitmap(medioBtnImage, 415, 250, 0);
         al_draw_bitmap(dificilBtnImage, 665, 250, 0);
-        al_draw_text(thirdText, al_map_rgb(255, 255, 255), (1024/4), 450, ALLEGRO_ALIGN_CENTRE, "Fácil");
-        al_draw_text(thirdText, al_map_rgb(255, 255, 255), (1024/2), 450, ALLEGRO_ALIGN_CENTRE, "Médio");
-        al_draw_text(thirdText, al_map_rgb(255, 255, 255), 750, 450, ALLEGRO_ALIGN_CENTRE, "Difícil");
+        al_draw_text(vinteQuatroPx, al_map_rgb(255, 255, 255), (1024/4), 450, ALLEGRO_ALIGN_CENTRE, "Fácil");
+        al_draw_text(vinteQuatroPx, al_map_rgb(255, 255, 255), (1024/2), 450, ALLEGRO_ALIGN_CENTRE, "Médio");
+        al_draw_text(vinteQuatroPx, al_map_rgb(255, 255, 255), 750, 450, ALLEGRO_ALIGN_CENTRE, "Difícil");
         
         al_flip_display();
     }
@@ -259,6 +273,9 @@ int nivelScreen(){
 }
 
 int chooseScreen(){
+
+    declaration();
+
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
@@ -274,20 +291,11 @@ int chooseScreen(){
     sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
     security = al_load_bitmap("Images/globalImages/security-btn.png"); 
     fundo2 = al_load_bitmap("Images/chooseImages/chooseScreen.png");
-    fonte = al_load_font("Font/arial.ttf", 11,00);
-    contador = al_create_timer(1.0);
-    fila_contador = al_create_event_queue();
-    fila_eventos = al_create_event_queue();
-    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
-    nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
-    infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
-    optionText = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     
-    if (!taboaoLogoImage || !firstPersonaImage || !secondPersonaImage ||
-        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() || !infoText ||
-        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) || !fonte || !optionText ||
-        !contador || !fila_contador || !fila_eventos || !firstText || !secondText || !nameText || 
+    if (!firstPersonaImage || !secondPersonaImage ||
+        !pauseBtnImage || !clockBtnImage || !soundBtnImage || !al_install_mouse() ||
+        !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
+        !contador || !fila_contador || 
         !al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o arquivo de imagem0.\n");
         al_destroy_display(janela);
@@ -442,50 +450,48 @@ int chooseScreen(){
         }
 
         al_set_target_bitmap(al_get_backbuffer(janela));
-
         
         al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_text(nameText, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
-        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
+        al_draw_text(vinteQuatroPx, al_map_rgb(255, 255, 255), (1024/2), 170, ALLEGRO_ALIGN_CENTRE, majorName);
+        al_draw_text(vinteDoisPx, al_map_rgb(255, 255, 255), (1024/2), 250, ALLEGRO_ALIGN_CENTRE, majorDesc);
         if(vetor_de_candidatos[0].homem == 1){
             al_draw_bitmap(firstPersonaImage, 145, 330, 0);    
-        }
-        else{
+        }else{
             al_draw_bitmap(secondPersonaImage, 145, 330, 0);
         }
+
         if(vetor_de_candidatos[1].homem == 1){
             al_draw_bitmap(firstPersonaImage, 415, 330, 0);
-        }
-        else{
+        }else{
             al_draw_bitmap(secondPersonaImage, 415, 330, 0);
         }
+
         if(vetor_de_candidatos[2].homem == 1){
             al_draw_bitmap(firstPersonaImage, 680, 330, 0);
-        }
-        else{
+        }else{
             al_draw_bitmap(secondPersonaImage, 680, 330, 0);
         }   
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
         
-        al_draw_textf(fonte, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_draw_filled_rectangle(275, 510+50, 725, 530+50, al_map_rgb(87, 87, 86));
-        al_draw_text(infoText, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 590+30, ALLEGRO_ALIGN_LEFT, "Taboão - ");
-        al_draw_text(firstText, al_map_rgb(203, 187, 160), 320, 590+30, ALLEGRO_ALIGN_LEFT, "21/03/1997");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 275, 575+30, ALLEGRO_ALIGN_LEFT, majorName);
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+30, ALLEGRO_ALIGN_LEFT, "Taboão - ");
+        al_draw_text(onzePx, al_map_rgb(203, 187, 160), 320, 590+30, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 575+30, ALLEGRO_ALIGN_LEFT, majorName);
         
         al_draw_bitmap(education, 390+75, 555+40, 0);
         al_draw_bitmap(security, 445+75, 555+40, 0);
@@ -494,15 +500,15 @@ int chooseScreen(){
         al_draw_bitmap(fun, 610+75, 555+40, 0);
         if(educacao != 0 || saude != 0 || saneamento != 0 || seguranca != 0 || lazer != 0){
             colorValidation(educacao, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 475, 640, 0, "%d%%", educacao);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 475, 640, 0, "%d%%", educacao);
             colorValidation(saude, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 530, 640, 0, "%d%%", saude);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 530, 640, 0, "%d%%", saude);
             colorValidation(saneamento, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 640, 640, 0, "%d%%", saneamento);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 640, 640, 0, "%d%%", saneamento);
             colorValidation(seguranca, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 585, 640, 0, "%d%%", seguranca);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 585, 640, 0, "%d%%", seguranca);
             colorValidation(lazer, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 695, 640, 0, "%d%%", lazer);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 695, 640, 0, "%d%%", lazer);
         }
 
         al_flip_display();
@@ -527,12 +533,11 @@ int playScreen(){
     int global = 60 * min;
     int random_value = 295;
     fprintf(stderr, "VALOR ALEATORIO: %d\n", random_value);
- 
+    declaration();
     
     fundo = al_load_bitmap("Images/playScreen/background-black.png");
     firstPersonaImage = al_load_bitmap("Images/chooseImages/firstPersonaImage.png");
     sencondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
-    pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
@@ -550,14 +555,6 @@ int playScreen(){
     quietBtn = al_load_bitmap("Images/globalImages/quiet-btn.png");
     quietIcon = al_load_bitmap("Images/globalImages/quiet-icon.png");
 
-    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 22,0 );
-    nameText = al_load_ttf_font("Font/Arial_Bold.ttf", 24,0 );
-    infoText = al_load_ttf_font("Font/Arial_Bold.ttf", 18,0 );
-
-    contador = al_create_timer(1.0);
-    fila_contador = al_create_event_queue();
-    fila_eventos = al_create_event_queue();
 
     
     if(!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
@@ -580,11 +577,6 @@ int playScreen(){
 
     if(!fila_eventos || !fila_contador){
         fprintf(stderr, "Falha ao carregar a fila de eventos.\n");
-        return -1;
-    }
-
-    if(!firstText || !secondText || !nameText || !infoText){
-        fprintf(stderr, "Falha ao carregar os arquivos de texto.\n");
         return -1;
     }
 
@@ -743,26 +735,24 @@ int playScreen(){
         
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(310, 10, 730, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         
-        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
 
         //detalhe prefeito
-        al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));
-        al_draw_text(infoText, al_map_rgb(255, 255, 255), 335, 530, 0, "Informações");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
-        al_draw_text(firstText, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, *cidade.nome);
-        al_draw_textf(secondText, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+        al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
+        al_draw_text(onzePx, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, *cidade.nome);
+        al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
         al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
         al_draw_bitmap(education, 390+75+50, 575, 0);
         al_draw_bitmap(security, 445+75+50, 575, 0);
@@ -773,30 +763,30 @@ int playScreen(){
         if(togglePopup == 1) {
             al_draw_filled_rectangle(300, 260, 750, 375, al_map_rgb(255, 255, 255));
             al_draw_bitmap(quietIcon, (1024/2), 270, 0);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
+            al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
+            al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
             al_draw_bitmap(quietBtn, 475, 340, 0);
 
         }
         else if(togglePopup == 0){
             al_draw_filled_rectangle(300, 260, 750, 375, al_map_rgb(255, 255, 255));
             al_draw_bitmap(cautionIcon, (1024/2), 270, 0);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
-            al_draw_text(firstText, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, ruim.text);
+            al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
+            al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, ruim.text);
             al_draw_bitmap(cautionBtn, 475, 340, 0);
 
         }
 
             colorValidation(cidade.educacao, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 475+50, 620, 0, "%d%%", cidade.educacao);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 475+50, 620, 0, "%d%%", cidade.educacao);
             colorValidation(cidade.saude, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 530+50, 620, 0, "%d%%", cidade.saude);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 530+50, 620, 0, "%d%%", cidade.saude);
             colorValidation(cidade.saneamento, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 640+50, 620, 0, "%d%%", cidade.saneamento);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 640+50, 620, 0, "%d%%", cidade.saneamento);
             colorValidation(cidade.seguranca, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 585+50, 620, 0, "%d%%", cidade.seguranca);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 585+50, 620, 0, "%d%%", cidade.seguranca);
             colorValidation(cidade.lazer, &r, &g, &b);
-            al_draw_textf(optionText, al_map_rgb(r, g, b), 695+50, 620, 0, "%d%%", cidade.lazer);
+            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 695+50, 620, 0, "%d%%", cidade.lazer);
 
         al_flip_display();
     }
@@ -808,13 +798,9 @@ int playScreen(){
     return 0;
 }
 
-
-
-
 int budgetScreen(){    
     
-    al_set_window_title(janela, "Projeto Taboão");
-
+    declaration();
     money = al_load_bitmap("Images/budgetScreen/money-btn.png");
     voltar = al_load_bitmap("Images/globalImages/back-btn.png");
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
@@ -835,18 +821,10 @@ int budgetScreen(){
     secondPersonaImage = al_load_bitmap("Images/chooseImages/secondPersonaImage.png");
     settingsBtnImage = al_load_bitmap("Images/chooseImages/settingsBtnImage.png");
     fundo = al_load_bitmap("Images/budgetScreen/tela.png");
-    firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
-    optionText = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
-    moneyText = al_load_ttf_font("Font/Arial_Bold.ttf", 16,0 );
-    contador = al_create_timer(1.0);
-    fila_contador = al_create_event_queue();
-    fila_eventos = al_create_event_queue();
 
-    if (!janela || !garbage || !firstText || !secondText || !clockBtnImage ||
-        !investir || !firstPersonaImage || !secondPersonaImage || !fila_eventos || !optionText || !moneyText ||
-        !fila_contador || !pauseBtnImage || !settingsBtnImage || 
-        !contador || !fundo || !al_install_mouse() ||  !money ||
+    if (!janela || !garbage || !clockBtnImage ||
+        !investir || !firstPersonaImage || !secondPersonaImage|| !pauseBtnImage || !settingsBtnImage || 
+        || !fundo || !al_install_mouse() ||  !money ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
         fprintf(stderr, "Falha ao carregar o arquivo.\n");
         al_destroy_display(janela);
@@ -952,15 +930,15 @@ int budgetScreen(){
         
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
         al_draw_bitmap(soundBtnImage, 900, 20, 0);
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 925, 23, 0, "SOM");
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         //al_draw_bitmap(fundo, 120, ALLEGRO_ALIGN_CENTRE, 0);
         if(cidade.homem){
             al_draw_bitmap(firstPersonaImage, 140, 152, 0);    
@@ -987,34 +965,34 @@ int budgetScreen(){
         al_draw_bitmap(saneamento, 405, 439, 0);
         al_draw_bitmap(saude, 693, 163, 0);
         al_draw_bitmap(lazer, 693, 301, 0);
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 540, 167, ALLEGRO_ALIGN_CENTRE, "EDUCACÃO");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 545, 306, ALLEGRO_ALIGN_CENTRE, "SEGURANCA");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 540, 167, ALLEGRO_ALIGN_CENTRE, "EDUCACÃO");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 545, 306, ALLEGRO_ALIGN_CENTRE, "SEGURANCA");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
 
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$");
         
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
-        al_draw_textf(optionText, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
         
         colorValidation(cidade.educacao, &r, &g, &b);
-        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
+        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
         colorValidation(cidade.saude, &r, &g, &b);
-        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
+        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
         colorValidation(cidade.seguranca, &r, &g, &b);
-        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
+        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
         colorValidation(cidade.lazer, &r, &g, &b);
-        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
+        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
         colorValidation(cidade.saneamento, &r, &g, &b);
-        al_draw_textf(optionText, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
+        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
         
         int n = 337;
         for (int i = 0; i < 6; i++){
@@ -1022,8 +1000,8 @@ int budgetScreen(){
         }
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 456, 82, 0);
-        al_draw_textf(moneyText, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ %d", cidade.dinheiro);
-        al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
+        al_draw_textf(dezesseisPx, al_map_rgb(104, 94, 35), 486, 87, 0, "R$ %d", cidade.dinheiro);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
         
@@ -1038,10 +1016,10 @@ int budgetScreen(){
 }
 
 int loserScreen(void){
-taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
-    fila_eventos = al_create_event_queue();
-    fontLoser = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
-    if (!taboaoLogoImage || !fila_eventos || !fontLoser ) {
+    declaration();
+    taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
+
+    if (!taboaoLogoImage || !fila_eventos) {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
         al_destroy_display(janela);
         return -1;
@@ -1070,7 +1048,7 @@ taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
         al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
-        al_draw_text(fontLoser, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
+        al_draw_text(trintaQuatroBoldPx, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
 
         al_flip_display();
     }
@@ -1085,10 +1063,8 @@ taboaoLogoImage = al_load_bitmap("Images/loserScreen/game-over.png");
 int helpScreen(){
 
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    fila_eventos = al_create_event_queue();
-    fonte = al_load_ttf_font("Font/arial.ttf", 38,0 );
-    nomes = al_load_ttf_font("Font/arial.ttf", 15,0 );
-    if (!taboaoLogoImage || !fila_eventos || ! fonte || !nomes) {
+
+    if (!taboaoLogoImage) {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
         al_destroy_display(janela);
         return -1;
@@ -1118,12 +1094,12 @@ int helpScreen(){
         al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_text(fonte, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         
         al_flip_display();
     }
@@ -1135,12 +1111,12 @@ int helpScreen(){
 }
 
 int creditScreen(){
+    
+    declaration();
 
     taboaoLogoImage = al_load_bitmap("Images/globalImages/taboaoLogoImage.png");
-    fila_eventos = al_create_event_queue();
-    fonte = al_load_ttf_font("Font/arial.ttf", 38,0 );
-    nomes = al_load_ttf_font("Font/arial.ttf", 15,0 );
-    if (!taboaoLogoImage || !fila_eventos || ! fonte || !nomes) {
+
+    if (!taboaoLogoImage ) {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
         al_destroy_display(janela);
         return -1;
@@ -1170,12 +1146,12 @@ int creditScreen(){
         al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_text(fonte, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "CREDITOS");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "*                     Caio Luzano");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "*                     Daniel Moniz");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "*                     Henrique Shodi");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "*                     Luiz Frederico");
-        al_draw_text(nomes, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "*                     Matheus Souza");
+        al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "CREDITOS");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "*                     Caio Luzano");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "*                     Daniel Moniz");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "*                     Henrique Shodi");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "*                     Luiz Frederico");
+        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "*                     Matheus Souza");
         
         al_flip_display();
     }
