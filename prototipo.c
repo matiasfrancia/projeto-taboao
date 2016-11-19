@@ -1039,10 +1039,30 @@ int loserScreen(){
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
  
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+    al_register_event_source(fila_contador, al_get_timer_event_source(contador));
+
+    al_start_timer(contador); 
+    min = 0;
+    seg = 3;
     while (!sair){
         if (!al_is_event_queue_empty(fila_contador)){
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_contador, &evento);
+            
+            if (evento.type == ALLEGRO_EVENT_TIMER)
+            {
+                seg--;
+                if (seg == -1)
+                {
+                    min--;
+                    seg = 59;
+                }
+            }
+            if(seg == 0){
+                mainScreen();
+            }
+
  
         while (!al_is_event_queue_empty(fila_eventos)){
             ALLEGRO_EVENT evento;
