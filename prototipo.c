@@ -79,7 +79,8 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *quietBtn = NULL,
                 *investir = NULL,
                 *quietIcon = NULL,
-                *blackBack = NULL;
+                *blackBack = NULL,
+                *compraNaoDisponivel = NULL;
 
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
@@ -153,6 +154,7 @@ void globalDeclarations(){
     facilBtnImage = al_load_bitmap("Images/nivelImages/facilBtnImage.png");
     medioBtnImage = al_load_bitmap("Images/nivelImages/medioBtnImage.png");
     dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
+    compraNaoDisponivel = al_load_bitmap("Images/budgetScreen/noBudget-btn.png");
     //Global fontes
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
     quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
@@ -975,11 +977,46 @@ int budgetScreen(){
         al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
-        al_draw_bitmap(investir, 539, 226, 0);
-        al_draw_bitmap(investir, 539, 364, 0);
-        al_draw_bitmap(investir, 539, 502, 0);
-        al_draw_bitmap(investir, 824, 226, 0);
-        al_draw_bitmap(investir, 824, 364, 0);
+        
+
+        if(cidade.dinheiro >= precos[compra.educacao]){
+            al_draw_bitmap(investir, 539, 226, 0);    
+        }
+        else{
+            al_draw_bitmap(compraNaoDisponivel, 539, 226, 0);
+        }
+
+
+        if(cidade.dinheiro >= precos[compra.seguranca]){
+            al_draw_bitmap(investir, 539, 364, 0);    
+        }
+        else{
+            al_draw_bitmap(compraNaoDisponivel, 539, 364, 0);
+        }
+        
+
+        if(cidade.dinheiro >= precos[compra.saneamento]){
+            al_draw_bitmap(investir, 539, 502, 0);    
+        }
+        else{
+            al_draw_bitmap(compraNaoDisponivel, 539, 502, 0);
+        }
+        
+
+        if(cidade.dinheiro >= precos[compra.saude]){
+            al_draw_bitmap(investir, 824, 226, 0);    
+        }
+        else{
+            al_draw_bitmap(compraNaoDisponivel, 824, 226, 0);
+        }
+        
+        if(cidade.dinheiro >= precos[compra.lazer]){
+            al_draw_bitmap(investir, 824, 364, 0);    
+        }
+        else{
+            al_draw_bitmap(compraNaoDisponivel, 824, 364, 0);
+        }
+        
         //al_draw_bitmap(garbage, 509, 226, 0);
         //al_draw_bitmap(garbage, 509, 364, 0);
         //al_draw_bitmap(garbage, 509, 502, 0);
