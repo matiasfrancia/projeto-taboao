@@ -55,12 +55,12 @@ int main(void){
     clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
     soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
     soundBackup = al_load_bitmap("Images/globalImages/sound-btn.png");
-    education = al_load_bitmap("Images/budgetScreen/education-btn.png");
-    security = al_load_bitmap("Images/budgetScreen/security-btn.png");
-    sanitation = al_load_bitmap("Images/budgetScreen/sanitation-btn.png");
-    health = al_load_bitmap("Images/budgetScreen/health-btn.png");
-    laze = al_load_bitmap("Images/budgetScreen/laze-btn.png");
-    investir = al_load_bitmap("Images/budgetScreen/budget-btn.png");
+    education = al_load_bitmap("Images/eventScreen/educationOption.png");
+    security = al_load_bitmap("Images/eventScreen/securityOption.png");
+    sanitation = al_load_bitmap("Images/eventScreen/sanitationOption.png");
+    health = al_load_bitmap("Images/eventScreen/healthOption.png");
+    laze = al_load_bitmap("Images/eventScreen/funOption.png");
+    investir = al_load_bitmap("Images/eventScreen/investimentBtn.png");
     firstText = al_load_ttf_font("Font/arial.ttf", 11,0 );
     secondText = al_load_ttf_font("Font/arial.ttf", 24,0 );
     fila_eventos = al_create_event_queue();
@@ -115,7 +115,7 @@ int main(void){
         al_set_target_bitmap(al_get_backbuffer(janela));
 
         
-        al_draw_bitmap(fundo, 91, 50, 0);
+        //al_draw_bitmap(fundo, 91, 50, 0);
         
         //al_draw_filled_rectangle(100, 140, 900, 490, al_map_rgb(87, 87, 86));
         //al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
@@ -129,20 +129,20 @@ int main(void){
         al_draw_text(firstText, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(firstText, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
-        //al_draw_filled_rectangle(400, 525, 401, 665, al_map_rgb(255, 255, 255));
-        
         al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 240, ALLEGRO_ALIGN_CENTRE, "DIGITE O NOME DE SEU EVENTO:");
-        al_draw_bitmap(education, 285, 370, 0);
-        al_draw_bitmap(security, 380, 370, 0);
-        al_draw_bitmap(sanitation, 475, 370, 0);
-        al_draw_bitmap(health, 570, 370, 0);
-        al_draw_bitmap(laze, 665, 370, 0);
+        al_draw_filled_rectangle(368, 290, 659, 311, al_map_rgb(255, 255, 255));
 
-        al_draw_bitmap(investir, 475, 480, 0);
+        al_draw_text(secondText, al_map_rgb(255, 255, 255), (1024/2), 330, ALLEGRO_ALIGN_CENTRE, "ONDE VOCE DESEJA INVESTIR:");
+        al_draw_bitmap(education, 368, 382, 0);
+        al_draw_bitmap(security, 432, 382, 0);
+        al_draw_bitmap(sanitation, 494, 382, 0);
+        al_draw_bitmap(health, 556, 382, 0);
+        al_draw_bitmap(laze, 618, 382, 0);
+
+        al_draw_bitmap(investir, 359, 460, 0);
 
         //al_draw_textf(firstText, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
-        //al_draw_bitmap(fundo, 0, 0, 0);
 
     
     al_flip_display();
