@@ -24,6 +24,7 @@ int loserScreen();
 int winnerScreen();
 int helpScreen();
 int creditScreen();
+int destroyall();
 
 // Atributos da tela
 const int LARGURA_TELA = 1024;
@@ -264,9 +265,12 @@ int mainScreen(){
         
         al_flip_display();
     }
-    al_destroy_bitmap(botao_sair);
+
+    destroyall();
+
+    /*al_destroy_bitmap(botao_sair);
     al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
+    al_destroy_event_queue(fila_eventos);*/
 
     return 0;
 }
@@ -323,9 +327,11 @@ int nivelScreen(){
         al_flip_display();
     }
 
-    al_destroy_bitmap(botao_sair);
+    destroyall();
+
+    /*al_destroy_bitmap(botao_sair);
     al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
+    al_destroy_event_queue(fila_eventos);*/
 
     return 0;
 }
@@ -565,10 +571,13 @@ int chooseScreen(){
 
         al_flip_display();
     }
-    al_destroy_bitmap(secondPersonaImage);
+
+    destroyall();
+
+    /*al_destroy_bitmap(secondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
-    al_destroy_event_queue(fila_contador);
+    al_destroy_event_queue(fila_contador);*/
  
     return 0;
 }
@@ -806,10 +815,13 @@ int playScreen(){
 
         al_flip_display();
     }
-    al_destroy_bitmap(secondPersonaImage);
+
+    destroyall();
+
+    /*al_destroy_bitmap(secondPersonaImage);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
-    al_destroy_event_queue(fila_contador);
+    al_destroy_event_queue(fila_contador);*/
  
     return 0;
 }
@@ -1054,9 +1066,12 @@ int budgetScreen(){
 
         al_flip_display();
     }
-    al_destroy_display(janela);
+
+    destroyall();
+
+    /*al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
-    al_destroy_event_queue(fila_contador);
+    al_destroy_event_queue(fila_contador);*/
 
     return 0;
 }
@@ -1113,8 +1128,10 @@ int loserScreen(){
         al_flip_display();
     }
 
-    al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
+    destroyall();
+
+    /*al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);*/
  
     return 0;
 }
@@ -1157,8 +1174,10 @@ int helpScreen(){
         al_flip_display();
     }
 
-    al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
+    destroyall();
+
+    /*al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);*/
  
     return 0;
 }
@@ -1201,8 +1220,81 @@ int creditScreen(){
         al_flip_display();
     }
 
-    al_destroy_display(janela);
-    al_destroy_event_queue(fila_eventos);
+    destroyall();
+
+    /*al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);*/
  
     return 0;
+}
+
+int destroyall(){
+
+    al_destroy_bitmap(taboaoLogoImage);
+    al_destroy_bitmap(taboaoMiniLogoImage);
+    al_destroy_bitmap(taboaoLogoImageloser);
+    al_destroy_bitmap(instrucaoBtnImage);
+    al_destroy_bitmap(creditBtnImage);
+    al_destroy_bitmap(jogarBtnImage);
+    al_destroy_bitmap(facilBtnImage);
+    al_destroy_bitmap(medioBtnImage);
+    al_destroy_bitmap(dificilBtnImage);
+    al_destroy_bitmap(botao_sair);
+    al_destroy_bitmap(firstPersonaImage);
+    al_destroy_bitmap(secondPersonaImage);
+    al_destroy_bitmap(thirdPersonaImage);
+    al_destroy_bitmap(fundo);
+    al_destroy_bitmap(pauseBtnImage);
+    al_destroy_bitmap(voltar);
+    al_destroy_bitmap(clockBtnImage);
+    al_destroy_bitmap(soundBtnImage);
+    al_destroy_bitmap(muteBtnImage);
+    al_destroy_bitmap(soundBackup);
+    al_destroy_bitmap(pauseBackup);
+    al_destroy_bitmap(playBtnImage);
+    al_destroy_bitmap(money);
+    al_destroy_bitmap(garbage);
+    al_destroy_bitmap(education);
+    al_destroy_bitmap(educacao);
+    al_destroy_bitmap(fun);
+    al_destroy_bitmap(lazer);
+    al_destroy_bitmap(health);
+    al_destroy_bitmap(saude);
+    al_destroy_bitmap(sanitation);
+    al_destroy_bitmap(saneamento);
+    al_destroy_bitmap(security);
+    al_destroy_bitmap(seguranca);
+    al_destroy_bitmap(majorImage);
+    al_destroy_bitmap(investiment);
+    al_destroy_bitmap(cautionBtn);
+    al_destroy_bitmap(cautionIcon);
+    al_destroy_bitmap(quietBtn);
+    al_destroy_bitmap(investir);
+    al_destroy_bitmap(quietIcon);
+    al_destroy_bitmap(blackBack);
+    al_destroy_bitmap(compraNaoDisponivel);
+
+    al_destroy_font(onzePx);
+    al_destroy_font(quatorzePx);
+    al_destroy_font(quinzePx);
+    al_destroy_font(dezesseisPx);
+    al_destroy_font(dezoitoPx);
+    al_destroy_font(vinteDoisPx);
+    al_destroy_font(vinteQuatroPx);
+    al_destroy_font(trintaDoisPx);
+    al_destroy_font(trintaQuatroBoldPx);
+    al_destroy_font(trintaOitopx);
+
+    al_destroy_audio_stream(musica);
+    al_destroy_timer(contador);
+    //al_destroy_event(evento);
+    //al_destroy_timeout(timeout);
+
+    al_destroy_event_queue(fila_contador);
+    al_destroy_event_queue(fila_eventos);
+    al_destroy_display(janela);
+
+
+    return 0;
+
 }
