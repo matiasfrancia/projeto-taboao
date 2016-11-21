@@ -174,6 +174,7 @@ void select_projeto_random(CANDIDATO *aux){
 
 	srand((unsigned)time(NULL));
 	int custo;
+	int random = rand() % 2;
 	if(!random){
 		random = rand() % 10;
 		aux->dinheiro = 1000 + (rand() % 9001); 						//preco varia entre 1000 e 10000
@@ -185,7 +186,7 @@ void select_projeto_random(CANDIDATO *aux){
 		aux->saneamento = 0;
 	}
 	else{
-		random = rando() % 6;
+		random = rand() % 6;
 		aux->dinheiro = 1000 + (rand() % 9001);
 		aux->nome = &projetos_lazer[random];
 		aux->lazer = 2;
@@ -203,9 +204,9 @@ void select_projeto(CANDIDATO *vector_de_projetos){
 	CANDIDATO *aux;
 	for(int i = 0; i < 6; i++){
 		select_projeto_random(aux);
-		vector_de_projetos[i] = aux;
+		vector_de_projetos[i] = *aux;
 	}
-	
+
 }
 
 

@@ -895,7 +895,7 @@ int budgetScreen(){
                           printf("botao 5\n" );
                           compra_lazer(&cidade, &compra);
                 }else if (evento.mouse.x >= 305 && evento.mouse.x <= 605 &&
-                          evento.mouse.y >= 3s39 && evento.mouse.y <= 539){
+                          evento.mouse.y >= 339 && evento.mouse.y <= 539){
                           //botão investimento SOLENIDADES
                           printf("botao 6\n" );
                           eventScreen();
