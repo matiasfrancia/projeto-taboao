@@ -2,19 +2,39 @@
 #include <stdlib.h>
 #include <time.h>
 
-char *positivo[] = {"Sua Cidade foi escolhida para fazer a abertura dos Jogos Olimpicos", 
-					"O próximo Brasil Game Show acontecerá em Taboão da Serra",
-					"O São Paulo Fashion Week poderá ser em Taboão",
-					"O Lollapalooza desta vez será em Taboão",
-					"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui"
-					};
+char *positivo[] = 		   {"Sua Cidade foi escolhida para fazer a abertura dos Jogos Olimpicos", 
+							"O próximo Brasil Game Show acontecerá em Taboão da Serra",
+							"O São Paulo Fashion Week poderá ser em Taboão",
+							"O Lollapalooza desta vez será em Taboão",
+							"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui"
+							};
 
-char *negativo[] = {"Chuva muito forte, realmente muito forte, em Taboão",
-					"Fortes ventos em Taboão",
-					"Um vírus misterioso atingiu Taboão",
-					"Uma bactéria misteriosa está infectando os moradores de Taboão",
-					"Muitos raios antingem Taboão"
-					};
+char *negativo[] = 		   {"Chuva muito forte, realmente muito forte, em Taboão",
+							"Fortes ventos em Taboão",
+							"Um vírus misterioso atingiu Taboão",
+							"Uma bactéria misteriosa está infectando os moradores de Taboão",
+							"Muitos raios antingem Taboão"
+							};
+
+char *projetos_educacao[] = {"FEIRA DO LIVRO",
+							 "PALESTRA EDUCATIVA",
+							 "FEIRA DE ASTRONOMIA",
+							 "FEIRA DE CIÊNCIA",
+							 "OLIMPIADAS DE MATEMÁTICA",
+							 "OLIMPIADAS DE FÍSICA",
+							 "RODA DE ARTE",
+							 "HACKATON",
+							 "GRUPO DE DEBATE",
+							 "CONCURSO DE ARTE"
+							};
+
+char *projetos_lazer[]    = {"FEIRA DE GASTRONOMIA",
+							 "GRANDE MARATONA DE TABOAO",
+							 "FESTAS COMEMORATIVAS",
+							 "ENCONTRO MUNICIPAL DE LAZER",
+							 "EVENTO DE INCENTIVO AO ESPORTE",
+							 "EVENTOS NOTURNOS"
+							};
 
 void select_event_description(char ***text, int a){
 	srand((unsigned)time(NULL));
@@ -147,6 +167,44 @@ void select_evento_bom(EVENTO_BOM *aux){
 	aux->saneamento = bom[idx].saneamento;
 	aux->educacao = bom[idx].educacao;
 
+	
+}
+
+void select_projeto_random(CANDIDATO *aux){
+
+	srand((unsigned)time(NULL));
+	int custo;
+	if(!random){
+		random = rand() % 10;
+		aux->dinheiro = 1000 + (rand() % 9001); 						//preco varia entre 1000 e 10000
+		aux->nome = &projetos_educacao[random];
+		aux->educacao = 2;
+		aux->seguranca = 0;
+		aux->saude = 0;
+		aux->lazer = 0;
+		aux->saneamento = 0;
+	}
+	else{
+		random = rando() % 6;
+		aux->dinheiro = 1000 + (rand() % 9001);
+		aux->nome = &projetos_lazer[random];
+		aux->lazer = 2;
+		aux->saude = 0;
+		aux->saneamento = 0;
+		aux->seguranca = 0;
+		aux->educacao = 0;
+	}
+
+}
+
+void select_projeto(CANDIDATO *vector_de_projetos){
+
+	vector_de_projetos = (CANDIDATO *)malloc(6 * sizeof(CANDIDATO));
+	CANDIDATO *aux;
+	for(int i = 0; i < 6; i++){
+		select_projeto_random(aux);
+		vector_de_projetos[i] = aux;
+	}
 	
 }
 
