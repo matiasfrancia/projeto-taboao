@@ -1,5 +1,5 @@
 // Para compilar
-/*gcc prototipo.c -o prototipo.exe $(pkg-config –cflags –libs allegro-5) -lallegro -lallegro_main -lallegro_image -lallegro_ttf -lallegro_font -lallegro_primitives -lallegro_audio -lallegro_acodec*/
+/*gcc prototipo.c -o prototipo.exe $(pkg-config –cflags –libs allegro-5) -lallegro -lallegro_main -lallegro_image -lallegro_ttf -lallegro_font -lallegro_primitives -lallegro_audio -lallegro_acodec -std=c99*/
 
 // Bibliotecas que estamos usando
 #include <allegro5/allegro.h>
@@ -9,10 +9,11 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include "structs.h"
-#include "eventos.h"
 #include <time.h>
 #include <stdio.h>
+#include "structs.h"
+#include "eventos.h"
+
 
 // Funções de tela
 int mainScreen();
@@ -37,6 +38,7 @@ CANDIDATO cidade;
 // Atributos Investimentos
 ITEM compra;
 
+CANDIDATO *vector_de_projetos;
 
 // Imagens/Fontes/Músicas usadas no jogo
 ALLEGRO_DISPLAY *janela = NULL;
@@ -349,7 +351,7 @@ int chooseScreen(){
         fprintf(stderr, "Falha ao carregar audio.\n");
         al_destroy_event_queue(fila_eventos);
         al_destroy_display(janela);
-        return false;
+        return -1;
     }
  
     CANDIDATO *vetor_de_candidatos;
@@ -1079,10 +1081,10 @@ int eventScreen(){
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
 
     al_start_timer(contador);
-
-    if(&compra == NULL){
-        inicia_item(&compra);
+    if(vector_de_projetos == NULL){
+        vector_de_projetos = select_projeto();
     }
+
     while (!sair){
         if (!al_is_event_queue_empty(fila_contador)){
             ALLEGRO_EVENT evento;
@@ -1119,32 +1121,32 @@ int eventScreen(){
                           evento.mouse.y >= 163 && evento.mouse.y <= 265){
                           //botão evento EDUCAÇÃO
                           printf("botao1\n");
-                          compra_educacao(&cidade, &compra);
+                          
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401){
                           //botão evento SEGURANÇA
                           printf("botao 2\n");
-                          compra_seguranca(&cidade, &compra);
+                          
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539){
                           //botão evento SANEAMENTO
                           printf("botao 3\n");
-                          compra_saneamento(&cidade, &compra);
+                          
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 263){
                           //botão evento SAÚDE
                           printf("botao 4\n");
-                          compra_saude(&cidade, &compra);
+                          
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401){
                           //botão evento LAZER
                           printf("botao 5\n" );
-                          compra_lazer(&cidade, &compra);
+                          
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539){
                           //botão evento SOLENIDADES
                           printf("botao 6\n" );
-                          compra_lazer(&cidade, &compra);
+                          
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
                           evento.mouse.y >= 558 && evento.mouse.y <= 578){
                           //botão de VOLTAR
@@ -1220,46 +1222,42 @@ int eventScreen(){
         al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 428, 923, 542, al_map_rgb(60, 60, 59));
         
-
-        if(cidade.dinheiro >= precos[compra.educacao]){
+        if(cidade.dinheiro >= vector_de_projetos[0].dinheiro){
             al_draw_bitmap(investir, 505, 226, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 505, 226, 0);
         }
 
-
-        if(cidade.dinheiro >= precos[compra.seguranca]){
+        if(cidade.dinheiro >= vector_de_projetos[1].dinheiro){
             al_draw_bitmap(investir, 505, 364, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 505, 364, 0);
         }
-        
 
-        if(cidade.dinheiro >= precos[compra.saneamento]){
+        if(cidade.dinheiro >= vector_de_projetos[2].dinheiro){
             al_draw_bitmap(investir, 505, 502, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 505, 502, 0);
         }
-        
 
-        if(cidade.dinheiro >= precos[compra.saude]){
-            al_draw_bitmap(investir, 790, 226, 0);    
+        if(cidade.dinheiro >= vector_de_projetos[3].dinheiro){
+            al_draw_bitmap(investir, 790, 226, 0);   
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 790, 226, 0);
         }
-        
-        if(cidade.dinheiro >= precos[compra.lazer]){
+
+        if(cidade.dinheiro >= vector_de_projetos[4].dinheiro){
             al_draw_bitmap(investir, 790, 364, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 790, 364, 0);
         }
 
-        if(cidade.dinheiro >= precos[compra.lazer]){
+        if(cidade.dinheiro >= vector_de_projetos[5].dinheiro){
             al_draw_bitmap(investir, 790, 502, 0);    
         }
         else{
@@ -1272,19 +1270,19 @@ int eventScreen(){
         al_draw_bitmap(eventBtn, 693, 163, 0);
         al_draw_bitmap(eventBtn, 693, 301, 0);
         al_draw_bitmap(eventBtn, 693, 439, 0);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 167, 0, "EVENTO X");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 306, 0, "EVENTO X");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 447, 0, "EVENTO X");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 167, 0, "EVENTO X");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 306, 0, "EVENTO X");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 447, 0, "EVENTO X");
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 167, 0, "%s", *vector_de_projetos[0].nome);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 306, 0, "%s", *vector_de_projetos[1].nome);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 447, 0, "%s", *vector_de_projetos[2].nome);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 167, 0, "%s", *vector_de_projetos[3].nome);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 306, 0, "%s", *vector_de_projetos[4].nome);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 447, 0, "%s", *vector_de_projetos[5].nome);
         
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", precos[compra.educacao]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", precos[compra.seguranca]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", precos[compra.saneamento]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", precos[compra.saude]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", precos[compra.lazer]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 447+20, 0, "R$ %d", precos[compra.lazer]);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", vector_de_projetos[0].dinheiro);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", vector_de_projetos[1].dinheiro);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", vector_de_projetos[2].dinheiro);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", vector_de_projetos[3].dinheiro);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", vector_de_projetos[4].dinheiro);
+        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 447+20, 0, "R$ %d", vector_de_projetos[5].dinheiro);
         
         al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
