@@ -113,7 +113,7 @@ int botao = 0,
     mTotal = 0;
 int sair = 0;
 int r = 0, g = 0, b = 0;
-int min = 5, seg = 0;
+int min = 0, seg = 30;
 int candidato = 0;
 int toggleSound = 1;    
 char *pauseText = "PAUSAR";  
@@ -423,9 +423,9 @@ int chooseScreen(){
     vetor_de_candidatos[1].descricao = "A favor da legalização do aborto e contra combustíveis fósseis";
     vetor_de_candidatos[2].descricao = "Empresário(a) da música a favor da biodiversidade";
    
-    vetor_de_candidatos[0].dinheiro = 10000000; 
-    vetor_de_candidatos[1].dinheiro = 10000000;
-    vetor_de_candidatos[2].dinheiro = 10000000;
+    vetor_de_candidatos[0].dinheiro = 1000000000; 
+    vetor_de_candidatos[1].dinheiro = 1000000000;
+    vetor_de_candidatos[2].dinheiro = 1000000000;
     
     char *majorName; 
     char *majorDesc;  
@@ -822,10 +822,10 @@ int playScreen(){
         //coloração de fundo para indicar estado de taboão
         mTotal = ((cidade.educacao + cidade.saude + cidade.saneamento + cidade.seguranca + cidade.lazer)/5);
 
-        if (mTotal >= 80){
+        if (mTotal >= 70){
             al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(29,113,184));
         }
-        if (mTotal < 80 && mTotal >= 60){
+        if (mTotal < 70 && mTotal >= 60){
             al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(84,85,138));
         }
         if (mTotal < 60 && mTotal >= 40){
@@ -1090,8 +1090,9 @@ int budgetScreen(){
         al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 428, 923, 542, al_map_rgb(60, 60, 59));
         
-
-        if(cidade.dinheiro >= precos[compra.educacao]){
+        
+        if(cidade.dinheiro >= precos[compra.educacao] && 
+           precos[compra.educacao] != 0){
             al_draw_bitmap(investir, 539, 226, 0);    
         }
         else{
@@ -1099,7 +1100,8 @@ int budgetScreen(){
         }
 
 
-        if(cidade.dinheiro >= precos[compra.seguranca]){
+        if(cidade.dinheiro >= precos[compra.seguranca] && 
+           precos[compra.seguranca] != 0){
             al_draw_bitmap(investir, 539, 364, 0);    
         }
         else{
@@ -1107,7 +1109,8 @@ int budgetScreen(){
         }
         
 
-        if(cidade.dinheiro >= precos[compra.saneamento]){
+        if(cidade.dinheiro >= precos[compra.saneamento] && 
+           precos[compra.saneamento] != 0){
             al_draw_bitmap(investir, 539, 502, 0);    
         }
         else{
@@ -1115,14 +1118,16 @@ int budgetScreen(){
         }
         
 
-        if(cidade.dinheiro >= precos[compra.saude]){
+        if(cidade.dinheiro >= precos[compra.saude] && 
+           precos[compra.saude] != 0){
             al_draw_bitmap(investir, 824, 226, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 824, 226, 0);
         }
         
-        if(cidade.dinheiro >= precos[compra.lazer]){
+        if(cidade.dinheiro >= precos[compra.lazer] && 
+           precos[compra.lazer] != 0){
             al_draw_bitmap(investir, 824, 364, 0);    
         }
         else{
@@ -1221,7 +1226,13 @@ int eventScreen(){
 
             // fim de jogo por tempo
             if (min == 0 && seg == 0){
-                loserScreen(sair);
+                if (mTotal > 60)
+                {
+                    winnerScreen(sair);
+                }
+                else{
+                    loserScreen(sair);
+                }
             } 
         }
         
@@ -1360,42 +1371,48 @@ int eventScreen(){
         al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 428, 923, 542, al_map_rgb(60, 60, 59));
         
-        if(cidade.dinheiro >= vector_de_projetos[0].dinheiro){
+        if(cidade.dinheiro >= vector_de_projetos[0].dinheiro && 
+           vector_de_projetos[0].dinheiro != 0){
             al_draw_bitmap(investir, 505, 226, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 505, 226, 0);
         }
 
-        if(cidade.dinheiro >= vector_de_projetos[1].dinheiro){
+        if(cidade.dinheiro >= vector_de_projetos[1].dinheiro && 
+           vector_de_projetos[1].dinheiro != 0){
             al_draw_bitmap(investir, 505, 364, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 505, 364, 0);
         }
 
-        if(cidade.dinheiro >= vector_de_projetos[2].dinheiro){
+        if(cidade.dinheiro >= vector_de_projetos[2].dinheiro && 
+           vector_de_projetos[2].dinheiro != 0){
             al_draw_bitmap(investir, 505, 502, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 505, 502, 0);
         }
 
-        if(cidade.dinheiro >= vector_de_projetos[3].dinheiro){
+        if(cidade.dinheiro >= vector_de_projetos[3].dinheiro && 
+           vector_de_projetos[3].dinheiro != 0){
             al_draw_bitmap(investir, 790, 226, 0);   
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 790, 226, 0);
         }
 
-        if(cidade.dinheiro >= vector_de_projetos[4].dinheiro){
+        if(cidade.dinheiro >= vector_de_projetos[4].dinheiro && 
+           vector_de_projetos[4].dinheiro != 0){
             al_draw_bitmap(investir, 790, 364, 0);    
         }
         else{
             al_draw_bitmap(compraNaoDisponivel, 790, 364, 0);
         }
 
-        if(cidade.dinheiro >= vector_de_projetos[5].dinheiro){
+        if(cidade.dinheiro >= vector_de_projetos[5].dinheiro && 
+           vector_de_projetos[5].dinheiro != 0){
             al_draw_bitmap(investir, 790, 502, 0);    
         }
         else{
@@ -1503,6 +1520,75 @@ int loserScreen(){
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
         al_draw_bitmap(taboaoLogoImageloser,  460, 200, 0);
+        al_draw_text(trintaQuatroBoldPx, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
+
+        al_flip_display();
+    }
+
+    destroyall();
+
+    /*al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);*/
+ 
+    return 0;
+}
+
+// tela caso o jogador ganha
+int winnerScreen(){
+
+    globalDeclarations();
+ 
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+ 
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+    al_register_event_source(fila_contador, al_get_timer_event_source(contador));
+
+    al_start_timer(contador); 
+    min = 0;
+    seg = 3;
+
+    taboaoLogoImage = al_load_bitmap("Images/winnerScreen/winner-btn.png");
+    fila_eventos = al_create_event_queue();
+    if (!taboaoLogoImage || !fila_eventos ) {
+        fprintf(stderr, "Falha ao carregar o arquivo de imagem 1.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+
+    while (!sair){
+        if (!al_is_event_queue_empty(fila_contador)){
+            ALLEGRO_EVENT evento;
+            al_wait_for_event(fila_contador, &evento);
+            
+            if (evento.type == ALLEGRO_EVENT_TIMER)
+            {
+                seg--;
+                if (seg == -1)
+                {
+                    min--;
+                    seg = 59;
+                }
+            }
+            if(seg == 0){
+                mainScreen();
+            }
+
+ 
+        while (!al_is_event_queue_empty(fila_eventos)){
+            ALLEGRO_EVENT evento;
+            ALLEGRO_TIMEOUT timeout;
+            al_init_timeout(&timeout, 0.5);
+ 
+            int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+     
+            if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                sair = 1;
+            }
+        }
+    }    
+        al_clear_to_color(al_map_rgb(0, 0, 0));
+        
+        al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
         al_draw_text(trintaQuatroBoldPx, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
 
         al_flip_display();
