@@ -434,7 +434,6 @@ int chooseScreen(){
     int seguranca; 
     int saneamento; 
     int lazer; 
-    int teste_som = 1;
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -502,9 +501,9 @@ int chooseScreen(){
                         cidade = vetor_de_candidatos[2];
                         playScreen();
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
-                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 0){
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
                 // botão de música
-                        teste_som = 1;
+                        toggleSound = 1;
                         soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
@@ -514,15 +513,23 @@ int chooseScreen(){
                         saveScreen();
                         al_stop_timer(contador);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
-                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 1){
+                    evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
                 // botão de pause
-                        teste_som = 0;
+                        toggleSound = 0;
                         soundBtnImage = soundBackup;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
                 }
             }
-        }
+        }if(toggleSound == 1){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }else if(toggleSound == 0){
+                soundBtnImage = soundBackup;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                    }
+
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
@@ -649,6 +656,7 @@ int playScreen(){
     
     srand((unsigned)time(NULL));
 
+
     EVENTO_RUIM ruim;
     EVENTO_BOM bom;
     char **texto_evento;
@@ -767,7 +775,7 @@ int playScreen(){
                         al_set_audio_stream_playing(musica, true);
                 
                 }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
-                    evento.mouse.y >= 630 && evento.mouse.y <= 660 && toggleSound == 1){
+                    evento.mouse.y >= 630 && evento.mouse.y <= 660 ){
                     // botao de investimento
                         budgetScreen();
                 }
@@ -811,7 +819,14 @@ int playScreen(){
                 
                 }
             }
-        }
+        }if(toggleSound == 1){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }else if(toggleSound == 0){
+                soundBtnImage = soundBackup;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                    }
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
  
@@ -1057,7 +1072,14 @@ int budgetScreen(){
                 
                 }
             }
-        }      
+        }if(toggleSound == 1){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }else if(toggleSound == 0){
+                soundBtnImage = soundBackup;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                    }  
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -1338,7 +1360,14 @@ int eventScreen(){
                 
                 }
             }
-        }      
+        }if(toggleSound == 1){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }else if(toggleSound == 0){
+                soundBtnImage = soundBackup;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                    }  
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
