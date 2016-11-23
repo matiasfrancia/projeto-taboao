@@ -106,7 +106,8 @@ ALLEGRO_TIMER *contador = 0;
 ALLEGRO_EVENT evento;
 ALLEGRO_TIMEOUT timeout;
 
-int botao = 0;
+int botao = 0,
+    mTotal = 0;
 int sair = 0;
 int r = 0, g = 0, b = 0;
 int min = 5, seg = 0;
@@ -629,29 +630,6 @@ int playScreen(){
                     seg = 59;
                 }
             }
-            if (seg < rsegundos){
-            if (cidade.educacao < 50){
-                printf("%d\n",rEduc );
-                rEduc ++;
-            }        
-            if (cidade.saude < 50){
-                printf("%d\n",rSaud );
-                rSaud ++;
-            }        
-            if (cidade.saneamento < 50){
-                printf("%d\n",rSane );
-                rSane ++;
-            }        
-            if (cidade.seguranca < 50){
-                printf("%d\n",rSegu );
-                rSegu ++;
-            }        
-            if (cidade.lazer < 50){
-                printf("%d\n",rLaze);
-                rLaze ++;
-            }
-            rsegundos = seg;
-        } 
 
             // caso o tempo de 5 minutos acabe
             if (min == 0 && seg == 0){
@@ -768,13 +746,24 @@ int playScreen(){
      
         al_set_target_bitmap(al_get_backbuffer(janela));
 
-        al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(29,113,184));
+        //coloração de fundo para indicar estado de taboão
+        mTotal = ((cidade.educacao + cidade.saude + cidade.saneamento + cidade.seguranca + cidade.lazer)/5);
 
-        al_draw_filled_circle(391, 414, rEduc, al_map_rgb(190, 22, 34));
-        al_draw_filled_circle(389, 271, rSaud, al_map_rgb(190, 22, 34));
-        al_draw_filled_circle(546, 327, rSane, al_map_rgb(190, 22, 34));
-        al_draw_filled_circle(567, 231, rSegu, al_map_rgb(190, 22, 34));
-        al_draw_filled_circle(681, 185, rLaze, al_map_rgb(190, 22, 34));
+        if (mTotal >= 80){
+            al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(29,113,184));
+        }
+        if (mTotal < 80 && mTotal >= 60){
+            al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(84,85,138));
+        }
+        if (mTotal < 60 && mTotal >= 40){
+            al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(125,65,105));
+        }
+        if (mTotal < 40 && mTotal >= 20){
+            al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(196,30,48));
+        }
+        if (mTotal < 20 && mTotal >= 0){
+            al_draw_filled_rectangle(0,0,1200,600, al_map_rgb(190,22,34));
+        }
 
         al_draw_bitmap(blackBack, 0, -10, 0);
         // imagem do prefeito(a)
