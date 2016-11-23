@@ -187,11 +187,11 @@ void colorValidation(int n, int *r, int *g, int *b){
             *r = 190;
             *g = 22;
             *b = 34;
-        }else {
-            *r = 0;
-            *g = 150;
-            *b = 64; 
-        }
+    }else {
+        *r = 0;
+        *g = 150;
+        *b = 64; 
+    }
 }
 
 // Função principal para criar janela e chamar o menu principal 
@@ -702,7 +702,7 @@ int playScreen(){
                 }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
                     evento.mouse.y >= 630 && evento.mouse.y <= 660 && toggleSound == 1){
                     // botao de investimento
-                    budgetScreen();
+                        budgetScreen();
                 }
 
                 else if((togglePopup == 1 || togglePopup == 0) || evento.mouse.x >= 475 && 
@@ -928,41 +928,52 @@ int budgetScreen(){
                           //botão de VOLTAR
                           printf("botao 7\n" );
                           playScreen();
-                }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
+                }
+                if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
-                        //botão de MUDO
+                    // botao para mutar
+                        
                         toggleSound = 1;
                         soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
                
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
-                        //botão de SOM ativo
+                    // botao de som ativado
+                
                         toggleSound = 0;
                         soundBtnImage = soundBackup;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-            
-                }else if( evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
+                
+                }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
+                    evento.mouse.y >= 630 && evento.mouse.y <= 660 && toggleSound == 1){
+                    // botao de investimento
+                        budgetScreen();
+                
+                }else if(evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
-                        // botão de PAUSAR
+                    // botao em play
+                
                         togglePlay = 0;
-                        pauseText = "PAUSAR";
-                        pauseBtnImage = playBtnImage;
+                        pauseText = "PAUSAR";                          
+                        pauseBtnImage = pauseBackup;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-                        al_stop_timer(contador);
+                        al_start_timer(contador);
+                        
                 
-                }else if ( evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
+                }else if (evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
-                        //botão de PLAY
+                    // botao pausado
+                
                         togglePlay = 1;
-                        pauseText = "PLAY";
-                        pauseBtnImage = pauseBackup;
+                        pauseText = "PLAY";                        
+                        pauseBtnImage = playBtnImage;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
-                        al_start_timer(contador);
+                        al_stop_timer(contador);
                 
                 }
             }
@@ -1179,42 +1190,53 @@ int eventScreen(){
                           evento.mouse.y >= 558 && evento.mouse.y <= 578){
                           //botão de VOLTAR
                           printf("botao 7\n" );
-                          budgetScreen();
-                }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
+                          playScreen();
+                }
+                if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
-                        //botão de MUDO
+                    // botao para mutar
+                        
                         toggleSound = 1;
                         soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
                
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
-                        //botão de SOM ativo
+                    // botao de som ativado
+                
                         toggleSound = 0;
                         soundBtnImage = soundBackup;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-            
-                }else if( evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
+                
+                }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
+                    evento.mouse.y >= 630 && evento.mouse.y <= 660 && toggleSound == 1){
+                    // botao de investimento
+                        budgetScreen();
+
+                }else if(evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
-                        // botão de PAUSAR
+                    // botao em play
+                
                         togglePlay = 0;
-                        pauseText = "PAUSAR";
-                        pauseBtnImage = playBtnImage;
+                        pauseText = "PAUSAR";                          
+                        pauseBtnImage = pauseBackup;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-                        al_stop_timer(contador);
+                        al_start_timer(contador);
+                        
                 
-                }else if ( evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
+                }else if (evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
-                        //botão de PLAY
+                    // botao pausado
+                
                         togglePlay = 1;
-                        pauseText = "PLAY";
-                        pauseBtnImage = pauseBackup;
+                        pauseText = "PLAY";                        
+                        pauseBtnImage = playBtnImage;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
-                        al_start_timer(contador);
+                        al_stop_timer(contador);
                 
                 }
             }
