@@ -27,6 +27,7 @@ int winnerScreen();
 int helpScreen();
 int creditScreen();
 int destroyall();
+int saveScreen();
 
 // Atributos da tela
 const int LARGURA_TELA = 1024;
@@ -47,6 +48,7 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *taboaoLogoImageloser = NULL,
                 *instrucaoBtnImage = NULL,
                 *creditBtnImage = NULL,
+                *continuarBtnImage = NULL,
                 *jogarBtnImage = NULL,
                 *facilBtnImage = NULL,
                 *medioBtnImage = NULL,
@@ -86,7 +88,8 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *blackBack = NULL,
                 *compraNaoDisponivel = NULL,
                 *solenidade = NULL,
-                *eventBtn = NULL;
+                *eventBtn = NULL,
+                *homeBtn = NULL;
 
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
@@ -133,6 +136,7 @@ void globalDeclarations(){
     pauseBtnImage = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     pauseBackup = al_load_bitmap("Images/chooseImages/pauseBtnImage.png");
     playBtnImage = al_load_bitmap("Images/chooseImages/playBtnImage.png");
+    continuarBtnImage = al_load_bitmap("Images/mainImages/continuar-botao.png");
     muteBtnImage = al_load_bitmap("Images/globalImages/mute-btn.png");
     clockBtnImage = al_load_bitmap("Images/globalImages/clockBtnImage.png");
     soundBtnImage = al_load_bitmap("Images/globalImages/sound-btn.png");
@@ -163,6 +167,7 @@ void globalDeclarations(){
     dificilBtnImage = al_load_bitmap("Images/nivelImages/dificilBtnImage.png");
     compraNaoDisponivel = al_load_bitmap("Images/budgetScreen/noBudget-btn.png");
     solenidade = al_load_bitmap("Images/budgetScreen/taboao-btn.png");
+    homeBtn = al_load_bitmap("Images/globalImages/home.png");
     eventBtn = al_load_bitmap("Images/budgetScreen/eventScreen.png");
     //Global fontes
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
@@ -276,7 +281,62 @@ int mainScreen(){
 
     return 0;
 }
+int saveScreen(){
 
+    globalDeclarations(); 
+
+    if (!al_install_mouse() || !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT)){
+        fprintf(stderr, "Falha ao inicializar o mouse.\n");
+        al_destroy_display(janela);
+        return -1;
+    }
+ 
+    al_register_event_source(fila_eventos, al_get_mouse_event_source());
+    al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+ 
+    al_flip_display();
+ 
+    while (!sair){
+        al_init_timeout(&timeout, 0.5);
+ 
+        int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+        
+        if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+            sair = 1;
+        }
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
+            // Botão de JOGAR
+            if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                evento.mouse.y >= 450 && evento.mouse.y <= 485){
+                    playScreen(sair);
+                    al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                    al_set_audio_stream_playing(musica, true);
+                    al_start_timer(contador);
+            // Botão de INTRUÇÕES
+            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                evento.mouse.y >= 500 && evento.mouse.y <= 535){
+                    helpScreen(sair);
+            // Botão de CRÉDITOS
+            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                evento.mouse.y >= 550 && evento.mouse.y <= 585){
+                    creditScreen(sair);
+            }
+        }
+        
+        al_draw_filled_rectangle(0, 0, 1080, 720, al_map_rgb(0, 0, 0));
+        al_draw_text(trintaDoisPx, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
+        al_draw_bitmap(taboaoMiniLogoImage, 420, 200, 0);
+        al_draw_bitmap(continuarBtnImage, 400, 450, 0);
+        al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
+        al_draw_bitmap(creditBtnImage, 400, 550, 0);
+        
+        al_flip_display();
+    }
+
+    destroyall();
+
+    return 0;
+}
 // função da tela de Escolha de Dificuldade
 int nivelScreen(){
 
@@ -447,6 +507,12 @@ int chooseScreen(){
                         teste_som = 1;
                         soundBtnImage = muteBtnImage;
                         al_set_audio_stream_playing(musica, false);
+                }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
+                    evento.mouse.y >= 17 && evento.mouse.y <= 40){
+                // botão de música
+                        al_set_audio_stream_playing(musica, false);
+                        saveScreen();
+                        al_stop_timer(contador);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && teste_som == 1){
                 // botão de pause
@@ -522,7 +588,8 @@ int chooseScreen(){
             al_draw_bitmap(secondPersonaImage, 680, 330, 0);
         }   
 
-        //cabeçalho
+        //cabeçalhSo
+        al_draw_bitmap(homeBtn, 965, 20, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, "PAUSAR");
@@ -712,6 +779,12 @@ int playScreen(){
                         togglePopup = 3;
                         al_start_timer(contador);
                 
+                }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
+                    evento.mouse.y >= 17 && evento.mouse.y <= 40){
+                // botão de música
+                        al_set_audio_stream_playing(musica, false);
+                        saveScreen();
+                        al_stop_timer(contador);
                 }else if(togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                     // botao em play
@@ -777,6 +850,7 @@ int playScreen(){
 
         
         // cabeçalho
+        al_draw_bitmap(homeBtn, 965, 20, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
@@ -951,6 +1025,12 @@ int budgetScreen(){
                     // botao de investimento
                         budgetScreen();
                 
+                }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
+                    evento.mouse.y >= 17 && evento.mouse.y <= 40){
+                // botão de música
+                        al_set_audio_stream_playing(musica, false);
+                        saveScreen();
+                        al_stop_timer(contador);
                 }else if(evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                     // botao em play
@@ -984,6 +1064,7 @@ int budgetScreen(){
         al_set_target_bitmap(al_get_backbuffer(janela));
         
         // Cabeçalho
+        al_draw_bitmap(homeBtn, 965, 20, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
@@ -1214,6 +1295,12 @@ int eventScreen(){
                     // botao de investimento
                         budgetScreen();
 
+                }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
+                    evento.mouse.y >= 17 && evento.mouse.y <= 40){
+                // botão de música
+                        al_set_audio_stream_playing(musica, false);
+                        saveScreen();
+                        al_stop_timer(contador);
                 }else if(evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                     // botao em play
@@ -1247,6 +1334,7 @@ int eventScreen(){
         al_set_target_bitmap(al_get_backbuffer(janela));
         
         // Cabeçalho
+        al_draw_bitmap(homeBtn, 965, 20, 0);
         al_draw_bitmap(pauseBtnImage, 830, 25, 0);
         al_draw_bitmap(clockBtnImage, 765, 20, 0);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 840, 23, 0, pauseText);
