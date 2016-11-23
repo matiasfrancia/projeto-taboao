@@ -113,7 +113,7 @@ int botao = 0,
     mTotal = 0;
 int sair = 0;
 int r = 0, g = 0, b = 0;
-int min = 0, seg = 30;
+int min = 5, seg = 00;
 int candidato = 0;
 int toggleSound = 1;    
 char *pauseText = "PAUSAR";  
@@ -423,9 +423,9 @@ int chooseScreen(){
     vetor_de_candidatos[1].descricao = "A favor da legalização do aborto e contra combustíveis fósseis";
     vetor_de_candidatos[2].descricao = "Empresário(a) da música a favor da biodiversidade";
    
-    vetor_de_candidatos[0].dinheiro = 1000000000; 
-    vetor_de_candidatos[1].dinheiro = 1000000000;
-    vetor_de_candidatos[2].dinheiro = 1000000000;
+    vetor_de_candidatos[0].dinheiro = 10000000; 
+    vetor_de_candidatos[1].dinheiro = 10000000;
+    vetor_de_candidatos[2].dinheiro = 10000000;
     
     char *majorName; 
     char *majorDesc;  
