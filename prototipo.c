@@ -522,13 +522,13 @@ int chooseScreen(){
                 }
             }
         }if(toggleSound == 1){
-                soundBtnImage = muteBtnImage;
-                al_set_audio_stream_playing(musica, false);
-        }else if(toggleSound == 0){
                 soundBtnImage = soundBackup;
                 al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                 al_set_audio_stream_playing(musica, true);
-                    }
+        }else if(toggleSound == 0){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }
 
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -820,13 +820,13 @@ int playScreen(){
                 }
             }
         }if(toggleSound == 1){
-                soundBtnImage = muteBtnImage;
-                al_set_audio_stream_playing(musica, false);
-        }else if(toggleSound == 0){
                 soundBtnImage = soundBackup;
                 al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                 al_set_audio_stream_playing(musica, true);
-                    }
+        }else if(toggleSound == 0){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }
  
         al_clear_to_color(al_map_rgb(0, 0, 0));
  
@@ -1073,13 +1073,13 @@ int budgetScreen(){
                 }
             }
         }if(toggleSound == 1){
-                soundBtnImage = muteBtnImage;
-                al_set_audio_stream_playing(musica, false);
-        }else if(toggleSound == 0){
                 soundBtnImage = soundBackup;
                 al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                 al_set_audio_stream_playing(musica, true);
-                    }  
+        }else if(toggleSound == 0){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }  
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
@@ -1361,13 +1361,13 @@ int eventScreen(){
                 }
             }
         }if(toggleSound == 1){
-                soundBtnImage = muteBtnImage;
-                al_set_audio_stream_playing(musica, false);
-        }else if(toggleSound == 0){
                 soundBtnImage = soundBackup;
                 al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                 al_set_audio_stream_playing(musica, true);
-                    }  
+        }else if(toggleSound == 0){
+                soundBtnImage = muteBtnImage;
+                al_set_audio_stream_playing(musica, false);
+        }  
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
