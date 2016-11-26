@@ -774,8 +774,9 @@ int playScreen(){
                 }
             }
 
-            // caso o tempo de 5 minutos acabe
-            if (min == 0 && seg == 0){
+
+            // caso o tempo de 5 minutos ou o dinheiro acabe
+            if ((min == 0 && seg == 0) || cidade.dinheiro <= 0){
                 loserScreen(sair);
             }
 
@@ -896,7 +897,7 @@ int playScreen(){
                 soundBtnImage = muteBtnImage;
                 al_set_audio_stream_playing(musica, false);
         }
- 
+        
         al_clear_to_color(al_map_rgb(0, 0, 0));
  
         al_set_target_bitmap(firstPersonaImage);
@@ -1035,8 +1036,8 @@ int budgetScreen(){
                 }
             }
 
-            // fim de jogo por tempo
-            if (min == 0 && seg == 0){
+            // fim de jogo por tempo ou falta de dinheiro
+            if (min == 0 && seg == 0 || cidade.dinheiro <= 0){
                 loserScreen(sair);
             } 
         }
@@ -1186,7 +1187,7 @@ int budgetScreen(){
         
         
         if(cidade.dinheiro >= precos[compra.educacao] && 
-           precos[compra.educacao] != 0){
+           precos[compra.educacao] != 0 && cidade.educacao <= 100){
             al_draw_bitmap(investir, 539, 226, 0);    
         }
         else{
@@ -1195,7 +1196,7 @@ int budgetScreen(){
 
 
         if(cidade.dinheiro >= precos[compra.seguranca] && 
-           precos[compra.seguranca] != 0){
+           precos[compra.seguranca] != 0 && cidade.seguranca <= 100){
             al_draw_bitmap(investir, 539, 364, 0);    
         }
         else{
@@ -1204,7 +1205,7 @@ int budgetScreen(){
         
 
         if(cidade.dinheiro >= precos[compra.saneamento] && 
-           precos[compra.saneamento] != 0){
+           precos[compra.saneamento] != 0 && cidade.saneamento <= 100){
             al_draw_bitmap(investir, 539, 502, 0);    
         }
         else{
@@ -1213,7 +1214,7 @@ int budgetScreen(){
         
 
         if(cidade.dinheiro >= precos[compra.saude] && 
-           precos[compra.saude] != 0){
+           precos[compra.saude] != 0 && cidade.saude <= 100){
             al_draw_bitmap(investir, 824, 226, 0);    
         }
         else{
@@ -1221,7 +1222,7 @@ int budgetScreen(){
         }
         
         if(cidade.dinheiro >= precos[compra.lazer] && 
-           precos[compra.lazer] != 0){
+           precos[compra.lazer] != 0 && cidade.lazer <= 100){
             al_draw_bitmap(investir, 824, 364, 0);    
         }
         else{
