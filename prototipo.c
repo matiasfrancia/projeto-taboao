@@ -110,7 +110,12 @@ ALLEGRO_EVENT evento;
 ALLEGRO_TIMEOUT timeout;
 
 int botao = 0,
-    mTotal = 0;
+    mTotal = 0,
+    backSave = 0,
+    *bSave = &backSave,
+    backHelpCredit = 0,
+    *bHelpCredit = &backHelpCredit;
+
 int sair = 0;
 int r = 0, g = 0, b = 0;
 int min = 5, seg = 00;
@@ -122,6 +127,8 @@ int togglePlay = 1;
 
 // Função para carregar conteúdo de images/fontes    
 void globalDeclarations(){
+
+    printf("FUNÇÃO globalDeclarations-----------------------------------------------------------------\n");
 
     al_set_window_title(janela, "Projeto Taboão");
     //Global Images
@@ -188,6 +195,9 @@ void globalDeclarations(){
 
 // Função para mudar a cor de verde para vermelho caso atributo fique menor que 50%
 void colorValidation(int n, int *r, int *g, int *b){
+    
+    //printf("FUNÇÃO colorValidation------------------------\n");
+
     if (n < 50) {
             *r = 190;
             *g = 22;
@@ -202,6 +212,7 @@ void colorValidation(int n, int *r, int *g, int *b){
 // Função principal para criar janela e chamar o menu principal 
 int main(){
 
+    printf("FUNÇÃO main-----------------------------------\n");
 
     al_init_font_addon(); 
     al_init_ttf_addon();
@@ -229,6 +240,8 @@ int main(){
 
 // Função de Menu Principal
 int mainScreen(){
+
+    printf("FUNÇÃO mainScreen----------------------------------\n");
 
     globalDeclarations(); 
 
@@ -259,11 +272,13 @@ int mainScreen(){
             // Botão de INTRUÇÕES
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 500 && evento.mouse.y <= 535){
-                    helpScreen(sair);
+                    backHelpCredit = 1;
+                    helpScreen(backHelpCredit);
             // Botão de CRÉDITOS
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 550 && evento.mouse.y <= 585){
-                    creditScreen(sair);
+                    backHelpCredit = 1;
+                    creditScreen(backHelpCredit);
             }
         }
         
@@ -282,6 +297,8 @@ int mainScreen(){
     return 0;
 }
 int saveScreen(){
+
+    printf("FUNÇÃO saveScreen----------------------------------\n");
 
     globalDeclarations(); 
 
@@ -308,18 +325,47 @@ int saveScreen(){
             // Botão de JOGAR
             if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 450 && evento.mouse.y <= 485){
-                    playScreen(sair);
-                    al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
-                    al_set_audio_stream_playing(musica, true);
-                    al_start_timer(contador);
+                switch (backSave){
+                    case 1:
+                        chooseScreen(sair);
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
+                        al_start_timer(contador);
+                    break;
+                    case 2:
+                        playScreen(sair);
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
+                        al_start_timer(contador);
+                    break;
+                    case 3:
+                        budgetScreen(sair);
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
+                        al_start_timer(contador);
+                    break;
+                    case 4:
+                        eventScreen(sair);
+                        al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                        al_set_audio_stream_playing(musica, true);
+                        al_start_timer(contador);
+                    break;
+                    default:
+                        printf("valor home inválido");
+                    break;
+                }
+
+
             // Botão de INTRUÇÕES
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 500 && evento.mouse.y <= 535){
-                    helpScreen(sair);
+                    backHelpCredit = 2;
+                    helpScreen(backHelpCredit);
             // Botão de CRÉDITOS
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
                 evento.mouse.y >= 550 && evento.mouse.y <= 585){
-                    creditScreen(sair);
+                    backHelpCredit = 2;
+                    creditScreen(backHelpCredit);
             }
         }
         
@@ -339,6 +385,8 @@ int saveScreen(){
 }
 // função da tela de Escolha de Dificuldade
 int nivelScreen(){
+
+    printf("FUNÇÃO nivelScreen---------------------------------------\n");
 
     globalDeclarations();
 
@@ -396,6 +444,8 @@ int nivelScreen(){
 
 // Tela de escolha de candidatos
 int chooseScreen(){
+
+    printf("FUNÇÃO chooseScreen---------------------------------------\n");
 
     globalDeclarations();
          
@@ -508,9 +558,10 @@ int chooseScreen(){
                         al_set_audio_stream_playing(musica, false);
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
-                // botão de música
+                // botão HOME
                         al_set_audio_stream_playing(musica, false);
-                        saveScreen();
+                        backSave = 1;
+                        saveScreen(backSave);
                         al_stop_timer(contador);
                 }else if (evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 1){
@@ -652,6 +703,8 @@ int chooseScreen(){
 // tela de jogar
 int playScreen(){
 
+    printf("FUNÇÃO playScreen---------------------------------------\n");
+
     globalDeclarations();
     
     srand((unsigned)time(NULL));
@@ -791,7 +844,8 @@ int playScreen(){
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
                 // botão de música
                         al_set_audio_stream_playing(musica, false);
-                        saveScreen();
+                        backSave = 2;
+                        saveScreen(backSave);
                         al_stop_timer(contador);
                 }else if(togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
@@ -932,6 +986,8 @@ int playScreen(){
 
 // tela de investimentos
 int budgetScreen(){
+
+    printf("FUNÇÃO budgetScreen-------------------------------------\n");
     
     globalDeclarations();
     
@@ -1044,7 +1100,8 @@ int budgetScreen(){
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
                 // botão de música
                         al_set_audio_stream_playing(musica, false);
-                        saveScreen();
+                        backSave = 3;
+                        saveScreen(backSave);
                         al_stop_timer(contador);
                 }else if(evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
@@ -1214,6 +1271,8 @@ int budgetScreen(){
 
 // tela de eventos
 int eventScreen(){
+
+    printf("FUNÇÃO eventScreen---------------------------------------\n");
     
     globalDeclarations();
     
@@ -1330,9 +1389,10 @@ int eventScreen(){
 
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
-                // botão de música
+                // botão de home
                         al_set_audio_stream_playing(musica, false);
-                        saveScreen();
+                        backSave = 4;
+                        saveScreen(backSave);
                         al_stop_timer(contador);
                 }else if(evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
@@ -1505,6 +1565,8 @@ int eventScreen(){
 // tela caso o jogador perca
 int loserScreen(){
 
+    printf("FUNÇÃO loserScreen---------------------------------------\n");
+
     globalDeclarations();
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -1564,6 +1626,8 @@ int loserScreen(){
 
 // tela caso o jogador ganha
 int winnerScreen(){
+
+    printf("FUNÇÃO winnerScreen---------------------------------------\n");
 
     globalDeclarations();
  
@@ -1634,6 +1698,8 @@ int winnerScreen(){
 // tela de INSTRUÇÕES
 int helpScreen(){
 
+    printf("FUNÇÃO helpScreen---------------------------------------\n");
+
     globalDeclarations();   
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -1648,10 +1714,16 @@ int helpScreen(){
         al_register_event_source(fila_eventos, al_get_display_event_source(janela));
         
         if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-            sair = 1;
+            sair == 1;
         }
         if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            mainScreen();
+            printf("%d\n", backSave);
+            if (backHelpCredit == 1){
+                mainScreen();
+            }
+            else{
+                saveScreen();
+            }
         }
 
         al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
@@ -1679,6 +1751,8 @@ int helpScreen(){
 
 //tela de CRÉDITOS
 int creditScreen(){
+
+    printf("FUNÇÃO creditScreen---------------------------------------\n");
     
     globalDeclarations();
  
@@ -1697,7 +1771,13 @@ int creditScreen(){
             sair = 1;
         }
         if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
-            mainScreen();
+            printf("%d\n", backSave);
+            if (backHelpCredit == 1){
+                mainScreen();
+            }
+            else{
+                saveScreen();
+            }
         }
 
         al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
@@ -1725,6 +1805,8 @@ int creditScreen(){
 }
 
 int destroyall(){
+
+    printf("FUNÇÃO destroyall---------------------------------------\n");
 
     al_destroy_bitmap(taboaoLogoImage);
     al_destroy_bitmap(taboaoMiniLogoImage);
