@@ -1795,16 +1795,29 @@ int creditScreen(){
             }
         }
         al_clear_to_color(al_map_rgb(0, 0, 0));
-        al_draw_bitmap(teste, 100, 0, 0);
+        //al_draw_bitmap(teste, 100, 0, 0);
         al_draw_bitmap(creditTaboao, 645, 130, 0);
         al_draw_bitmap(allegroLogo, 140, 375, 0);
         al_draw_bitmap(senacLogo, 150, 480, 0);
         al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 66, 0, "Caio Luzano");
         al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 93, 0, "Caio, conhecido como Menino Caio.");
         al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 126, 0, "Daniel Moniz");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 153, 0, "Daniel, conhecido por ter um grupo");
         al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 190, 0, "Henrique Shodi");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 217, 0, "Herinque, conhecido como Shodi");
         al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 246, 0, "Luiz Frederico");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 273, 0, "Luiz, conhecido como Fred");
         al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 312, 0, "Matheus Souzas");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 339, 0, "Matheus, conhecido como menino sim, não e não sei");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 395, 0, "Gostariamos de agradecer a todos os programadores envolvidos neste projeto e lembra-los que sem");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 410, 0, "eles nada disso seria possível. Também a todos os outros alunos do BCC que nos motivaram diaria-");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 425, 0, "mente com ideias e criticas que foram de suma importancia para continualidade do projeto.");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 440, 0, "À todos os professores do curso e um agradecimento em especial ao Rafael Toledo, do blog do");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 455, 0, "Rafael Toledo, que foi nosso grande mentor no decorrer desse projeto. E claro, impossível não a-");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 470, 0, "gradecer aos desenvolvedores que criaram a bliblioteca allegro e a linguagem C, sem eles nada ");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 485, 0, "disso seria possível.");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 510, 0, "Atenciosamente,");
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 538, 0, "DEUSES DO SENAC");
 
 
         
