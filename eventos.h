@@ -168,8 +168,18 @@ void select_evento_bom(EVENTO_BOM *aux){
 	aux->saude = bom[idx].saude;
 	aux->saneamento = bom[idx].saneamento;
 	aux->educacao = bom[idx].educacao;
-
 	
+}
+
+void aplica_alteracao(CANDIDATO *cidade, CANDIDATO *item){
+
+	cidade->dinheiro += item->dinheiro;
+	cidade->saneamento += item->saneamento;
+	cidade->saude += item->saude;
+	cidade->seguranca += item->seguranca;
+	cidade->lazer += item->lazer;
+	cidade->educacao += item->educacao;
+
 }
 
 void select_projeto_random(CANDIDATO *aux){
@@ -181,7 +191,7 @@ void select_projeto_random(CANDIDATO *aux){
 	int random = rand() % 2;
 	if(!random){
 		random = rand() % 10;
-		aux->dinheiro = 1000 + (rand() % 9001); 						//preco varia entre 1000 e 10000
+		aux->dinheiro = -(500000 + (rand() % 5000001)); 						//preco varia entre 1000 e 10000
 		aux->nome = &projetos_educacao[random];
 		aux->educacao = 2;
 		aux->seguranca = 0;
@@ -191,7 +201,7 @@ void select_projeto_random(CANDIDATO *aux){
 	}
 	else{
 		random = rand() % 6;
-		aux->dinheiro = 1000 + (rand() % 9001);
+		aux->dinheiro = -(5000000 + (rand() % 5000001));
 		aux->nome = &projetos_lazer[random];
 		aux->lazer = 2;
 		aux->saude = 0;
