@@ -76,6 +76,7 @@ typedef struct evento_ruim{
 
 }EVENTO_RUIM;
 
+
 void select_evento_ruim(EVENTO_RUIM *aux){
 	
 	EVENTO_RUIM *ruim;
