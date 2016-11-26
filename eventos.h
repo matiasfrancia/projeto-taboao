@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 	
+time_t t;
 
 char *positivo[] = 		   {"Sua Cidade foi escolhida para fazer a abertura dos Jogos Olimpicos", 
 							"O próximo Brasil Game Show acontecerá em Taboão da Serra",
@@ -38,7 +39,7 @@ char *projetos_lazer[]    = {"FEIRA DE GASTRONOMIA",
 							};
 
 void select_event_description(char ***text, int a){
-	srand((unsigned)time(NULL));
+	srand((unsigned)time(&t));
 	int idx = rand() % 5;
 	if(a == 0){
 		*text = &positivo[idx];
@@ -78,7 +79,7 @@ typedef struct evento_ruim{
 void select_evento_ruim(EVENTO_RUIM *aux){
 	
 	EVENTO_RUIM *ruim;
-	srand((unsigned)time(NULL));
+	srand((unsigned)time(&t));
 	ruim = (EVENTO_RUIM *)malloc(3 * sizeof(EVENTO_RUIM));
 
 	//chuva insana
@@ -123,7 +124,7 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 void select_evento_bom(EVENTO_BOM *aux){
 
 	EVENTO_BOM *bom;
-	srand((unsigned)time(NULL));
+	srand((unsigned)time(&t));
 	
 	bom = (EVENTO_BOM *)malloc(3 * sizeof(EVENTO_BOM));
 	
@@ -173,7 +174,10 @@ void select_evento_bom(EVENTO_BOM *aux){
 
 void select_projeto_random(CANDIDATO *aux){
 
-	srand((unsigned)time(NULL));
+	for(int j = 0; j < 10; j++){
+		printf("NUMERO RANDOMICO %d\n", rand() % 10);
+	}
+
 	int random = rand() % 2;
 	if(!random){
 		random = rand() % 10;
@@ -203,6 +207,7 @@ CANDIDATO* select_projeto(){
 
 	CANDIDATO *vector_de_projetos;
 	vector_de_projetos = (CANDIDATO *)malloc(6 * sizeof(CANDIDATO));
+	srand((unsigned)time(&t));
 	for(int i = 0; i < 6; i++){
 		select_projeto_random(&vector_de_projetos[i]);
 	}
