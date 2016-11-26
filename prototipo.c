@@ -89,13 +89,20 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *compraNaoDisponivel = NULL,
                 *solenidade = NULL,
                 *eventBtn = NULL,
-                *homeBtn = NULL;
+                *homeBtn = NULL,
+                *allegroLogo = NULL,
+                *senacLogo = NULL,
+                *creditTaboao = NULL,
+                *teste = NULL;
 
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
 ALLEGRO_FONT *onzePx = NULL,
+            *dozePx =  NULL,
+            *dozeBoldPx =  NULL,
             *quatorzePx =  NULL,
+            *quatorzeBoldPx =  NULL,
             *quinzePx = NULL,
             *dezesseisPx = NULL,
             *dezoitoPx = NULL,
@@ -176,9 +183,16 @@ void globalDeclarations(){
     solenidade = al_load_bitmap("Images/budgetScreen/taboao-btn.png");
     homeBtn = al_load_bitmap("Images/globalImages/home.png");
     eventBtn = al_load_bitmap("Images/budgetScreen/eventScreen.png");
+    senacLogo = al_load_bitmap("Images/creditScreen/logoSenacre.png");
+    allegroLogo = al_load_bitmap("Images/creditScreen/allegroLogo.png");
+    creditTaboao = al_load_bitmap("Images/creditScreen/taboaoLogo.png");
+    teste = al_load_bitmap("Images/creditScreen/creditScreen.png");
     //Global fontes
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
-    quatorzePx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
+    dozePx = al_load_ttf_font("Font/arial.ttf", 12,0 );
+    dozeBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 12,0 );
+    quatorzePx = al_load_ttf_font("Font/arial.ttf", 14,0 );
+    quatorzeBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 14,0 );
     quinzePx = al_load_ttf_font("Font/arial.ttf", 15,0 );
     dezesseisPx = al_load_ttf_font("Font/Arial_Bold.ttf", 16,0 );
     dezoitoPx = al_load_ttf_font("Font/arial.ttf", 18,0 );
@@ -187,6 +201,7 @@ void globalDeclarations(){
     trintaDoisPx = al_load_ttf_font("Font/arial.ttf", 32,0 );
     trintaQuatroBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 34,0 );
     trintaOitopx = al_load_ttf_font("Font/arial.ttf", 38,0 );
+
     //Global Allegro 
     fila_eventos = al_create_event_queue();
     contador = al_create_timer(1.0);
@@ -681,15 +696,15 @@ int chooseScreen(){
         // valores dos parametros
         if(educacao != 0 || saude != 0 || saneamento != 0 || seguranca != 0 || lazer != 0){
             colorValidation(educacao, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 475, 640, 0, "%d%%", educacao);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 475, 640, 0, "%d%%", educacao);
             colorValidation(saude, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 530, 640, 0, "%d%%", saude);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 530, 640, 0, "%d%%", saude);
             colorValidation(saneamento, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 640, 640, 0, "%d%%", saneamento);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 640, 640, 0, "%d%%", saneamento);
             colorValidation(seguranca, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 585, 640, 0, "%d%%", seguranca);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 585, 640, 0, "%d%%", seguranca);
             colorValidation(lazer, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 695, 640, 0, "%d%%", lazer);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 695, 640, 0, "%d%%", lazer);
         }
 
         al_flip_display();
@@ -966,15 +981,15 @@ int playScreen(){
         }
 
             colorValidation(cidade.educacao, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 475+50, 620, 0, "%d%%", cidade.educacao);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 475+50, 620, 0, "%d%%", cidade.educacao);
             colorValidation(cidade.saude, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 530+50, 620, 0, "%d%%", cidade.saude);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 530+50, 620, 0, "%d%%", cidade.saude);
             colorValidation(cidade.saneamento, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 640+50, 620, 0, "%d%%", cidade.saneamento);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 640+50, 620, 0, "%d%%", cidade.saneamento);
             colorValidation(cidade.seguranca, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 585+50, 620, 0, "%d%%", cidade.seguranca);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 585+50, 620, 0, "%d%%", cidade.seguranca);
             colorValidation(cidade.lazer, &r, &g, &b);
-            al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 695+50, 620, 0, "%d%%", cidade.lazer);
+            al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 695+50, 620, 0, "%d%%", cidade.lazer);
 
         al_flip_display();
     }
@@ -1219,38 +1234,38 @@ int budgetScreen(){
         al_draw_bitmap(saude, 693, 163, 0);
         al_draw_bitmap(lazer, 693, 301, 0);
         al_draw_bitmap(solenidade, 693, 439, 0);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 540, 167, ALLEGRO_ALIGN_CENTRE, "EDUCACÃO");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 545, 306, ALLEGRO_ALIGN_CENTRE, "SEGURANCA");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 840, 447, ALLEGRO_ALIGN_CENTRE, "SOLENIDADES");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 540, 167, ALLEGRO_ALIGN_CENTRE, "EDUCACÃO");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 545, 306, ALLEGRO_ALIGN_CENTRE, "SEGURANCA");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 550, 447, ALLEGRO_ALIGN_CENTRE, "SANEAMENTO");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813, 167, ALLEGRO_ALIGN_CENTRE, "SAÚDE");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812, 306, ALLEGRO_ALIGN_CENTRE, "LAZER");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 840, 447, ALLEGRO_ALIGN_CENTRE, "SOLENIDADES");
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 840+3, 447+20, ALLEGRO_ALIGN_CENTRE, "Crie eventos e contri-");
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 840+5, 447+33, ALLEGRO_ALIGN_CENTRE, "bua com o desenvolvi-");
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 835, 447+46, ALLEGRO_ALIGN_CENTRE, "mento de Taboão.");
 
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", precos[compra.educacao]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", precos[compra.seguranca]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", precos[compra.saneamento]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", precos[compra.saude]);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", precos[compra.lazer]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", precos[compra.educacao]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", precos[compra.seguranca]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", precos[compra.saneamento]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", precos[compra.saude]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", precos[compra.lazer]);
         
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
         
         colorValidation(cidade.educacao, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
         colorValidation(cidade.saude, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
         colorValidation(cidade.seguranca, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
         colorValidation(cidade.lazer, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
         colorValidation(cidade.saneamento, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
         
         int n = 337;
         for (int i = 0; i < 6; i++){
@@ -1514,36 +1529,36 @@ int eventScreen(){
         al_draw_bitmap(eventBtn, 693, 163, 0);
         al_draw_bitmap(eventBtn, 693, 301, 0);
         al_draw_bitmap(eventBtn, 693, 439, 0);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 167, 0, "%s", *vector_de_projetos[0].nome);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 306, 0, "%s", *vector_de_projetos[1].nome);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 500, 447, 0, "%s", *vector_de_projetos[2].nome);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 167, 0, "%s", *vector_de_projetos[3].nome);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 306, 0, "%s", *vector_de_projetos[4].nome);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 790, 447, 0, "%s", *vector_de_projetos[5].nome);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 500, 167, 0, "%s", *vector_de_projetos[0].nome);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 500, 306, 0, "%s", *vector_de_projetos[1].nome);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 500, 447, 0, "%s", *vector_de_projetos[2].nome);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 790, 167, 0, "%s", *vector_de_projetos[3].nome);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 790, 306, 0, "%s", *vector_de_projetos[4].nome);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 790, 447, 0, "%s", *vector_de_projetos[5].nome);
         
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", vector_de_projetos[0].dinheiro);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", vector_de_projetos[1].dinheiro);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", vector_de_projetos[2].dinheiro);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", vector_de_projetos[3].dinheiro);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", vector_de_projetos[4].dinheiro);
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 812-20, 447+20, 0, "R$ %d", vector_de_projetos[5].dinheiro);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", vector_de_projetos[0].dinheiro);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", vector_de_projetos[1].dinheiro);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", vector_de_projetos[2].dinheiro);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", vector_de_projetos[3].dinheiro);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", vector_de_projetos[4].dinheiro);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 447+20, 0, "R$ %d", vector_de_projetos[5].dinheiro);
         
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
-        al_draw_textf(quatorzePx, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 444, 0, "SEGURANCA");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 477, 0, "LAZER");
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 510, 0, "SANEAMENTO");
         
         colorValidation(cidade.educacao, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 378, 0, "%d%%", cidade.educacao);
         colorValidation(cidade.saude, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 411, 0, "%d%%", cidade.saude);
         colorValidation(cidade.seguranca, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 444, 0, "%d%%", cidade.seguranca);
         colorValidation(cidade.lazer, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 477, 0, "%d%%", cidade.lazer);
         colorValidation(cidade.saneamento, &r, &g, &b);
-        al_draw_textf(quatorzePx, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 323, 510, 0, "%d%%", cidade.saneamento);
         
         int n = 337;
         for (int i = 0; i < 6; i++){
@@ -1779,18 +1794,19 @@ int creditScreen(){
                 saveScreen();
             }
         }
+        al_clear_to_color(al_map_rgb(0, 0, 0));
+        al_draw_bitmap(teste, 100, 0, 0);
+        al_draw_bitmap(creditTaboao, 645, 130, 0);
+        al_draw_bitmap(allegroLogo, 140, 375, 0);
+        al_draw_bitmap(senacLogo, 150, 480, 0);
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 66, 0, "Caio Luzano");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 93, 0, "Caio, conhecido como Menino Caio.");
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 126, 0, "Daniel Moniz");
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 190, 0, "Henrique Shodi");
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 246, 0, "Luiz Frederico");
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 312, 0, "Matheus Souzas");
 
-        al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
-        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
-        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "CREDITOS");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "*                     Caio Luzano");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "*                     Daniel Moniz");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "*                     Henrique Shodi");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "*                     Luiz Frederico");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "*                     Matheus Souza");
+
         
         al_flip_display();
     }
@@ -1853,7 +1869,7 @@ int destroyall(){
     al_destroy_bitmap(compraNaoDisponivel);
 
     al_destroy_font(onzePx);
-    al_destroy_font(quatorzePx);
+    al_destroy_font(quatorzeBoldPx);
     al_destroy_font(quinzePx);
     al_destroy_font(dezesseisPx);
     al_destroy_font(dezoitoPx);
