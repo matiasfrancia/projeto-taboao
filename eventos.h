@@ -192,7 +192,7 @@ void select_projeto_random(CANDIDATO *aux){
 	int random = rand() % 2;
 	if(!random){
 		random = rand() % 10;
-		aux->dinheiro = -(500000 + (rand() % 5000001)); 						//preco varia entre 1000 e 10000
+		aux->dinheiro = -(1000 * (rand() % 5001)); 						//preco varia entre 1000 e 10000
 		aux->nome = &projetos_educacao[random];
 		aux->educacao = 2;
 		aux->seguranca = 0;
@@ -202,7 +202,7 @@ void select_projeto_random(CANDIDATO *aux){
 	}
 	else{
 		random = rand() % 6;
-		aux->dinheiro = -(5000000 + (rand() % 5000001));
+		aux->dinheiro = -(1000 * (rand() % 5001));
 		aux->nome = &projetos_lazer[random];
 		aux->lazer = 2;
 		aux->saude = 0;
