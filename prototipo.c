@@ -449,15 +449,21 @@ int nivelScreen(){
             // Botão de Nivel FÁCIL
             if (evento.mouse.x >= 165 && evento.mouse.x <= 352 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                    chooseScreen(sair);
+                    select_nivel(&cidade, 1);
+                    print_candidato(&cidade);
+                    chooseScreen();
             // Botão de Nivel MÉDIO
             }else if (evento.mouse.x >= 415 && evento.mouse.x <= 595 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                    chooseScreen(sair);
+                    select_nivel(&cidade, 2);
+                    print_candidato(&cidade);
+                    chooseScreen();
             // Botão de Nivel DIFICIL
             }else if (evento.mouse.x >= 665 && evento.mouse.x <= 845 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
-                    chooseScreen(sair);
+                    select_nivel(&cidade, 3);
+                    print_candidato(&cidade);
+                    chooseScreen();
             }
         }
         
@@ -509,10 +515,6 @@ int chooseScreen(){
     vetor_de_candidatos[0].descricao = "Professor(a) de Agronomia da UNESP e foi ajudante de pedreiro";
     vetor_de_candidatos[1].descricao = "A favor da legalização do aborto e contra combustíveis fósseis";
     vetor_de_candidatos[2].descricao = "Empresário(a) da música a favor da biodiversidade";
-   
-    vetor_de_candidatos[0].dinheiro = 10000000; 
-    vetor_de_candidatos[1].dinheiro = 10000000;
-    vetor_de_candidatos[2].dinheiro = 10000000;
     
     char *majorName; 
     char *majorDesc;  
@@ -520,7 +522,8 @@ int chooseScreen(){
     int saude; 
     int seguranca; 
     int saneamento; 
-    int lazer; 
+    int lazer;
+    int dinheiro;
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -572,20 +575,38 @@ int chooseScreen(){
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                 // candidato random 1
                         candidato = 1;
-                        cidade = vetor_de_candidatos[0];
+                        cidade.nome = vetor_de_candidatos[0].nome;
+                        cidade.dinheiro += vetor_de_candidatos[0].dinheiro;
+                        cidade.saneamento += vetor_de_candidatos[0].saneamento;
+                        cidade.saude += vetor_de_candidatos[0].saude;
+                        cidade.educacao += vetor_de_candidatos[0].educacao;
+                        cidade.lazer += vetor_de_candidatos[0].lazer;
+                        cidade.seguranca += vetor_de_candidatos[0].seguranca;
                         playScreen();
             
                 }else if (evento.mouse.x >= 415 && evento.mouse.x <= 585 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                 // candidato random 2
                         candidato = 2;
-                        cidade = vetor_de_candidatos[1];
+                        cidade.nome = vetor_de_candidatos[1].nome;
+                        cidade.dinheiro += vetor_de_candidatos[1].dinheiro;
+                        cidade.saneamento += vetor_de_candidatos[1].saneamento;
+                        cidade.saude += vetor_de_candidatos[1].saude;
+                        cidade.educacao += vetor_de_candidatos[1].educacao;
+                        cidade.lazer += vetor_de_candidatos[1].lazer;
+                        cidade.seguranca += vetor_de_candidatos[1].seguranca;
                         playScreen();
                 }else if (evento.mouse.x >= 680 && evento.mouse.x <= 850 &&
                     evento.mouse.y >= 335 && evento.mouse.y <= 480){
                 // candidato random 3
                         candidato = 3;
-                        cidade = vetor_de_candidatos[2];
+                        cidade.nome = vetor_de_candidatos[2].nome;
+                        cidade.dinheiro += vetor_de_candidatos[2].dinheiro;
+                        cidade.saneamento += vetor_de_candidatos[2].saneamento;
+                        cidade.saude += vetor_de_candidatos[2].saude;
+                        cidade.educacao += vetor_de_candidatos[2].educacao;
+                        cidade.lazer += vetor_de_candidatos[2].lazer;
+                        cidade.seguranca += vetor_de_candidatos[2].seguranca;
                         playScreen();
                 }else if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
@@ -629,7 +650,8 @@ int chooseScreen(){
             saude =  vetor_de_candidatos[0].saude ; 
             seguranca =  vetor_de_candidatos[0].seguranca ; 
             saneamento =  vetor_de_candidatos[0].saneamento ; 
-            lazer =  vetor_de_candidatos[0].lazer ; 
+            lazer =  vetor_de_candidatos[0].lazer ;
+            dinheiro = vetor_de_candidatos[0].dinheiro; 
         }else if (candidato == 2){
             majorName = *vetor_de_candidatos[1].nome;
             majorDesc = vetor_de_candidatos[1].descricao;
@@ -638,6 +660,7 @@ int chooseScreen(){
             seguranca =  vetor_de_candidatos[1].seguranca ; 
             saneamento =  vetor_de_candidatos[1].saneamento ; 
             lazer =  vetor_de_candidatos[1].lazer ; 
+            dinheiro = vetor_de_candidatos[1].dinheiro;
         }else if(candidato == 3){
             majorName = *vetor_de_candidatos[2].nome;
             majorDesc = vetor_de_candidatos[2].descricao;
@@ -646,10 +669,12 @@ int chooseScreen(){
             seguranca =  vetor_de_candidatos[2].seguranca ; 
             saneamento =  vetor_de_candidatos[2].saneamento ; 
             lazer =  vetor_de_candidatos[2].lazer ; 
+            dinheiro = vetor_de_candidatos[2].dinheiro;
         }else{
             majorName = "Escolha o seu Prefeito(a)";
             majorDesc = 0;
             educacao = 0; 
+            dinheiro = 0;
             saude = 0; 
             seguranca = 0; 
             saneamento = 0; 
@@ -738,7 +763,6 @@ int chooseScreen(){
 
 // tela de jogar
 int playScreen(){
-
     printf("FUNÇÃO playScreen---------------------------------------\n");
 
     globalDeclarations();
@@ -758,12 +782,11 @@ int playScreen(){
         fprintf(stderr, "Falha ao setar o mouse.\n");
         return -1;
     }
-
     if(!al_init_acodec_addon() || !al_install_audio() || !al_reserve_samples(1)){
         fprintf(stderr, "Falha ao carregar o audio.\n");
         return -1;
     }
-
+    
     int togglePopup = 3;
     int rEduc = 0, 
         rSaud = 0,
@@ -780,7 +803,7 @@ int playScreen(){
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
 
     al_start_timer(contador);
-
+    
     while (!sair){
         if (!al_is_event_queue_empty(fila_contador)){
             ALLEGRO_EVENT evento;
@@ -988,7 +1011,8 @@ int playScreen(){
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         // detalhe prefeito
-        al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
+        al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));        
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
         al_draw_text(onzePx, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, *cidade.nome);
         al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);

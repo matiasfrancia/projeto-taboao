@@ -45,6 +45,7 @@ char *mulher[] = {"Viviane Luz", "Rosana Rocha", "Elaine Silva", "Sonia Araujo",
 
 void print_candidato(CANDIDATO *cand){
 
+	printf("DINHEIRO: %d\n", cand->dinheiro);
 	printf("SAUDE: %d\n", cand->saude);
 	printf("SANEAMENTO: %d\n", cand->saneamento);
 	printf("SEGURANCA: %d\n", cand->seguranca);
@@ -82,6 +83,36 @@ int name_select(CANDIDATO *aux, char ***pessoa){
 	}
 }
 
+
+void select_nivel(CANDIDATO* cidade, int nivel){
+	srand( (unsigned)time(NULL) );
+	if(nivel == 1){
+		cidade->dinheiro = 10000000;
+		cidade->saneamento = 50 + (1 + rand() % 10);
+		cidade->educacao = 50 + (1 + rand() % 10);
+		cidade->saude = 50 + (1 + rand() % 10);
+		cidade->seguranca = 50 + (1 + rand() % 10);
+		cidade->lazer = 50 + (1 + rand() % 10);
+	}
+	if(nivel == 2){
+		cidade->dinheiro = 5000000;
+		cidade->saneamento = 35 + (1 + rand() % 5);
+		cidade->educacao = 35 + (1 + rand() % 5);
+		cidade->saude = 35 + (1 + rand() % 5);
+		cidade->seguranca = 35 + (1 + rand() % 5);
+		cidade->lazer = 35 + (1 + rand() % 5);
+	}
+	if(nivel == 3){
+		cidade->dinheiro = 1000000;
+		cidade->saneamento = 15 + (1 + rand() % 10);
+		cidade->educacao = 15 + (1 + rand() % 10);
+		cidade->saude = 15 + (1 + rand() % 10);
+		cidade->seguranca = 15 + (1 + rand() % 10);
+		cidade->lazer = 15 + (1 + rand() % 10);
+	}
+
+}
+
 CANDIDATO* random_select(CANDIDATO *vec){
 	
 	srand( (unsigned)time(NULL) );
@@ -95,6 +126,7 @@ CANDIDATO* random_select(CANDIDATO *vec){
 		if(!i){
 			aux[0] = random;
 			cand[i].saude = vec[random].saude;
+			cand[i].dinheiro = vec[random].dinheiro;
 			cand[i].educacao = vec[random].educacao;
 			cand[i].saneamento = vec[random].saneamento;
 			cand[i].seguranca = vec[random].seguranca;
@@ -105,6 +137,7 @@ CANDIDATO* random_select(CANDIDATO *vec){
 			if(random != aux[0]){
 				aux[1] = random;
 				cand[i].saude = vec[random].saude;
+				cand[i].dinheiro = vec[random].dinheiro;
 				cand[i].educacao = vec[random].educacao;
 				cand[i].saneamento = vec[random].saneamento;
 				cand[i].seguranca = vec[random].seguranca;
@@ -119,6 +152,7 @@ CANDIDATO* random_select(CANDIDATO *vec){
 			if(random != aux[0] && random != aux[1]){
 				cand[i].saude = vec[random].saude;
 				cand[i].educacao = vec[random].educacao;
+				cand[i].dinheiro = vec[random].dinheiro;
 				cand[i].saneamento = vec[random].saneamento;
 				cand[i].seguranca = vec[random].seguranca;
 				cand[i].lazer = vec[random].lazer;
@@ -140,6 +174,7 @@ CANDIDATO *select_candidato(){
 	vec = (CANDIDATO *)malloc(11 * sizeof(CANDIDATO));
 	//MEDIANO
 	vec[0].educacao = 20;
+	vec[0].dinheiro = 10000;
 	vec[0].lazer = 20;
 	vec[0].saneamento = 20;
 	vec[0].saude = 20;
@@ -147,6 +182,7 @@ CANDIDATO *select_candidato(){
 	//FOCO EM EDUCACAO
 	
 	vec[1].educacao = 40;
+	vec[1].dinheiro = 10000;
 	vec[1].lazer = 0;
 	vec[1].saude = 20;
 	vec[1].seguranca = 15;
@@ -155,6 +191,7 @@ CANDIDATO *select_candidato(){
 	
 	vec[2].seguranca = 50;
 	vec[2].lazer = 10;
+	vec[2].dinheiro = 10000;
 	vec[2].educacao = 5;
 	vec[2].saude = 10;
 	vec[2].saneamento = 25;
@@ -162,12 +199,14 @@ CANDIDATO *select_candidato(){
 	
 	vec[3].saneamento = 30;
 	vec[3].saude = 40;
+	vec[3].dinheiro = 10000;
 	vec[3].educacao = 15;
 	vec[3].lazer = 10;
 	vec[3].seguranca = 5;
 	//PESADO EM EDUCACAO
 	
 	vec[4].educacao = 50;
+	vec[4].dinheiro = 10000;
 	vec[4].saude = 10;
 	vec[4].seguranca = 10;
 	vec[4].saneamento = 10;
@@ -176,6 +215,7 @@ CANDIDATO *select_candidato(){
 
 	vec[5].seguranca = 70;
 	vec[5].lazer = 0;
+	vec[5].dinheiro = 10000;
 	vec[5].saneamento = 15;
 	vec[5].educacao = 0;
 	vec[5].saude = 15;
@@ -184,6 +224,7 @@ CANDIDATO *select_candidato(){
 	vec[6].lazer = 10;
 	vec[6].educacao = 10;
 	vec[6].saneamento = 10;
+	vec[6].dinheiro = 10000;
 	vec[6].seguranca = 5;
 	
 	//CIRCO
@@ -191,23 +232,27 @@ CANDIDATO *select_candidato(){
 	vec[7].seguranca = 10;
 	vec[7].saneamento = 5;
 	vec[7].saude = 5;
+	vec[7].dinheiro = 10000;
 	vec[7].educacao = 0;
 	
 	vec[8].seguranca = 30;
 	vec[8].educacao = 30;
 	vec[8].saude = 30;
+	vec[8].dinheiro = 10000;
 	vec[8].saneamento = 10;
 	vec[8].lazer = 0;
 
 	//PROFESSOR
 	vec[9].educacao = 90;
 	vec[9].saude = 5;
+	vec[9].dinheiro = 10000;
 	vec[9].seguranca = 3;
 	vec[9].saneamento = 2;
 	vec[9].lazer = 0;
 
 	//medico
 	vec[10].saude = 50;
+	vec[10].dinheiro = 10000;
 	vec[10].saneamento = 32;
 	vec[10].educacao = 8;
 	vec[10].seguranca = 9;
