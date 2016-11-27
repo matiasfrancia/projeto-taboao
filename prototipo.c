@@ -1694,6 +1694,8 @@ int loserScreen(){
                 }
             }
             if(seg == 0){
+                min =5;
+                seg = 0;
                 mainScreen();
             }
 
