@@ -1447,7 +1447,7 @@ int eventScreen(){
                           evento.mouse.y >= 558 && evento.mouse.y <= 578){
                           //botão de VOLTAR
                           printf("botao 7\n" );
-                          playScreen();
+                          budgetScreen();
                 }
                 if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
                     evento.mouse.y >= 20 && evento.mouse.y <= 35 && toggleSound == 0){
