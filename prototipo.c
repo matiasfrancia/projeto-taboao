@@ -574,7 +574,6 @@ int chooseScreen(){
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
                 // botão HOME
-                        al_set_audio_stream_playing(musica, false);
                         backSave = 1;
                         saveScreen(backSave);
                         al_stop_timer(contador);
@@ -844,7 +843,7 @@ int playScreen(){
                         al_set_audio_stream_playing(musica, true);
                 
                 }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
-                    evento.mouse.y >= 630 && evento.mouse.y <= 660 ){
+                    evento.mouse.y >= 630 && evento.mouse.y <= 660 && togglePlay == 1 ){
                     // botao de investimento
                         budgetScreen();
                 }
@@ -859,7 +858,6 @@ int playScreen(){
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
                 // botão de música
-                        al_set_audio_stream_playing(musica, false);
                         backSave = 2;
                         saveScreen(backSave);
                         al_stop_timer(contador);
@@ -868,12 +866,12 @@ int playScreen(){
                     // botao em play
                 
                         togglePlay = 0;
-                        pauseText = "PAUSAR";                          
-                        pauseBtnImage = pauseBackup;
+                        pauseText = "PLAY";                          
+                        pauseBtnImage = playBtnImage;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-                        al_start_timer(contador);
+                        al_stop_timer(contador);
                         
                 
                 }else if (togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
@@ -881,12 +879,13 @@ int playScreen(){
                     // botao pausado
                 
                         togglePlay = 1;
-                        pauseText = "PLAY";                        
-                        pauseBtnImage = playBtnImage;
+                        pauseText = "PAUSAR";                        
+                        pauseBtnImage = pauseBackup;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
-                        al_stop_timer(contador);
-                
+                        al_start_timer(contador);
+                        
+                                        
                 }
             }
         }if(toggleSound == 1){
@@ -1055,37 +1054,37 @@ int budgetScreen(){
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if       (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
-                          evento.mouse.y >= 163 && evento.mouse.y <= 265){
+                          evento.mouse.y >= 163 && evento.mouse.y <= 265 && togglePlay == 1){
                           //botão investimento EDUCAÇÃO
                           printf("botao1\n");
                           compra_educacao(&cidade, &compra);
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                          evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                          evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
                           //botão investimento SEGURANÇA
                           printf("botao 2\n");
                           compra_seguranca(&cidade, &compra);
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                          evento.mouse.y >= 439 && evento.mouse.y <= 539){
+                          evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
                           //botão investimento SANEAMENTO
                           printf("botao 3\n");
                           compra_saneamento(&cidade, &compra);
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                          evento.mouse.y >= 163 && evento.mouse.y <= 263){
+                          evento.mouse.y >= 163 && evento.mouse.y <= 263 && togglePlay == 1){
                           //botão investimento SAÚDE
                           printf("botao 4\n");
                           compra_saude(&cidade, &compra);
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                          evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                          evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
                           //botão investimento LAZER
                           printf("botao 5\n" );
                           compra_lazer(&cidade, &compra);
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                          evento.mouse.y >= 339 && evento.mouse.y <= 539){
+                          evento.mouse.y >= 339 && evento.mouse.y <= 539 && togglePlay == 1){
                           //botão investimento SOLENIDADES
                           printf("botao 6\n" );
                           eventScreen();
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
-                          evento.mouse.y >= 558 && evento.mouse.y <= 578){
+                          evento.mouse.y >= 558 && evento.mouse.y <= 578 && togglePlay == 1){
                           //botão de VOLTAR
                           printf("botao 7\n" );
                           playScreen();
@@ -1115,7 +1114,6 @@ int budgetScreen(){
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
                 // botão de música
-                        al_set_audio_stream_playing(musica, false);
                         backSave = 3;
                         saveScreen(backSave);
                         al_stop_timer(contador);
@@ -1124,12 +1122,12 @@ int budgetScreen(){
                     // botao em play
                 
                         togglePlay = 0;
-                        pauseText = "PAUSAR";                          
-                        pauseBtnImage = pauseBackup;
+                        pauseText = "PLAY";                          
+                        pauseBtnImage = playBtnImage;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-                        al_start_timer(contador);
+                        al_stop_timer(contador);
                         
                 
                 }else if (evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
@@ -1137,11 +1135,11 @@ int budgetScreen(){
                     // botao pausado
                 
                         togglePlay = 1;
-                        pauseText = "PLAY";                        
-                        pauseBtnImage = playBtnImage;
+                        pauseText = "PAUSAR";                        
+                        pauseBtnImage = pauseBackup;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
-                        al_stop_timer(contador);
+                        al_start_timer(contador);
                 
                 }
             }
@@ -1346,42 +1344,42 @@ int eventScreen(){
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if       (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
-                          evento.mouse.y >= 163 && evento.mouse.y <= 265){
+                          evento.mouse.y >= 163 && evento.mouse.y <= 265 && togglePlay == 1){
                           //botão evento EDUCAÇÃO
                           printf("botao1\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[0]);
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                          evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                          evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
                           //botão evento SEGURANÇA
                           printf("botao 2\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[1].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[1]);
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                          evento.mouse.y >= 439 && evento.mouse.y <= 539){
+                          evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
                           //botão evento SANEAMENTO
                           printf("botao 3\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[2].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[2]);
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                          evento.mouse.y >= 163 && evento.mouse.y <= 263){
+                          evento.mouse.y >= 163 && evento.mouse.y <= 263 && togglePlay == 1){
                           //botão evento SAÚDE
                           printf("botao 4\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[3].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[3]);  
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
-                          evento.mouse.y >= 301 && evento.mouse.y <= 401){
+                          evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
                           //botão evento LAZER
                           printf("botao 5\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[4].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[4]);
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
-                          evento.mouse.y >= 439 && evento.mouse.y <= 539){
+                          evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
                           //botão evento SOLENIDADES
                           printf("botao 6\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[5].dinheiro)){
@@ -1418,7 +1416,6 @@ int eventScreen(){
                 }else if(evento.mouse.x >= 965 && evento.mouse.x <= 976 &&
                     evento.mouse.y >= 17 && evento.mouse.y <= 40){
                 // botão de home
-                        al_set_audio_stream_playing(musica, false);
                         backSave = 4;
                         saveScreen(backSave);
                         al_stop_timer(contador);
@@ -1427,24 +1424,25 @@ int eventScreen(){
                     // botao em play
                 
                         togglePlay = 0;
-                        pauseText = "PAUSAR";                          
-                        pauseBtnImage = pauseBackup;
+                        pauseText = "PLAY";                          
+                        pauseBtnImage = playBtnImage;
                         toggleSound = 0;
                         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
                         al_set_audio_stream_playing(musica, true);
-                        al_start_timer(contador);
-                        
+                        al_stop_timer(contador);
+                                                
                 
                 }else if (evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
                     // botao pausado
                 
                         togglePlay = 1;
-                        pauseText = "PLAY";                        
-                        pauseBtnImage = playBtnImage;
+                        pauseText = "PAUSAR";                        
+                        pauseBtnImage = pauseBackup;
                         toggleSound = 1;
                         al_set_audio_stream_playing(musica, false);
-                        al_stop_timer(contador);
+                        al_start_timer(contador);
+                        
                 
                 }
             }
