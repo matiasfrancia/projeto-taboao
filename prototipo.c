@@ -1226,10 +1226,10 @@ int budgetScreen(){
         //desenhando botões de investimento
         al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 428, 633, 532, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
         al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 428, 923, 542, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 428, 923, 532, al_map_rgb(60, 60, 59));
         
         
         if(cidade.dinheiro >= precos[compra.educacao] && 
@@ -1550,65 +1550,65 @@ int eventScreen(){
             al_draw_bitmap(secondPersonaImage, 140, 152, 0);
         }
         //desenhando botões de investimento
-        al_draw_filled_rectangle(390, 152, 633, 255, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 290, 633, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 428, 633, 542, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 152, 923, 255, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 290, 923, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 428, 923, 542, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 152, 633+30, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 290, 633+30, 393, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 428, 633+30, 532, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 152, 923+30, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 290, 923+30, 393, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 428, 923+30, 532, al_map_rgb(60, 60, 59));
         
         if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro) && 
            vector_de_projetos[0].dinheiro != 0){
-            al_draw_bitmap(investir, 505, 226, 0);    
+            al_draw_bitmap(investir, 495, 226, 0);    
         }
         else{
             DESATIVA_PRIMERO_BOTAO:
-                al_draw_bitmap(compraNaoDisponivel, 505, 226, 0);
+                al_draw_bitmap(compraNaoDisponivel, 495, 226, 0);
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[1].dinheiro) && 
            vector_de_projetos[1].dinheiro != 0){
-            al_draw_bitmap(investir, 505, 364, 0);    
+            al_draw_bitmap(investir, 495, 364, 0);    
         }
         else{
             DESATIVA_SEGUNDO_BOTAO:
-                al_draw_bitmap(compraNaoDisponivel, 505, 364, 0);
+                al_draw_bitmap(compraNaoDisponivel, 495, 364, 0);
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[2].dinheiro) && 
            vector_de_projetos[2].dinheiro != 0){
-            al_draw_bitmap(investir, 505, 502, 0);    
+            al_draw_bitmap(investir, 495, 502, 0);    
         }
         else{
             DESATIVA_TERCEIRO_BOTAO:
-                al_draw_bitmap(compraNaoDisponivel, 505, 502, 0);
+                al_draw_bitmap(compraNaoDisponivel, 495, 502, 0);
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[3].dinheiro) && 
            vector_de_projetos[3].dinheiro != 0){
-            al_draw_bitmap(investir, 790, 226, 0);   
+            al_draw_bitmap(investir, 780, 226, 0);   
         }
         else{
             DESATIVA_QUARTO_BOTAO:
-                al_draw_bitmap(compraNaoDisponivel, 790, 226, 0);
+                al_draw_bitmap(compraNaoDisponivel, 780, 226, 0);
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[4].dinheiro) && 
            vector_de_projetos[4].dinheiro != 0){
-            al_draw_bitmap(investir, 790, 364, 0);    
+            al_draw_bitmap(investir, 780, 364, 0);    
         }
         else{
             DESATIVA_QUINTO_BOTAO:
-                al_draw_bitmap(compraNaoDisponivel, 790, 364, 0);
+                al_draw_bitmap(compraNaoDisponivel, 780, 364, 0);
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[5].dinheiro) && 
            vector_de_projetos[5].dinheiro != 0){
-            al_draw_bitmap(investir, 790, 502, 0);    
+            al_draw_bitmap(investir, 780, 502, 0);    
         }
         else{
             DESATIVA_SEXTO_BOTAO:
-                al_draw_bitmap(compraNaoDisponivel, 790, 502, 0);
+                al_draw_bitmap(compraNaoDisponivel, 780, 502, 0);
         }
 
         al_draw_bitmap(eventBtn, 405, 163, 0);
@@ -1617,19 +1617,19 @@ int eventScreen(){
         al_draw_bitmap(eventBtn, 693, 163, 0);
         al_draw_bitmap(eventBtn, 693, 301, 0);
         al_draw_bitmap(eventBtn, 693, 439, 0);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 500, 167, 0, "%s", *vector_de_projetos[0].nome);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 500, 306, 0, "%s", *vector_de_projetos[1].nome);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 500, 447, 0, "%s", *vector_de_projetos[2].nome);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 790, 167, 0, "%s", *vector_de_projetos[3].nome);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 790, 306, 0, "%s", *vector_de_projetos[4].nome);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 790, 447, 0, "%s", *vector_de_projetos[5].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493, 167, 0, "%s", *vector_de_projetos[0].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493, 306, 0, "%s", *vector_de_projetos[1].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493, 447, 0, "%s", *vector_de_projetos[2].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780, 167, 0, "%s", *vector_de_projetos[3].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780, 306, 0, "%s", *vector_de_projetos[4].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780, 447, 0, "%s", *vector_de_projetos[5].nome);
         
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", -(vector_de_projetos[0].dinheiro));
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", -(vector_de_projetos[1].dinheiro));
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", -(vector_de_projetos[2].dinheiro));
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", -(vector_de_projetos[3].dinheiro));
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", -(vector_de_projetos[4].dinheiro));
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 447+20, 0, "R$ %d", -(vector_de_projetos[5].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 167+20, 0, "R$ %d", -(vector_de_projetos[0].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 306+20, 0, "R$ %d", -(vector_de_projetos[1].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 447+20, 0, "R$ %d", -(vector_de_projetos[2].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-30, 167+20, 0, "R$ %d", -(vector_de_projetos[3].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-30, 306+20, 0, "R$ %d", -(vector_de_projetos[4].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-30, 447+20, 0, "R$ %d", -(vector_de_projetos[5].dinheiro));
         
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");

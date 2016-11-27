@@ -31,10 +31,10 @@ char *projetos_educacao[] = {"FEIRA DO LIVRO",
 							};
 
 char *projetos_lazer[]    = {"FEIRA DE GASTRONOMIA",
-							 "GRANDE MARATONA DE TABOAO",
+							 "GRANDE MARATONA",
 							 "FESTAS COMEMORATIVAS",
-							 "ENCONTRO MUNICIPAL DE LAZER",
-							 "EVENTO DE INCENTIVO AO ESPORTE",
+							 "ENCONTRO DE LAZER",
+							 "INCENTIVO AO ESPORTE",
 							 "EVENTOS NOTURNOS"
 							};
 
