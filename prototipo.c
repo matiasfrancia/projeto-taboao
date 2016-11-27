@@ -1856,19 +1856,18 @@ int winnerScreen(){
                 mainScreen();
             }
 
- 
-        while (!al_is_event_queue_empty(fila_eventos)){
-            ALLEGRO_EVENT evento;
-            ALLEGRO_TIMEOUT timeout;
-            al_init_timeout(&timeout, 0.5);
- 
-            int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+            while (!al_is_event_queue_empty(fila_eventos)){
+                ALLEGRO_EVENT evento;
+                ALLEGRO_TIMEOUT timeout;
+                al_init_timeout(&timeout, 0.5);
      
-            if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-                sair = 1;
+                int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
+         
+                if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                    sair = 1;
+                }
             }
-        }
-    }    
+        }    
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
         al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
@@ -1892,6 +1891,8 @@ int helpScreen(){
 
     globalDeclarations();   
  
+    //al_register_event_source(fila_eventos, al_get_display_event_source(janela));
+ 
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
 
     while(!sair){
@@ -1902,9 +1903,9 @@ int helpScreen(){
         int tem_eventos = al_wait_for_event_until(fila_eventos, &evento, &timeout);
         al_register_event_source(fila_eventos, al_get_mouse_event_source());
         al_register_event_source(fila_eventos, al_get_display_event_source(janela));
-        
+ 
         if (tem_eventos && evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-            sair == 1;
+            sair = 1;
         }
         if (tem_eventos && evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
             printf("%d\n", backSave);
@@ -1915,6 +1916,7 @@ int helpScreen(){
                 saveScreen();
             }
         }
+
 
         al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
         al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
