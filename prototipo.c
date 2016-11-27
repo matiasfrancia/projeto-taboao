@@ -847,7 +847,7 @@ int playScreen(){
             }
             
             // eventos bons e ruins aleatorios 
-            if(global_timer % 10 == 0){
+            if(global_timer % 21 == 0){
                 random_value = rand() % 2;
                 if(!random_value){
                     select_evento_bom(&bom);
