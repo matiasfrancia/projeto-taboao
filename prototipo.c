@@ -125,7 +125,7 @@ int botao = 0,
 
 int sair = 0;
 int r = 0, g = 0, b = 0;
-int min = 5, seg = 00;
+int min = 5, seg = 0;
 int candidato = 0;
 int toggleSound = 1;    
 char *pauseText = "PAUSAR";  
@@ -729,7 +729,7 @@ int playScreen(){
     EVENTO_BOM bom;
     char **texto_evento;
 
-    int global = 60 * min;
+    int global_timer = 60 * min;
     int random_value = 295;
     fprintf(stderr, "VALOR ALEATORIO: %d\n", random_value);
 
@@ -781,8 +781,8 @@ int playScreen(){
             }
 
             // eventos bons e ruins aleatorios 
-            global = (60 * min) + seg;
-            if(global == random_value){
+            global_timer = (60 * min) + seg;
+            if(global_timer % 10 == 0){
                 random_value = rand() % 2;
                 if(!random_value){
                     select_evento_bom(&bom);
