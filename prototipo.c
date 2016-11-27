@@ -1903,12 +1903,11 @@ int creditScreen(){
         al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 395, 0, "Gostariamos de agradecer a todos os programadores envolvidos neste projeto e lembra-los que sem");
         al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 410, 0, "eles nada disso seria possível. Também a todos os outros alunos do BCC que nos motivaram diaria-");
         al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 425, 0, "mente com ideias e criticas que foram de suma importancia para continualidade do projeto.");
-        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 440, 0, "À todos os professores do curso e um agradecimento em especial ao Rafael Toledo, do blog do");
-        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 455, 0, "Rafael Toledo, que foi nosso grande mentor no decorrer desse projeto. E claro, impossível não a-");
-        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 470, 0, "gradecer aos desenvolvedores que criaram a bliblioteca allegro e a linguagem C, sem eles nada ");
-        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 485, 0, "disso seria possível.");
-        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 510, 0, "Atenciosamente,");
-        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 538, 0, "DEUSES DO SENAC");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 440, 0, "À todos os professores do curso e um agradecimento em especial ao Rafael Toledo, do blog do Rafael");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 455, 0, "Toledo, que foi nosso grande mentor no decorrer desse projeto. E claro, impossível não agradecer aos");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 470, 0, "desenvolvedores que criaram a bliblioteca allegro e a linguagem C, sem eles nada disso seria possível.");
+        al_draw_text(dozePx, al_map_rgb(255, 255, 255), 399, 505, 0, "Atenciosamente,");
+        al_draw_text(dozeBoldPx, al_map_rgb(255, 255, 255), 399, 528, 0, "DEUSES DO SENAC");
 
 
         
