@@ -792,6 +792,7 @@ int playScreen(){
     }
     
     int togglePopup = 3;
+    int toggleColor = 3;
     int rEduc = 0, 
         rSaud = 0,
         rSane = 0,
@@ -844,7 +845,6 @@ int playScreen(){
                     togglePopup = 1;
                     select_event_description(&texto_evento, 0);
                     news = *texto_evento;
-                    cidade.dinheiro += bom.dinheiro;
                     al_stop_timer(contador);
                 }
                 else{
@@ -904,20 +904,22 @@ int playScreen(){
                     
                         togglePopup = 3;
                         al_start_timer(contador);
+                        toggleColor = 0;
                 
+
                 }else if((togglePopup == 1) && 
                         evento.mouse.x >= 412 && evento.mouse.x <= 513 && 
                         evento.mouse.y >= 344 && evento.mouse.y <= 363){
                     // botao de aceitar quando evento bom
-                    
+                        cidade.dinheiro += bom.investimento;                    
                         togglePopup = 3;
                         al_start_timer(contador);
+                        toggleColor = 1;
                 
                 }else if((togglePopup == 1) && 
                         evento.mouse.x >= 537 && evento.mouse.x <= 637 && 
                         evento.mouse.y >= 344 && evento.mouse.y <= 363){
                     // botao de negar quando evento bom
-                    
                         togglePopup = 3;
                         al_start_timer(contador);
                 
@@ -930,7 +932,6 @@ int playScreen(){
                 }else if(togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 &&
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 1){
                     // botao em play
-                
                         togglePlay = 0;
                         pauseText = "PLAY";                          
                         pauseBtnImage = playBtnImage;
@@ -943,7 +944,6 @@ int playScreen(){
                 }else if (togglePopup == 3 && evento.mouse.x >= 830 && evento.mouse.x <= 840 && 
                     evento.mouse.y >= 25 && evento.mouse.y <= 35 && togglePlay == 0){
                     // botao pausado
-                
                         togglePlay = 1;
                         pauseText = "PAUSAR";                        
                         pauseBtnImage = pauseBackup;
@@ -1034,7 +1034,60 @@ int playScreen(){
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
         al_draw_text(onzePx, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, *cidade.nome);
+        
+        if(toggleColor == 1){
+            al_draw_textf(vinteDoisPx, al_map_rgb(0, 150, 64), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+            int testemin = 0;
+            int testeseg = 3;
+            while (!sair){
+                if (!al_is_event_queue_empty(fila_contador)){
+                    ALLEGRO_EVENT evento;
+                    al_wait_for_event(fila_contador, &evento);
+                    
+                    if (evento.type == ALLEGRO_EVENT_TIMER)
+                    {
+                        testeseg--;
+                        if (testeseg == -1)
+                        {
+                            testemin--;
+                            testeseg = 59;
+                        }
+                    }
+                    if(testeseg == 0){
+                        toggleColor = 3;
+                    }
+                }    
+            }
+        }else if (toggleColor == 0){
+            al_draw_textf(vinteDoisPx, al_map_rgb(190, 22, 34), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+            int testemin = 0;
+            int testeseg = 3;
+            while (!sair){
+                if (!al_is_event_queue_empty(fila_contador)){
+                    ALLEGRO_EVENT evento;
+                    al_wait_for_event(fila_contador, &evento);
+                    
+                    if (evento.type == ALLEGRO_EVENT_TIMER)
+                    {
+                        testeseg--;
+                        if (testeseg == -1)
+                        {
+                            testemin--;
+                            testeseg = 59;
+                        }
+                    }
+                    if(testeseg == 0){
+                        toggleColor = 3;
+                    }
+                }    
+            }
+
+        }else{
+            al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+
+        }
         al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+
         al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
         al_draw_bitmap(education, 390+75+50, 575, 0);
         al_draw_bitmap(security, 445+75+50, 575, 0);

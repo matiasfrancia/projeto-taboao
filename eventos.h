@@ -8,9 +8,9 @@ char *positivo[] = 		   {"Sua Cidade foi escolhida para fazer a abertura dos Jog
 							"O próximo Brasil Game Show acontecerá em Taboão da Serra",
 							"O São Paulo Fashion Week poderá ser em Taboão",
 							"O Lollapalooza desta vez será em Taboão",
-							"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui"
-							"Taboão F.C. ganhou de 10x0 contra Embu Futebol Arte"
-							"Estado Islãmico invade o Brasil, menos Taboão. Alegam ser muito longe!"
+							"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui",
+							"Taboão F.C. ganhou de 10x0 contra Embu Futebol Arte",
+							"Estado Islãmico invade o Brasil, menos Taboão. Alegam ser muito longe!",
 							"Papai Noel faz sua primeira visita a Taboão, anos após o sequestro da rena Rodolf"
 							};
 
@@ -18,12 +18,12 @@ char *negativo[] = 		   {"Chuva muito forte, realmente muito forte, em Taboão",
 							"Fortes ventos em Taboão",
 							"Um vírus misterioso atingiu Taboão",
 							"Uma bactéria misteriosa está infectando os moradores de Taboão",
-							"Muitos raios antingem Taboão"
-							"O Palmeiras foi campeão"
-							"Tiroteio em taboão matou o Sr. Jaiminho do boteco do Jaiminho"
-							"Chuva alaga a única avenida de Taboão"
-							"Doencas de cavalo deixam as ruas cagadas"
-							"RESTART volta a ativa e segue carreira em Taboão"
+							"Muitos raios antingem Taboão",
+							"O Palmeiras foi campeão",
+							"Tiroteio em taboão matou o Sr. Jaiminho do boteco do Jaiminho",
+							"Chuva alaga a única avenida de Taboão",
+							"Doencas de cavalo deixam as ruas cagadas",
+							"RESTART volta a ativa e segue carreira em Taboão",
 							"Rena Rodolf  do Papai Noel continua desaparecida"
 							};
 
