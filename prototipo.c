@@ -103,7 +103,9 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *allegroLogo = NULL,
                 *senacLogo = NULL,
                 *creditTaboao = NULL,
-                *teste = NULL;
+                *teste = NULL,
+                *aceitarBtn = NULL,
+                *recusarBtn = NULL;
 
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
@@ -191,6 +193,8 @@ void globalDeclarations(){
     sanitation = al_load_bitmap("Images/globalImages/sanitation-btn.png");
     security = al_load_bitmap("Images/globalImages/security-btn.png");
     blackBack = al_load_bitmap("Images/playScreen/background-black.png");
+    aceitarBtn = al_load_bitmap("Images/playScreen/aceitarBtn.png");
+    recusarBtn = al_load_bitmap("Images/playScreen/recusarBtn.png");
     investiment = al_load_bitmap("Images/playScreen/investimento.png");
     cautionBtn = al_load_bitmap("Images/globalImages/caution-btn.png");
     cautionIcon = al_load_bitmap("Images/globalImages/caution-icon.png");
@@ -893,11 +897,26 @@ int playScreen(){
                     evento.mouse.y >= 630 && evento.mouse.y <= 660 && togglePlay == 1 ){
                     // botao de investimento
                         budgetScreen();
-                }
-
-                else if((togglePopup == 1 || togglePopup == 0) || evento.mouse.x >= 475 && 
-                    evento.mouse.x <= 485 && evento.mouse.y >= 320 && evento.mouse.y <= 345){
-                    // botao de som
+                }else if((togglePopup == 0) &&
+                        evento.mouse.x >= 477 && evento.mouse.x <= 578 && 
+                        evento.mouse.y >= 344 && evento.mouse.y <= 361){
+                    // botao de voltar quando evento ruim
+                    
+                        togglePopup = 3;
+                        al_start_timer(contador);
+                
+                }else if((togglePopup == 1) && 
+                        evento.mouse.x >= 412 && evento.mouse.x <= 513 && 
+                        evento.mouse.y >= 344 && evento.mouse.y <= 363){
+                    // botao de aceitar quando evento bom
+                    
+                        togglePopup = 3;
+                        al_start_timer(contador);
+                
+                }else if((togglePopup == 1) && 
+                        evento.mouse.x >= 537 && evento.mouse.x <= 637 && 
+                        evento.mouse.y >= 344 && evento.mouse.y <= 363){
+                    // botao de negar quando evento bom
                     
                         togglePopup = 3;
                         al_start_timer(contador);
@@ -1029,7 +1048,8 @@ int playScreen(){
             al_draw_bitmap(quietIcon, (1024/2), 270, 0);
             al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
-            al_draw_bitmap(quietBtn, 475, 340, 0);
+            al_draw_bitmap(aceitarBtn, 410, 340, 0);
+            al_draw_bitmap(recusarBtn, 535, 340, 0);
 
         }
         else if(togglePopup == 0){
