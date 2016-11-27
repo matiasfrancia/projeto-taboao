@@ -895,6 +895,19 @@ int playScreen(){
         }else if(toggleSound == 0){
                 soundBtnImage = muteBtnImage;
                 al_set_audio_stream_playing(musica, false);
+        }else if(togglePlay == 1){
+                pauseText = "PLAY";                          
+                pauseBtnImage = playBtnImage;
+                toggleSound = 0;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                al_stop_timer(contador);
+        }else if(togglePlay == 0){
+                pauseText = "PAUSAR";                        
+                pauseBtnImage = pauseBackup;
+                toggleSound = 1;
+                al_set_audio_stream_playing(musica, false);
+                al_start_timer(contador);
         }
         
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -1150,6 +1163,19 @@ int budgetScreen(){
         }else if(toggleSound == 0){
                 soundBtnImage = muteBtnImage;
                 al_set_audio_stream_playing(musica, false);
+        }else if(togglePlay == 1){
+                pauseText = "PLAY";                          
+                pauseBtnImage = playBtnImage;
+                toggleSound = 0;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                al_stop_timer(contador);
+        }else if(togglePlay == 0){
+                pauseText = "PAUSAR";                        
+                pauseBtnImage = pauseBackup;
+                toggleSound = 1;
+                al_set_audio_stream_playing(musica, false);
+                al_start_timer(contador);
         }  
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -1453,7 +1479,20 @@ int eventScreen(){
         }else if(toggleSound == 0){
                 soundBtnImage = muteBtnImage;
                 al_set_audio_stream_playing(musica, false);
-        }  
+        }else if(togglePlay == 1){
+                pauseText = "PLAY";                          
+                pauseBtnImage = playBtnImage;
+                toggleSound = 0;
+                al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
+                al_set_audio_stream_playing(musica, true);
+                al_stop_timer(contador);
+        }else if(togglePlay == 0){
+                pauseText = "PAUSAR";                        
+                pauseBtnImage = pauseBackup;
+                toggleSound = 1;
+                al_set_audio_stream_playing(musica, false);
+                al_start_timer(contador);
+        }    
 
         al_clear_to_color(al_map_rgb(0, 0, 0));
 
