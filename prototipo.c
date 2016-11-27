@@ -138,6 +138,7 @@ int botao = 0,
 int sair = 0;
 int r = 0, g = 0, b = 0;
 int min = 5, seg = 0;
+int segano = 0, ano = 2016;
 int candidato = 0;
 int toggleSound = 1;    
 char *pauseText = "PAUSAR";  
@@ -733,7 +734,7 @@ int chooseScreen(){
         al_draw_filled_rectangle(275, 510+50, 725, 530+50, al_map_rgb(87, 87, 86));
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+25, ALLEGRO_ALIGN_LEFT, "Taboão - ");
-        al_draw_text(onzePx, al_map_rgb(203, 187, 160), 320, 590+25, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_textf(onzePx, al_map_rgb(203, 187, 160), 320, 590+25, ALLEGRO_ALIGN_LEFT, "%d", ano);
         al_draw_text(quatorzeBoldPx, al_map_rgb(255, 255, 255), 275, 575+20, ALLEGRO_ALIGN_LEFT, majorName);
         
         // icones de parametros
@@ -817,9 +818,13 @@ int playScreen(){
             //função relogio 
             if (evento.type == ALLEGRO_EVENT_TIMER) {
                 seg--;
+                segano++;
                 if (seg == -1) {
                     min--;
                     seg = 59;
+                }
+                if (segano %75 == 0){
+                    ano++;
                 }
             }
 
@@ -1032,7 +1037,7 @@ int playScreen(){
         // detalhe prefeito
         al_draw_filled_rectangle(325, 530, 775, 550, al_map_rgb(87, 87, 86));        
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 610, ALLEGRO_ALIGN_LEFT, "Taboão - ");
-        al_draw_text(onzePx, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_textf(onzePx, al_map_rgb(203, 187, 160), 370, 610, ALLEGRO_ALIGN_LEFT, "%d", ano);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, *cidade.nome);
         
         if(toggleColor == 1){
@@ -1163,9 +1168,13 @@ int budgetScreen(){
             // relogio
             if (evento.type == ALLEGRO_EVENT_TIMER) {
                 seg--;
+                segano++;
                 if (seg == -1) {
                     min--;
                     seg = 59;
+                }
+                if (segano %75 == 0){
+                    ano++;
                 }
             }
 
@@ -1463,9 +1472,13 @@ int eventScreen(){
             // relogio
             if (evento.type == ALLEGRO_EVENT_TIMER) {
                 seg--;
+                segano++;
                 if (seg == -1) {
                     min--;
                     seg = 59;
+                }
+                if (segano %75 == 0){
+                    ano++;
                 }
             }
 
