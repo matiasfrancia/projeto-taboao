@@ -834,8 +834,19 @@ int playScreen(){
                 loserScreen(sair);
             }
 
-            // eventos bons e ruins aleatorios 
             global_timer = (60 * min) + seg;
+
+            // voltar a cor original do dinheiro depois do evento
+            if(global_timer % 1 == 0){
+                toggleColor = 3;
+            }
+
+            // somar 10 reais ao dinheiro depois de 1 segundo
+            if(global_timer % 1 == 0){
+                cidade.dinheiro += 10;
+            }
+            
+            // eventos bons e ruins aleatorios 
             if(global_timer % 10 == 0){
                 random_value = rand() % 2;
                 if(!random_value){
@@ -864,7 +875,6 @@ int playScreen(){
                     togglePopup = 0;
                     select_event_description(&texto_evento, 1);
                     news = *texto_evento;
-                    cidade.dinheiro += ruim.dinheiro;
                     al_stop_timer(contador);
                 }
             }
@@ -907,6 +917,7 @@ int playScreen(){
                         evento.mouse.y >= 344 && evento.mouse.y <= 361){
                     // botao de voltar quando evento ruim
                     
+                        cidade.dinheiro += ruim.dinheiro;                    
                         togglePopup = 3;
                         al_start_timer(contador);
                         toggleColor = 0;
@@ -1043,55 +1054,18 @@ int playScreen(){
         if(toggleColor == 1){
             al_draw_textf(vinteDoisPx, al_map_rgb(0, 150, 64), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
             int testemin = 0;
-            int testeseg = 3;
-            while (!sair){
-                if (!al_is_event_queue_empty(fila_contador)){
-                    ALLEGRO_EVENT evento;
-                    al_wait_for_event(fila_contador, &evento);
-                    
-                    if (evento.type == ALLEGRO_EVENT_TIMER)
-                    {
-                        testeseg--;
-                        if (testeseg == -1)
-                        {
-                            testemin--;
-                            testeseg = 59;
-                        }
-                    }
-                    if(testeseg == 0){
-                        toggleColor = 3;
-                    }
-                }    
-            }
+            int testeseg = 3;   
+            
         }else if (toggleColor == 0){
             al_draw_textf(vinteDoisPx, al_map_rgb(190, 22, 34), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
             int testemin = 0;
             int testeseg = 3;
-            while (!sair){
-                if (!al_is_event_queue_empty(fila_contador)){
-                    ALLEGRO_EVENT evento;
-                    al_wait_for_event(fila_contador, &evento);
-                    
-                    if (evento.type == ALLEGRO_EVENT_TIMER)
-                    {
-                        testeseg--;
-                        if (testeseg == -1)
-                        {
-                            testemin--;
-                            testeseg = 59;
-                        }
-                    }
-                    if(testeseg == 0){
-                        toggleColor = 3;
-                    }
-                }    
-            }
 
         }else{
             al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
 
         }
-        al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+        //al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
 
         al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
         al_draw_bitmap(education, 390+75+50, 575, 0);
