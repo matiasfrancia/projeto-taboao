@@ -817,6 +817,7 @@ int playScreen(){
                     togglePopup = 1;
                     select_event_description(&texto_evento, 0);
                     news = *texto_evento;
+                    cidade.dinheiro = cidade.dinheiro + bom.dinheiro;
                     al_stop_timer(contador);
                 }
                 else{
@@ -831,6 +832,7 @@ int playScreen(){
                     togglePopup = 0;
                     select_event_description(&texto_evento, 1);
                     news = *texto_evento;
+                    cidade.dinheiro = cidade.dinheiro + ruim.dinheiro;
                     al_stop_timer(contador);
                 }
             }
