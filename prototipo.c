@@ -703,9 +703,9 @@ int chooseScreen(){
         // detalhes candidatos
         al_draw_filled_rectangle(275, 510+50, 725, 530+50, al_map_rgb(87, 87, 86));
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+30, ALLEGRO_ALIGN_LEFT, "Taboão - ");
-        al_draw_text(onzePx, al_map_rgb(203, 187, 160), 320, 590+30, ALLEGRO_ALIGN_LEFT, "21/03/1997");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 575+30, ALLEGRO_ALIGN_LEFT, majorName);
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+25, ALLEGRO_ALIGN_LEFT, "Taboão - ");
+        al_draw_text(onzePx, al_map_rgb(203, 187, 160), 320, 590+25, ALLEGRO_ALIGN_LEFT, "21/03/1997");
+        al_draw_text(quatorzeBoldPx, al_map_rgb(255, 255, 255), 275, 575+20, ALLEGRO_ALIGN_LEFT, majorName);
         
         // icones de parametros
         al_draw_bitmap(education, 390+75, 555+40, 0);

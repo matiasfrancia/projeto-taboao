@@ -40,8 +40,8 @@ void inicia_item(ITEM *aux){
 int precos[] = {1000000, 5000000, 10000000, 50000000, 100000000};
 int inc[] = {5, 5, 10, 10, 25};
 
-char *homem[] = {"Henrique", "Daniel", "Matheus", "Caio", "Luiz", "Antonio", "Carlos", "Felipe", "Mauricio", "Marcos"};
-char *mulher[] = {"Viviane", "Rosana", "Elaine", "Sonia", "Eliana", "Neuza", "Talita", "Leticia", "Caroline", "Lais", "Livia"};
+char *homem[] = {"Henrique Medeiro", "Daniel Agulha", "Matheus Batata", "Caio Mathias", "Luiz Mendonca", "Antonio Pacaembu", "Carlos De Melo", "Felipe Jose", "Mauricio Schenneider", "Monalisa Santiago"};
+char *mulher[] = {"Viviane Luz", "Rosana Rocha", "Elaine Silva", "Sonia Araujo", "Eliana Cazé", "Neuza Mauá", "Talita Taboão", "Leticia de Oliveira", "Caroline Lucas", "Lais Sadia", "Livia Queiros"};
 
 void print_candidato(CANDIDATO *cand){
 
