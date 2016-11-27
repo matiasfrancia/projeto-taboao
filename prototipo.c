@@ -1396,7 +1396,7 @@ int eventScreen(){
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP){
                 if       (evento.mouse.x >= 405 && evento.mouse.x <= 604 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 265 && togglePlay == 1){
-                          //botão evento EDUCAÇÃO
+                          //botão evento 1
                           printf("botao1\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[0]);
@@ -1404,7 +1404,7 @@ int eventScreen(){
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
-                          //botão evento SEGURANÇA
+                          //botão evento 2
                           printf("botao 2\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[1].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[1]);
@@ -1412,7 +1412,7 @@ int eventScreen(){
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
-                          //botão evento SANEAMENTO
+                          //botão evento 3
                           printf("botao 3\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[2].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[2]);
@@ -1420,7 +1420,7 @@ int eventScreen(){
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 263 && togglePlay == 1){
-                          //botão evento SAÚDE
+                          //botão evento 4
                           printf("botao 4\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[3].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[3]);
@@ -1428,20 +1428,19 @@ int eventScreen(){
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
-                          //botão evento LAZER
+                          //botão evento 5
                           printf("botao 5\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[4].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[4]);
                             goto DESATIVA_QUINTO_BOTAO;
                           }
-                }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
+                }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
-                          //botão evento SOLENIDADES
+                          //botão evento 6
                           printf("botao 6\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[5].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[5]);
                             goto DESATIVA_SEXTO_BOTAO;
-
                           }
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
                           evento.mouse.y >= 558 && evento.mouse.y <= 578){
