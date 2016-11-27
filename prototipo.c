@@ -31,11 +31,12 @@ int saveScreen();
 
 typedef struct controle_de_compra_eventos{
 
-    int saude;
-    int educacao;
-    int lazer;
-    int saneamento;
-    int seguranca;
+    int primeiro;
+    int segundo;
+    int terceiro;
+    int quarto;
+    int quinto;
+    int sexto;
 
 }CONTROLE;
 
@@ -144,11 +145,12 @@ int togglePlay = 1;
 
 void inicializacao_compra_eventos(CONTROLE *compra){
 
-    compra->lazer = 0;
-    compra->educacao = 0;
-    compra->seguranca = 0;
-    compra->saneamento = 0;
-    compra->saude = 0;
+    compra->primeiro = 0;
+    compra->segundo = 0;
+    compra->terceiro = 0;
+    compra->quarto = 0;
+    compra->quinto = 0;
+    compra->sexto = 0;
 
 }
 
@@ -1400,7 +1402,7 @@ int eventScreen(){
                           printf("botao1\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[0]);
-                            goto DESATIVA_PRIMERO_BOTAO;
+                            compra_qtd->primeiro++;
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
@@ -1408,7 +1410,7 @@ int eventScreen(){
                           printf("botao 2\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[1].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[1]);
-                            goto DESATIVA_SEGUNDO_BOTAO;
+                            compra_qtd->segundo++;
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
@@ -1416,7 +1418,7 @@ int eventScreen(){
                           printf("botao 3\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[2].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[2]);
-                            goto DESATIVA_TERCEIRO_BOTAO;
+                            compra_qtd->terceiro++;
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 263 && togglePlay == 1){
@@ -1424,7 +1426,7 @@ int eventScreen(){
                           printf("botao 4\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[3].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[3]);
-                            goto DESATIVA_QUARTO_BOTAO;
+                            compra_qtd->quarto++;
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401 && togglePlay == 1){
@@ -1432,7 +1434,7 @@ int eventScreen(){
                           printf("botao 5\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[4].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[4]);
-                            goto DESATIVA_QUINTO_BOTAO;
+                            compra_qtd->quinto++;
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539 && togglePlay == 1){
@@ -1440,7 +1442,7 @@ int eventScreen(){
                           printf("botao 6\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[5].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[5]);
-                            goto DESATIVA_SEXTO_BOTAO;
+                            compra_qtd->sexto++;
 
                           }
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
@@ -1558,7 +1560,7 @@ int eventScreen(){
         al_draw_filled_rectangle(680, 428, 923+30, 532, al_map_rgb(60, 60, 59));
         
         if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro) && 
-           vector_de_projetos[0].dinheiro != 0){
+           vector_de_projetos[0].dinheiro != 0 && compra_qtd->primeiro < 1){
             al_draw_bitmap(investir, 495, 226, 0);    
         }
         else{
@@ -1567,7 +1569,7 @@ int eventScreen(){
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[1].dinheiro) && 
-           vector_de_projetos[1].dinheiro != 0){
+           vector_de_projetos[1].dinheiro != 0 && compra_qtd->segundo < 1){
             al_draw_bitmap(investir, 495, 364, 0);    
         }
         else{
@@ -1576,7 +1578,7 @@ int eventScreen(){
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[2].dinheiro) && 
-           vector_de_projetos[2].dinheiro != 0){
+           vector_de_projetos[2].dinheiro != 0 && compra_qtd->terceiro < 1){
             al_draw_bitmap(investir, 495, 502, 0);    
         }
         else{
@@ -1585,7 +1587,7 @@ int eventScreen(){
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[3].dinheiro) && 
-           vector_de_projetos[3].dinheiro != 0){
+           vector_de_projetos[3].dinheiro != 0 && compra_qtd->quarto < 1){
             al_draw_bitmap(investir, 780, 226, 0);   
         }
         else{
@@ -1594,7 +1596,7 @@ int eventScreen(){
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[4].dinheiro) && 
-           vector_de_projetos[4].dinheiro != 0){
+           vector_de_projetos[4].dinheiro != 0 && compra_qtd->quinto < 1){
             al_draw_bitmap(investir, 780, 364, 0);    
         }
         else{
@@ -1603,7 +1605,7 @@ int eventScreen(){
         }
 
         if(cidade.dinheiro >= -(vector_de_projetos[5].dinheiro) && 
-           vector_de_projetos[5].dinheiro != 0){
+           vector_de_projetos[5].dinheiro != 0 && compra_qtd->sexto < 1){
             al_draw_bitmap(investir, 780, 502, 0);    
         }
         else{
