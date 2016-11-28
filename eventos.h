@@ -36,6 +36,7 @@ char *projetos_lazer[]    = {"FEIRA DE GASTRONOMIA",
 							 "GRANDE MARATONA",
 							 "FESTAS COMEMORATIVAS",
 							 "ENCONTRO DE LAZER",
+							 "FEIRA DE AUTOMOVEIS"
 							 "INCENTIVO AO ESPORTE",
 							 "EVENTOS NOTURNOS"
 							};
@@ -49,7 +50,7 @@ char *projetos_seguranca[] = {"AUMENTO R$ PARA POLICIA",
 
 char *projetos_saneamento[] = {"MELHORIA NO ENCANAMENTO",
 							  "DESPOLUIÇÃO DO RIO TABOCA",
-							  "MELHORIA NAS CASAS DA COMUNIDADE",
+							  "MELHORIA PERIFERIA",
 							  "ASFALTAMENTO",
 							  "INCENTIVO À RECICLAGEM",
 							  "CONTROLE DE PRAGA URBANA"
@@ -58,8 +59,9 @@ char *projetos_saneamento[] = {"MELHORIA NO ENCANAMENTO",
 char *projetos_saude[]     = {"MELHORIAS NOS HOSPITAIS",
 							  "VACINAS",
 							  "INCENTIVO À PRESERVATIVOS",
-							  "CONCIENTIZAÇÃO CONTRA A DENGUE",
+							  "CAMPANHA DE HIGIENE",
 							  "EXAMES GRATUITOS",
+							  "LUTA CONTRA A DENGUE"
 							  "CAMPANHA CONTRA DOENÇAS",
 							  "CONTROLE DE PRAGA URBANA"
 							};
