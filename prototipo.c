@@ -939,6 +939,7 @@ int playScreen(){
                 }else if (evento.mouse.x >= 325 && evento.mouse.x <= 450 &&
                     evento.mouse.y >= 630 && evento.mouse.y <= 660 ){
                     // botao de investimento
+                        al_stop_timer(contador);
                         budgetScreen();
                 }else if((togglePopup == 0) &&
                         evento.mouse.x >= 477 && evento.mouse.x <= 578 && 
@@ -1169,7 +1170,7 @@ int budgetScreen(){
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
 
-    al_start_timer(contador);
+    //al_start_timer(contador);
 
     if(&compra == NULL){
         inicia_item(&compra);
@@ -1245,6 +1246,7 @@ int budgetScreen(){
                           evento.mouse.y >= 339 && evento.mouse.y <= 539 ){
                           //botão investimento SOLENIDADES
                           printf("botao 6\n" );
+                          al_stop_timer(contador);
                           eventScreen();
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
                           evento.mouse.y >= 558 && evento.mouse.y <= 578 ){
@@ -1481,7 +1483,7 @@ int eventScreen(){
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_contador, al_get_timer_event_source(contador));
 
-    al_start_timer(contador);
+    //al_start_timer(contador);
     if(vector_de_projetos == NULL){
         vector_de_projetos = select_projeto();
     }
