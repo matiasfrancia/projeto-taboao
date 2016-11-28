@@ -1100,7 +1100,13 @@ int playScreen(){
             al_draw_bitmap(quietIcon, (1024/2), 270, 0);
             al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
-            al_draw_bitmap(aceitarBtn, 410, 340, 0);
+            if(cidade.dinheiro >= bom.investimento){
+                al_draw_bitmap(aceitarBtn, 410, 340, 0);
+            }
+            else{
+                al_draw_bitmap(compraNaoDisponivel, 410, 340, 0);
+            }
+            
             al_draw_bitmap(recusarBtn, 535, 340, 0);
 
         }
