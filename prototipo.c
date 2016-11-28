@@ -51,6 +51,7 @@ CANDIDATO cidade;
 // Atributos Investimentos
 ITEM compra;
 
+int objetivo;
 
 CANDIDATO *vector_de_projetos;
 
@@ -471,18 +472,21 @@ int nivelScreen(){
             if (evento.mouse.x >= 165 && evento.mouse.x <= 352 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
                     select_nivel(&cidade, 1);
+                    objetivo = 80;
                     print_candidato(&cidade);
                     chooseScreen();
             // Botão de Nivel MÉDIO
             }else if (evento.mouse.x >= 415 && evento.mouse.x <= 595 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
                     select_nivel(&cidade, 2);
+                    objetivo = 90;
                     print_candidato(&cidade);
                     chooseScreen();
             // Botão de Nivel DIFICIL
             }else if (evento.mouse.x >= 665 && evento.mouse.x <= 845 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
                     select_nivel(&cidade, 3);
+                    objetivo = 100;
                     print_candidato(&cidade);
                     chooseScreen();
             }
@@ -741,7 +745,7 @@ int chooseScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
@@ -853,7 +857,7 @@ int playScreen(){
 
             // caso o tempo de 5 minutos ou o dinheiro acabe
             if ((min == 0 && seg == 0) || cidade.dinheiro <= 0){
-                if (mTotal > 60 && cidade.dinheiro >= 0)
+                if (mTotal >= objetivo && cidade.dinheiro >= 0)
                 {
                     winnerScreen(sair);
                 }
@@ -1078,7 +1082,7 @@ int playScreen(){
         al_draw_filled_rectangle(310, 10, 730, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ESCOLHA O SEU PREFEITO");
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         
@@ -1200,7 +1204,7 @@ int budgetScreen(){
 
             // fim de jogo por tempo ou falta de dinheiro
             if (min == 0 && seg == 0 || cidade.dinheiro <= 0){
-                if (mTotal > 60)
+                if (mTotal >= objetivo && cidade.dinheiro >= 0)
                 {
                     winnerScreen(sair);
                 }
@@ -1351,7 +1355,7 @@ int budgetScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         //imagem do prefeito(a)
@@ -1515,7 +1519,7 @@ int eventScreen(){
 
             // fim de jogo por tempo
             if ((min == 0 && seg == 0) || cidade.dinheiro <= 0){
-                if (mTotal > 60)
+                if (mTotal >= objetivo && cidade.dinheiro >= 0)
                 {
                     winnerScreen(sair);
                 }
@@ -1683,7 +1687,7 @@ int eventScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "CONSTRUA UM HOSPITAL");
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         //imagem do prefeito(a)
