@@ -831,7 +831,13 @@ int playScreen(){
 
             // caso o tempo de 5 minutos ou o dinheiro acabe
             if ((min == 0 && seg == 0) || cidade.dinheiro <= 0){
-                loserScreen(sair);
+                if (mTotal > 60)
+                {
+                    winnerScreen(sair);
+                }
+                else{
+                    loserScreen(sair);
+                }
             }
 
             global_timer = (60 * min) + seg;
@@ -1154,7 +1160,13 @@ int budgetScreen(){
 
             // fim de jogo por tempo ou falta de dinheiro
             if (min == 0 && seg == 0 || cidade.dinheiro <= 0){
-                loserScreen(sair);
+                if (mTotal > 60)
+                {
+                    winnerScreen(sair);
+                }
+                else{
+                    loserScreen(sair);
+                };
             } 
         }
         
@@ -1457,7 +1469,7 @@ int eventScreen(){
             }
 
             // fim de jogo por tempo
-            if (min == 0 && seg == 0){
+            if ((min == 0 && seg == 0) || cidade.dinheiro <= 0){
                 if (mTotal > 60)
                 {
                     winnerScreen(sair);
@@ -1871,7 +1883,7 @@ int winnerScreen(){
         al_clear_to_color(al_map_rgb(0, 0, 0));
         
         al_draw_bitmap(taboaoLogoImage,  460, 200, 0);
-        al_draw_text(trintaQuatroBoldPx, al_map_rgb(190,22,34),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM PÉSSIMO PREFEITO!");
+        al_draw_text(trintaQuatroBoldPx, al_map_rgb(0,150,64),  (1024/2), 400, ALLEGRO_ALIGN_CENTRE, "VOCÊ É UM ÓTIMO PREFEITO!");
 
         al_flip_display();
     }
