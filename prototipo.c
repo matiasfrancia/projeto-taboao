@@ -893,7 +893,7 @@ int playScreen(){
 
             // somar 10 reais ao dinheiro depois de 1 segundo
             if(global_timer % 1 == 0){
-                cidade.dinheiro += 19000;
+                cidade.dinheiro += 28000;
             }
             
             // eventos bons e ruins aleatorios 
@@ -984,6 +984,7 @@ int playScreen(){
                             if(rand() % 2){
                                 news = "SEU EVENTO FOI UM SUCESSO";
                                 aplica_evento_bom(&cidade, bom);
+                                cidade.dinheiro += bom.dinheiro;
                                 togglePopup = 3;
                                 al_start_timer(contador); 
                                 toggleColor = 1;

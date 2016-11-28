@@ -49,7 +49,7 @@ char *projetos_lazer[]    = {"FEIRA DE GASTRONOMIA",
 							 "EVENTOS NOTURNOS"
 							};
 char *projetos_seguranca[] = {"AUMENTO R$ PARA POLICIA",
-							 "AUMENTO DA RODA POLICIAL",
+							 "AUMENTO DA RONDA POLICIAL",
 							 "ALISTAMENTO MELHORADO",
 							 "MELHORIA NA SEGURANÇA",
 							 "CONCURSO PARA POLICIA",
@@ -69,7 +69,7 @@ char *projetos_saude[]     = {"MELHORIAS NOS HOSPITAIS",
 							  "INCENTIVO À PRESERVATIVOS",
 							  "CAMPANHA DE HIGIENE",
 							  "EXAMES GRATUITOS",
-							  "LUTA CONTRA A DENGUE"
+							  "LUTA CONTRA A DENGUE",
 							  "CAMPANHA CONTRA DOENÇAS",
 							  "CONTROLE DE PRAGA URBANA"
 							};
@@ -117,7 +117,7 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 	
 	EVENTO_RUIM *ruim;
 	srand((unsigned)time(&t));
-	ruim = (EVENTO_RUIM *)malloc(5 * sizeof(EVENTO_RUIM));
+	ruim = (EVENTO_RUIM *)malloc(10 * sizeof(EVENTO_RUIM));
 
 	//chuva insana
 	ruim[0].dinheiro = -100000; //dinheiro que vai ser perdido
@@ -148,12 +148,12 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 	ruim[2].educacao = 0; //eles nos deixam burros! idhauifhiwu
 
 	ruim[3].dinheiro = -750000;
-	ruim[3].saude = 0;
+	ruim[3].saude = 5;
 	ruim[3].text = "CUSTO DE R$750.000";
 	ruim[3].saneamento = -8;
-	ruim[3].lazer = -13;
+	ruim[3].lazer = -6;
 	ruim[3].seguranca = -6;
-	ruim[3].educacao = -3;
+	ruim[3].educacao = -4;
 
 	ruim[4].dinheiro = -1000000;
 	ruim[4].saude = -7;
@@ -163,7 +163,47 @@ void select_evento_ruim(EVENTO_RUIM *aux){
 	ruim[4].seguranca = -7;
 	ruim[4].educacao = -10;
 
-	int idx = rand() % 5; //seleciona um indice aleatorio do vetor ruim idem para EVENTO_BOM
+	ruim[5].dinheiro = -100000; 
+	ruim[5].text = "CUSTO DE R$100.000";
+	ruim[5].saude = -1;
+	ruim[5].saneamento = -3;
+	ruim[5].lazer = -2;
+	ruim[5].seguranca = -2;
+	ruim[5].educacao = -2;
+
+	ruim[6].dinheiro = -100000; 
+	ruim[6].text = "CUSTO DE R$100.000";
+	ruim[6].saude = 0;
+	ruim[6].saneamento = -2;
+	ruim[6].lazer = 0;
+	ruim[6].seguranca = -6;
+	ruim[6].educacao = -2;
+
+	ruim[7].dinheiro = -250000; 
+	ruim[7].text = "CUSTO DE R$250.000";
+	ruim[7].saude = 0;
+	ruim[7].saneamento = -5;
+	ruim[7].lazer = -7;
+	ruim[7].seguranca = -3;
+	ruim[7].educacao = 0;
+
+	ruim[8].dinheiro = -250000; 
+	ruim[8].text = "CUSTO DE R$250.000";
+	ruim[8].saude = -4;
+	ruim[8].saneamento = 0;
+	ruim[8].lazer = -4;
+	ruim[8].seguranca = 0;
+	ruim[8].educacao = -7;
+
+	ruim[9].dinheiro = -500000; 
+	ruim[9].text = "CUSTO DE R$500.000";
+	ruim[9].saude = -1;
+	ruim[9].saneamento = -4;
+	ruim[9].lazer = -4;
+	ruim[9].seguranca = -4;
+	ruim[9].educacao = -4;
+
+	int idx = rand() % 10; //seleciona um indice aleatorio do vetor ruim idem para EVENTO_BOM
 	aux->dinheiro = ruim[idx].dinheiro; //atribui valores a struct adicional
 	aux->seguranca = ruim[idx].seguranca;
 	aux->text = ruim[idx].text;
@@ -179,7 +219,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 	EVENTO_BOM *bom;
 	srand((unsigned)time(&t));
 	
-	bom = (EVENTO_BOM *)malloc(5 * sizeof(EVENTO_BOM));
+	bom = (EVENTO_BOM *)malloc(10 * sizeof(EVENTO_BOM));
 	
 	//copa do mundo, objetivo a ser alcançado
 	bom[0].dinheiro = 200000;
@@ -208,7 +248,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 	bom[2].seguranca = 6;
 	bom[2].lazer = 6;
 	bom[2].saude = 12;
-	bom[2].saneamento = 3;
+	bom[2].saneamento = 6;
 	bom[2].educacao = 3;
 
 	bom[3].dinheiro = 1500000;
@@ -229,8 +269,53 @@ void select_evento_bom(EVENTO_BOM *aux){
 	bom[4].saneamento = 7;
 	bom[4].educacao = 15;
 
+	bom[5].dinheiro = 2000000;
+	bom[5].investimento = 1000000;
+	bom[5].text = "INVESTIMENTO: R$1.000.000";
+	bom[5].seguranca = 10;
+	bom[5].lazer = 10;
+	bom[5].saude = 10;
+	bom[5].saneamento = 8;
+	bom[5].educacao = 12;
 
-	int idx = rand() % 5;
+	bom[6].dinheiro = 1000000;
+	bom[6].investimento = 1000000;
+	bom[6].text = "INVESTIMENTO: R$1.000.000";
+	bom[6].seguranca = 15;
+	bom[6].lazer = 5;
+	bom[6].saude = 9;
+	bom[6].saneamento = 13;
+	bom[6].educacao = 8;
+
+	bom[7].dinheiro = 1000000;
+	bom[7].investimento = 500000;
+	bom[7].text = "INVESTIMENTO: R$500.000";
+	bom[7].seguranca = 5;
+	bom[7].lazer = 5;
+	bom[7].saude = 7;
+	bom[7].saneamento = 4;
+	bom[7].educacao = 9;
+
+	bom[8].dinheiro = 1500000;
+	bom[8].investimento = 750000;
+	bom[8].text = "INVESTIMENTO: R$750.000";
+	bom[8].seguranca =12 ;
+	bom[8].lazer = 8;
+	bom[8].saude = 4;
+	bom[8].saneamento = 9;
+	bom[8].educacao = 8;
+
+	bom[9].dinheiro = 2000000;
+	bom[9].investimento = 1000000;
+	bom[9].text = "INVESTIMENTO: R$1.000.000";
+	bom[9].seguranca = 8;
+	bom[9].lazer = 7;
+	bom[9].saude = 15;
+	bom[9].saneamento = 10;
+	bom[9].educacao = 10;
+
+
+	int idx = rand() % 10;
 	aux->dinheiro = bom[idx].dinheiro;
 	aux->investimento = bom[idx].investimento;
 	aux->text = bom[idx].text;
@@ -291,7 +376,7 @@ void select_projeto_random(CANDIDATO *aux){
 		random = rand() % 10;
 		aux->dinheiro = -(10000 * (rand() % 101)); 						//preco varia entre 1000 e 10000
 		aux->nome = &projetos_educacao[random];
-		aux->educacao = 2;
+		aux->educacao = 5;
 		aux->seguranca = 0;
 		aux->saude = 0;
 		aux->lazer = 0;
@@ -301,7 +386,7 @@ void select_projeto_random(CANDIDATO *aux){
 		random = rand() % 6;
 		aux->dinheiro = -(10000 * (rand() % 101));
 		aux->nome = &projetos_lazer[random];
-		aux->lazer = 2;
+		aux->lazer = 5;
 		aux->saude = 0;
 		aux->saneamento = 0;
 		aux->seguranca = 0;
@@ -314,7 +399,7 @@ void select_projeto_random(CANDIDATO *aux){
 		aux->lazer = 0;
 		aux->saude = 0;
 		aux->saneamento = 0;
-		aux->seguranca = 2;
+		aux->seguranca = 5;
 		aux->educacao = 0;
 	}
 	else if(random == 4){
@@ -323,7 +408,7 @@ void select_projeto_random(CANDIDATO *aux){
 		aux->nome = &projetos_saneamento[random];
 		aux->lazer = 0;
 		aux->saude = 0;
-		aux->saneamento = 2;
+		aux->saneamento = 5;
 		aux->seguranca = 0;
 		aux->educacao = 0;
 	}
@@ -332,7 +417,7 @@ void select_projeto_random(CANDIDATO *aux){
 		aux->dinheiro = -(10000 * (rand() % 100));
 		aux->nome = &projetos_saude[random];
 		aux->lazer = 0;
-		aux->saude = 2;
+		aux->saude = 5;
 		aux->saneamento = 0;
 		aux->seguranca = 0;
 		aux->educacao = 0;

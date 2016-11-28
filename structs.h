@@ -39,7 +39,7 @@ void inicia_item(ITEM *aux){
 
 
 int precos[] = {250000, 500000, 750000, 1000000, 1500000};
-int inc[] = {3, 7, 10, 15, 25};
+int inc[] = {5, 5, 10, 15, 25};
 
 char *homem[] = {"Henrique Medeiro", "Daniel Agulha", "Matheus Batata", "Caio Mathias", "Luiz Mendonca", "Antonio Pacaembu", "Carlos De Melo", "Felipe Jose", "Mauricio Schenneider","Frederico Babu " };
 char *mulher[] = {"Viviane Luz", "Rosana Rocha", "Elaine Silva", "Sonia Araujo", "Eliana Cazé", "Neuza Mauá", "Talita Taboão", "Leticia de Oliveira", "Caroline Lucas", "Lais Sadia", "Livia Queiros", "Monalisa Santiago"};
@@ -309,14 +309,11 @@ int compra_saude(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		else{
+		if(cidade->saude + inc[quantidade->saude] <= 100){		
 			cidade->dinheiro -= precos[quantidade->saude];
 			cidade->saude += inc[quantidade->saude];
 			quantidade->saude++;
 			print_candidato(cidade);
-		}
-		if(cidade->saude + inc[quantidade->saude] <= 100){
-		cidade->saude += inc[quantidade->saude];
 		}
 		else{
 		cidade->saude = 100;
@@ -336,14 +333,11 @@ int compra_saneamento(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		else{
+		if(cidade->saneamento + inc[quantidade->saneamento] <= 100){
 			cidade->dinheiro -= precos[quantidade->saneamento];
 			cidade->saneamento += inc[quantidade->saneamento];
 			quantidade->saneamento++;
 			print_candidato(cidade);
-		}
-		if(cidade->saneamento + inc[quantidade->saneamento] <= 100){
-		cidade->saneamento += inc[quantidade->saneamento];
 		}
 		else{
 		cidade->saneamento = 100;
@@ -363,14 +357,11 @@ int compra_seguranca(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		else{
+		if(cidade->seguranca + inc[quantidade->seguranca]<= 100){
 			cidade->dinheiro -= precos[quantidade->seguranca];
 			cidade->seguranca += inc[quantidade->seguranca];
 			quantidade->seguranca++;
 			print_candidato(cidade);
-		}
-		if(cidade->seguranca + inc[quantidade->seguranca]<= 100){
-		cidade->seguranca += inc[quantidade->seguranca];
 		}
 		else{
 		cidade->seguranca = 100;
@@ -390,14 +381,11 @@ int compra_educacao(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		else{
+		if(cidade->educacao + inc[quantidade->educacao] <= 100){
 			cidade->dinheiro -= precos[quantidade->educacao];
 			cidade->educacao += inc[quantidade->educacao];
 			quantidade->educacao++;
 			print_candidato(cidade);
-		}
-		if(cidade->educacao + inc[quantidade->educacao] <= 100){
-		cidade->educacao += inc[quantidade->educacao];
 		}
 		else{
 		cidade->educacao = 100;
@@ -417,14 +405,11 @@ int compra_lazer(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		else{
+		if(cidade->lazer + inc[quantidade->lazer] <= 100){
 			cidade->dinheiro -= precos[quantidade->lazer];
 			cidade->lazer += inc[quantidade->lazer];
 			quantidade->lazer++;
 			print_candidato(cidade);
-		}
-		if(cidade->lazer + inc[quantidade->lazer] <= 100){
-		cidade->lazer += inc[quantidade->lazer];
 		}
 		else{
 		cidade->lazer = 100;
