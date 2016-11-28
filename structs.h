@@ -3,6 +3,7 @@
 #include <time.h>
 
 
+
 typedef struct candidatos{
 	
 	char **nome;
@@ -37,11 +38,11 @@ void inicia_item(ITEM *aux){
 }
 
 
-int precos[] = {1000000, 5000000, 10000000, 50000000, 100000000};
-int inc[] = {5, 5, 10, 10, 25};
+int precos[] = {250000, 500000, 750000, 1000000, 1500000};
+int inc[] = {3, 7, 10, 15, 25};
 
-char *homem[] = {"Henrique Medeiro", "Daniel Agulha", "Matheus Batata", "Caio Mathias", "Luiz Mendonca", "Antonio Pacaembu", "Carlos De Melo", "Felipe Jose", "Mauricio Schenneider", "Monalisa Santiago"};
-char *mulher[] = {"Viviane Luz", "Rosana Rocha", "Elaine Silva", "Sonia Araujo", "Eliana Cazé", "Neuza Mauá", "Talita Taboão", "Leticia de Oliveira", "Caroline Lucas", "Lais Sadia", "Livia Queiros"};
+char *homem[] = {"Henrique Medeiro", "Daniel Agulha", "Matheus Batata", "Caio Mathias", "Luiz Mendonca", "Antonio Pacaembu", "Carlos De Melo", "Felipe Jose", "Mauricio Schenneider","Frederico Babu " };
+char *mulher[] = {"Viviane Luz", "Rosana Rocha", "Elaine Silva", "Sonia Araujo", "Eliana Cazé", "Neuza Mauá", "Talita Taboão", "Leticia de Oliveira", "Caroline Lucas", "Lais Sadia", "Livia Queiros", "Monalisa Santiago"};
 
 void print_candidato(CANDIDATO *cand){
 
@@ -76,7 +77,7 @@ int name_select(CANDIDATO *aux, char ***pessoa){
 		return aux_busca;
 	}
 	else{
-		aux_busca = rand() % 11;
+		aux_busca = rand() % 12;
 		*pessoa = &mulher[aux_busca];
 		aux->homem = 0;
 		return aux_busca;
@@ -95,7 +96,7 @@ void select_nivel(CANDIDATO* cidade, int nivel){
 		cidade->lazer = 50 + (1 + rand() % 10);
 	}
 	if(nivel == 2){
-		cidade->dinheiro = 5000000;
+		cidade->dinheiro = 7500000;
 		cidade->saneamento = 35 + (1 + rand() % 5);
 		cidade->educacao = 35 + (1 + rand() % 5);
 		cidade->saude = 35 + (1 + rand() % 5);
@@ -103,7 +104,7 @@ void select_nivel(CANDIDATO* cidade, int nivel){
 		cidade->lazer = 35 + (1 + rand() % 5);
 	}
 	if(nivel == 3){
-		cidade->dinheiro = 1000000;
+		cidade->dinheiro = 5000000;
 		cidade->saneamento = 15 + (1 + rand() % 10);
 		cidade->educacao = 15 + (1 + rand() % 10);
 		cidade->saude = 15 + (1 + rand() % 10);
@@ -174,7 +175,7 @@ CANDIDATO *select_candidato(){
 	vec = (CANDIDATO *)malloc(11 * sizeof(CANDIDATO));
 	//MEDIANO
 	vec[0].educacao = 40;
-	vec[0].dinheiro = -500000;
+	vec[0].dinheiro = -50000;
 	vec[0].lazer = 0;
 	vec[0].saneamento = 0;
 	vec[0].saude = 0;
@@ -206,7 +207,7 @@ CANDIDATO *select_candidato(){
 	//PESADO EM EDUCACAO
 	
 	vec[4].educacao = 2;
-	vec[4].dinheiro = -20000;
+	vec[4].dinheiro = -40000;
 	vec[4].saude = 8;
 	vec[4].seguranca = 20;
 	vec[4].saneamento = 10;
@@ -224,7 +225,7 @@ CANDIDATO *select_candidato(){
 	vec[6].lazer = 5;
 	vec[6].educacao = 5;
 	vec[6].saneamento = 5;
-	vec[6].dinheiro = -25000;
+	vec[6].dinheiro = -29000;
 	vec[6].seguranca = 5;
 	
 	//CIRCO
@@ -232,27 +233,27 @@ CANDIDATO *select_candidato(){
 	vec[7].seguranca = 0;
 	vec[7].saneamento = 15;
 	vec[7].saude = 15;
-	vec[7].dinheiro = -15000;
+	vec[7].dinheiro = -25000;
 	vec[7].educacao = 0;
 	
 	vec[8].seguranca = 10;
 	vec[8].educacao = 0;
 	vec[8].saude = 20;
-	vec[8].dinheiro = -16000;
+	vec[8].dinheiro = -31000;
 	vec[8].saneamento = 10;
 	vec[8].lazer = 0;
 
 	//PROFESSOR
 	vec[9].educacao = 20;
 	vec[9].saude = 0;
-	vec[9].dinheiro = -12000;
+	vec[9].dinheiro = -31000;
 	vec[9].seguranca = 20;
 	vec[9].saneamento = 0;
 	vec[9].lazer = 0;
 
 	//medico
 	vec[10].saude = 5;
-	vec[10].dinheiro = -11000;
+	vec[10].dinheiro = -32000;
 	vec[10].saneamento = 5;
 	vec[10].educacao = 10;
 	vec[10].seguranca = 10;
@@ -314,6 +315,12 @@ int compra_saude(CANDIDATO *cidade, ITEM *quantidade){
 			quantidade->saude++;
 			print_candidato(cidade);
 		}
+		if(cidade->saude + inc[quantidade->saude] <= 100){
+		cidade->saude += inc[quantidade->saude];
+		}
+		else{
+		cidade->saude = 100;
+		}
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -334,6 +341,12 @@ int compra_saneamento(CANDIDATO *cidade, ITEM *quantidade){
 			cidade->saneamento += inc[quantidade->saneamento];
 			quantidade->saneamento++;
 			print_candidato(cidade);
+		}
+		if(cidade->saneamento + inc[quantidade->saneamento] <= 100){
+		cidade->saneamento += inc[quantidade->saneamento];
+		}
+		else{
+		cidade->saneamento = 100;
 		}
 	}
 	else{
@@ -356,6 +369,12 @@ int compra_seguranca(CANDIDATO *cidade, ITEM *quantidade){
 			quantidade->seguranca++;
 			print_candidato(cidade);
 		}
+		if(cidade->seguranca + inc[quantidade->seguranca]<= 100){
+		cidade->seguranca += inc[quantidade->seguranca];
+		}
+		else{
+		cidade->seguranca = 100;
+		}
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -377,6 +396,12 @@ int compra_educacao(CANDIDATO *cidade, ITEM *quantidade){
 			quantidade->educacao++;
 			print_candidato(cidade);
 		}
+		if(cidade->educacao + inc[quantidade->educacao] <= 100){
+		cidade->educacao += inc[quantidade->educacao];
+		}
+		else{
+		cidade->educacao = 100;
+		}
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -397,6 +422,12 @@ int compra_lazer(CANDIDATO *cidade, ITEM *quantidade){
 			cidade->lazer += inc[quantidade->lazer];
 			quantidade->lazer++;
 			print_candidato(cidade);
+		}
+		if(cidade->lazer + inc[quantidade->lazer] <= 100){
+		cidade->lazer += inc[quantidade->lazer];
+		}
+		else{
+		cidade->lazer = 100;
 		}
 	}
 	else{

@@ -479,14 +479,14 @@ int nivelScreen(){
             }else if (evento.mouse.x >= 415 && evento.mouse.x <= 595 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
                     select_nivel(&cidade, 2);
-                    objetivo = 90;
+                    objetivo = 80;
                     print_candidato(&cidade);
                     chooseScreen();
             // Botão de Nivel DIFICIL
             }else if (evento.mouse.x >= 665 && evento.mouse.x <= 845 &&
                 evento.mouse.y >= 250 && evento.mouse.y <= 437){
                     select_nivel(&cidade, 3);
-                    objetivo = 100;
+                    objetivo = 80;
                     print_candidato(&cidade);
                     chooseScreen();
             }
@@ -893,11 +893,11 @@ int playScreen(){
 
             // somar 10 reais ao dinheiro depois de 1 segundo
             if(global_timer % 1 == 0){
-                cidade.dinheiro += 10;
+                cidade.dinheiro += 19000;
             }
             
             // eventos bons e ruins aleatorios 
-            if(global_timer % 21 == 0){
+            if(global_timer % 17 == 0){
                 random_value = rand() % 2;
                 if(!random_value){
                     select_evento_bom(&bom);
@@ -983,16 +983,19 @@ int playScreen(){
                             cidade.dinheiro -= bom.investimento;
                             if(rand() % 2){
                                 news = "SEU EVENTO FOI UM SUCESSO";
-                                aplica_evento_bom(&cidade, bom); 
+                                aplica_evento_bom(&cidade, bom);
+                                togglePopup = 3;
+                                al_start_timer(contador); 
+                                toggleColor = 1;
                             }
                             else{
                                 news = "SEU EVENTO DEU ERRADO";
+                                togglePopup = 3;
+                                al_start_timer(contador);
+                                toggleColor = 0;
                             }
                         }
                        
-                        togglePopup = 3;
-                        al_start_timer(contador);
-                        toggleColor = 1;
                 
                 }else if((togglePopup == 1) && 
                         evento.mouse.x >= 537 && evento.mouse.x <= 637 && 
@@ -1565,7 +1568,7 @@ int eventScreen(){
                           printf("botao1\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[0]);
-                            compra_qtd->primeiro++;
+                            vector_de_projetos = select_projeto();
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401 ){
@@ -1573,15 +1576,16 @@ int eventScreen(){
                           printf("botao 2\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[1].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[1]);
-                            compra_qtd->segundo++;
+                            vector_de_projetos = select_projeto();
                           }
                 }else if (evento.mouse.x >= 405 && evento.mouse.x <= 605 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539 ){
                           //botão evento 3
                           printf("botao 3\n");
+
                           if(cidade.dinheiro >= -(vector_de_projetos[2].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[2]);
-                            compra_qtd->terceiro++;
+                            vector_de_projetos = select_projeto();
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 163 && evento.mouse.y <= 263 ){
@@ -1589,7 +1593,7 @@ int eventScreen(){
                           printf("botao 4\n");
                           if(cidade.dinheiro >= -(vector_de_projetos[3].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[3]);
-                            compra_qtd->quarto++;
+                            vector_de_projetos = select_projeto();
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 301 && evento.mouse.y <= 401 ){
@@ -1597,7 +1601,7 @@ int eventScreen(){
                           printf("botao 5\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[4].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[4]);
-                            compra_qtd->quinto++;
+                            vector_de_projetos = select_projeto();
                           }
                 }else if (evento.mouse.x >= 693 && evento.mouse.x <= 893 &&
                           evento.mouse.y >= 439 && evento.mouse.y <= 539 ){
@@ -1605,7 +1609,7 @@ int eventScreen(){
                           printf("botao 6\n" );
                           if(cidade.dinheiro >= -(vector_de_projetos[5].dinheiro)){
                             aplica_alteracao(&cidade, &vector_de_projetos[5]);
-                            compra_qtd->sexto++;
+                            vector_de_projetos = select_projeto();
                           }
                 }else if (evento.mouse.x >= 140 && evento.mouse.x <= 200 &&
                           evento.mouse.y >= 558 && evento.mouse.y <= 578){
