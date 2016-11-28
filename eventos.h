@@ -46,6 +46,30 @@ char *projetos_lazer[]    = {"FEIRA DE GASTRONOMIA",
 							 "INCENTIVO AO ESPORTE",
 							 "EVENTOS NOTURNOS"
 							};
+char *projetos_seguranca[] = {"AUMENTO R$ PARA POLICIA",
+							 "AUMENTO DA RODA POLICIAL",
+							 "ALISTAMENTO MELHORADO",
+							 "MELHORIA NA SEGURANÇA",
+							 "CONCURSO PARA POLICIA",
+							 "CONSURSO PARA BOMBEIROS"
+							};
+
+char *projetos_saneamento[] = {"MELHORIA NO ENCANAMENTO",
+							  "DESPOLUIÇÃO DO RIO TABOCA",
+							  "MELHORIA NAS CASAS DA COMUNIDADE",
+							  "ASFALTAMENTO",
+							  "INCENTIVO À RECICLAGEM",
+							  "CONTROLE DE PRAGA URBANA"
+							};
+
+char *projetos_saude[]     = {"MELHORIAS NOS HOSPITAIS",
+							  "VACINAS",
+							  "INCENTIVO À PRESERVATIVOS",
+							  "CONCIENTIZAÇÃO CONTRA A DENGUE",
+							  "EXAMES GRATUITOS",
+							  "CAMPANHA CONTRA DOENÇAS",
+							  "CONTROLE DE PRAGA URBANA"
+							};
 
 void select_event_description(char ***text, int a){
 	srand((unsigned)time(&t));
@@ -194,12 +218,9 @@ void aplica_alteracao(CANDIDATO *cidade, CANDIDATO *item){
 
 void select_projeto_random(CANDIDATO *aux){
 
-	for(int j = 0; j < 10; j++){
-		printf("NUMERO RANDOMICO %d\n", rand() % 10);
-	}
 
-	int random = rand() % 2;
-	if(!random){
+	int random = rand() % 5;
+	if(random == 1 ){
 		random = rand() % 10;
 		aux->dinheiro = -(1000 * (rand() % 5001)); 						//preco varia entre 1000 e 10000
 		aux->nome = &projetos_educacao[random];
@@ -209,12 +230,42 @@ void select_projeto_random(CANDIDATO *aux){
 		aux->lazer = 0;
 		aux->saneamento = 0;
 	}
-	else{
+	else if(random == 2){
 		random = rand() % 6;
 		aux->dinheiro = -(1000 * (rand() % 5001));
 		aux->nome = &projetos_lazer[random];
 		aux->lazer = 2;
 		aux->saude = 0;
+		aux->saneamento = 0;
+		aux->seguranca = 0;
+		aux->educacao = 0;
+	}
+	else if(random == 3){
+		random = rand() % 6;
+		aux->dinheiro = -(1000 * (rand() % 5001));
+		aux->nome = &projetos_seguranca[random];
+		aux->lazer = 0;
+		aux->saude = 0;
+		aux->saneamento = 0;
+		aux->seguranca = 2;
+		aux->educacao = 0;
+	}
+	else if(random == 4){
+		random = rand() % 6;
+		aux->dinheiro = -(1000 * (rand() % 5001));
+		aux->nome = &projetos_saneamento[random];
+		aux->lazer = 0;
+		aux->saude = 0;
+		aux->saneamento = 2;
+		aux->seguranca = 0;
+		aux->educacao = 0;
+	}
+	else if(random == 0){
+		random = rand() % 7;
+		aux->dinheiro = -(1000 * (rand() % 5001));
+		aux->nome = &projetos_saude[random];
+		aux->lazer = 0;
+		aux->saude = 2;
 		aux->saneamento = 0;
 		aux->seguranca = 0;
 		aux->educacao = 0;
