@@ -409,6 +409,7 @@ int saveScreen(){
                     backHelpCredit = 2;
                     min = 5;
                     seg = 0;
+                    al_set_audio_stream_playing(musica, false);
                     nivelScreen(backHelpCredit);   
 
             // Botão de INTRUÇÕES
