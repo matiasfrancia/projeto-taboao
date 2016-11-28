@@ -111,6 +111,7 @@ char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL, *fila_contador = NULL;
 ALLEGRO_FONT *onzePx = NULL,
+            *onzeBoldPx =  NULL,
             *dozePx =  NULL,
             *dozeBoldPx =  NULL,
             *quatorzePx =  NULL,
@@ -214,6 +215,7 @@ void globalDeclarations(){
     teste = al_load_bitmap("Images/creditScreen/creditScreen.png");
     //Global fontes
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
+    onzeBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 11,0 );
     dozePx = al_load_ttf_font("Font/arial.ttf", 12,0 );
     dozeBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 12,0 );
     quatorzePx = al_load_ttf_font("Font/arial.ttf", 14,0 );
@@ -735,6 +737,9 @@ int chooseScreen(){
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), 285, 510+50, 0, "Informações");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+25, ALLEGRO_ALIGN_LEFT, "Taboão - ");
         al_draw_textf(onzePx, al_map_rgb(203, 187, 160), 320, 590+25, ALLEGRO_ALIGN_LEFT, "%d", ano);
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+45, ALLEGRO_ALIGN_LEFT, "O investimento inicial");
+        al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+60, ALLEGRO_ALIGN_LEFT, "será de:");
+        al_draw_textf(onzeBoldPx, al_map_rgb(0, 150, 64), 320, 650, ALLEGRO_ALIGN_LEFT, "R$ %d", -dinheiro);
         al_draw_text(quatorzeBoldPx, al_map_rgb(255, 255, 255), 275, 575+20, ALLEGRO_ALIGN_LEFT, majorName);
         
         // icones de parametros
