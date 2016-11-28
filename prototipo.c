@@ -831,7 +831,7 @@ int playScreen(){
 
             // caso o tempo de 5 minutos ou o dinheiro acabe
             if ((min == 0 && seg == 0) || cidade.dinheiro <= 0){
-                if (mTotal > 60)
+                if (mTotal > 60 && cidade.dinheiro >= 0)
                 {
                     winnerScreen(sair);
                 }
