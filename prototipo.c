@@ -1794,7 +1794,8 @@ int loserScreen(){
             if(seg == 0){
                 min =5;
                 seg = 0;
-                mainScreen();
+                destroyall();
+                main();
             }
 
  
@@ -1865,7 +1866,8 @@ int winnerScreen(){
                 }
             }
             if(seg == 0){
-                mainScreen();
+                destroyall();
+                main();
             }
 
             while (!al_is_event_queue_empty(fila_eventos)){
