@@ -1122,8 +1122,17 @@ int playScreen(){
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d%% DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
-        al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         
+        if (toggleColor == 0){
+            al_draw_text(onzePx, al_map_rgb(190, 22, 34), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
+        }else
+        if (toggleColor == 1){
+            al_draw_text(onzePx, al_map_rgb(0, 150, 64), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
+        }else{
+            al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
+        }
+        
+
         // relogio
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
