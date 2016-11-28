@@ -300,7 +300,7 @@ CANDIDATO* select_projeto(){
 	return vector_de_projetos;
 }
 
-void aplica_evento_bom(CANDIDATO *cidade, EVENTO_BOM evento){
+void aplica_evento_ruim(CANDIDATO *cidade, EVENTO_RUIM evento){
 
 	if(cidade->educacao + evento.educacao >= 0){
 		cidade->educacao += evento.educacao;
@@ -339,7 +339,7 @@ void aplica_evento_bom(CANDIDATO *cidade, EVENTO_BOM evento){
 	}
 }
 
-void aplica_evento_ruim(CANDIDATO *cidade, EVENTO_RUIM evento){
+void aplica_evento_bom(CANDIDATO *cidade, EVENTO_BOM evento){
 	cidade->dinheiro += evento.dinheiro;
 
 	if(cidade->educacao + evento.educacao <= 100){
