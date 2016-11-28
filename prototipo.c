@@ -941,6 +941,7 @@ int playScreen(){
                     // botao de investimento
                         al_stop_timer(contador);
                         budgetScreen();
+
                 }else if((togglePopup == 0) &&
                         evento.mouse.x >= 477 && evento.mouse.x <= 578 && 
                         evento.mouse.y >= 344 && evento.mouse.y <= 361){
@@ -1252,6 +1253,8 @@ int budgetScreen(){
                           evento.mouse.y >= 558 && evento.mouse.y <= 578 ){
                           //botão de VOLTAR
                           printf("botao 7\n" );
+                          al_set_audio_stream_playing(musica, true);
+                          al_start_timer(contador);
                           playScreen();
                 }
                 if(evento.mouse.x >= 900 && evento.mouse.x <= 920 &&
@@ -1686,12 +1689,12 @@ int eventScreen(){
             al_draw_bitmap(secondPersonaImage, 140, 152, 0);
         }
         //desenhando botões de investimento
-        al_draw_filled_rectangle(390, 152, 633+30, 255, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 290, 633+30, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(390, 428, 633+30, 532, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 152, 923+30, 255, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 290, 923+30, 393, al_map_rgb(60, 60, 59));
-        al_draw_filled_rectangle(680, 428, 923+30, 532, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 152, 633+37, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 290, 633+37, 393, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(390, 428, 633+37, 532, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 152, 923+37, 255, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 290, 923+37, 393, al_map_rgb(60, 60, 59));
+        al_draw_filled_rectangle(680, 428, 923+37, 532, al_map_rgb(60, 60, 59));
         
         if(cidade.dinheiro >= -(vector_de_projetos[0].dinheiro) && compra_qtd->primeiro != 1){
             al_draw_bitmap(investir, 495, 226, 0);    
@@ -1735,25 +1738,34 @@ int eventScreen(){
                 al_draw_bitmap(compraNaoDisponivel, 780, 502, 0);
         }
 
-        al_draw_bitmap(eventBtn, 405, 163, 0);
-        al_draw_bitmap(eventBtn, 405, 301, 0);
-        al_draw_bitmap(eventBtn, 405, 439, 0);
-        al_draw_bitmap(eventBtn, 693, 163, 0);
-        al_draw_bitmap(eventBtn, 693, 301, 0);
-        al_draw_bitmap(eventBtn, 693, 439, 0);
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493, 167, 0, "%s", *vector_de_projetos[0].nome);
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493, 306, 0, "%s", *vector_de_projetos[1].nome);
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493, 447, 0, "%s", *vector_de_projetos[2].nome);
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780, 167, 0, "%s", *vector_de_projetos[3].nome);
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780, 306, 0, "%s", *vector_de_projetos[4].nome);
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780, 447, 0, "%s", *vector_de_projetos[5].nome);
+        al_draw_bitmap(eventBtn, 405-7, 163, 0);
+        al_draw_bitmap(eventBtn, 405-7, 301, 0);
+        al_draw_bitmap(eventBtn, 405-7, 439, 0);
+        al_draw_bitmap(eventBtn, 693-5, 163, 0);
+        al_draw_bitmap(eventBtn, 693-5, 301, 0);
+        al_draw_bitmap(eventBtn, 693-5, 439, 0);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493-2, 167, 0, "%s", *vector_de_projetos[0].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493-2, 306, 0, "%s", *vector_de_projetos[1].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 493-2, 447, 0, "%s", *vector_de_projetos[2].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 167, 0, "%s", *vector_de_projetos[3].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 306, 0, "%s", *vector_de_projetos[4].nome);
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 447, 0, "%s", *vector_de_projetos[5].nome);
         
+<<<<<<< HEAD
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 167+20, 0, "R$ %d", -(vector_de_projetos[0].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 306+20, 0, "R$ %d", -(vector_de_projetos[1].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 447+20, 0, "R$ %d", -(vector_de_projetos[2].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-33, 167+20, 0, "R$ %d", -(vector_de_projetos[3].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 306+20, 0, "R$ %d", -(vector_de_projetos[4].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 447+20, 0, "R$ %d", -(vector_de_projetos[5].dinheiro));
+=======
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 167+20, 0, "R$ %'d", -(vector_de_projetos[0].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 306+20, 0, "R$ %'d", -(vector_de_projetos[1].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 447+20, 0, "R$ %'d", -(vector_de_projetos[2].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-30, 167+20, 0, "R$ %'d", -(vector_de_projetos[3].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-30, 306+20, 0, "R$ %'d", -(vector_de_projetos[4].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-30, 447+20, 0, "R$ %'d", -(vector_de_projetos[5].dinheiro));
+>>>>>>> efa2a4280a55e927d9408d57506fa8646f1a7ace
         
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
