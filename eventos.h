@@ -200,6 +200,7 @@ void select_evento_bom(EVENTO_BOM *aux){
 
 void aplica_alteracao(CANDIDATO *cidade, CANDIDATO *item){
 	cidade->dinheiro += item->dinheiro;
+	
 	if(cidade->saneamento + item->saneamento <= 100){
 		cidade->saneamento += item->saneamento;
 	}
@@ -208,6 +209,13 @@ void aplica_alteracao(CANDIDATO *cidade, CANDIDATO *item){
 	}
 	
 	if(cidade->saude + item->saude <= 100){
+		cidade->saude += item->saude;
+	}
+	else{
+		cidade->saude = 100;
+	}
+
+	if(cidade->seguranca + item->seguranca <=100){
 		cidade->seguranca += item->seguranca;
 	}
 	else{
