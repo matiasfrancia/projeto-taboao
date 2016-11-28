@@ -960,7 +960,11 @@ int playScreen(){
                         if(cidade.dinheiro >= bom.investimento){
                             cidade.dinheiro -= bom.investimento;
                             if(rand() % 2){
+                                news = "SEU EVENTO FOI UM SUCESSO";
                                 aplica_evento_bom(&cidade, bom); 
+                            }
+                            else{
+                                news = "SEU EVENTO DEU ERRADO";
                             }
                         }
                        
