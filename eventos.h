@@ -9,9 +9,7 @@ char *positivo[] = 		   {"Sua Cidade foi escolhida para fazer a abertura dos Jog
 							"O São Paulo Fashion Week poderá ser em Taboão",
 							"O Lollapalooza desta vez será em Taboão",
 							"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui",
-							"Taboão F.C. ganhou de 10x0 contra Embu Futebol Arte",
-							"Estado Islãmico invade o Brasil, menos Taboão. Alegam ser muito longe!",
-							"Papai Noel faz sua primeira visita a Taboão, anos após o sequestro da rena Rodolf"
+							"Taboão F.C. ganhou de 10x0 contra Embu Futebol Arte"
 							};
 
 char *negativo[] = 		   {"Chuva muito forte, realmente muito forte, em Taboão",
@@ -19,12 +17,7 @@ char *negativo[] = 		   {"Chuva muito forte, realmente muito forte, em Taboão",
 							"Um vírus misterioso atingiu Taboão",
 							"Uma bactéria misteriosa está infectando os moradores de Taboão",
 							"Muitos raios antingem Taboão",
-							"O Palmeiras foi campeão",
-							"Tiroteio em taboão matou o Sr. Jaiminho do boteco do Jaiminho",
-							"Chuva alaga a única avenida de Taboão",
-							"Doencas de cavalo deixam as ruas cagadas",
-							"RESTART volta a ativa e segue carreira em Taboão",
-							"Rena Rodolf  do Papai Noel continua desaparecida"
+							"Chuva alaga a única avenida de Taboão"
 							};
 
 char *projetos_educacao[] = {"FEIRA DO LIVRO",
@@ -73,7 +66,7 @@ char *projetos_saude[]     = {"MELHORIAS NOS HOSPITAIS",
 
 void select_event_description(char ***text, int a){
 	srand((unsigned)time(&t));
-	int idx = rand() % 5;
+	int idx = rand() % 6;
 	if(a == 0){
 		*text = &positivo[idx];
 	}
@@ -285,6 +278,84 @@ CANDIDATO* select_projeto(){
 	return vector_de_projetos;
 }
 
+void aplica_evento_bom(CANDIDATO *cidade, EVENTO_BOM evento){
+
+	if(cidade->educacao + evento.educacao <= 100){
+		cidade->educacao += evento.educacao;
+	}
+	else{
+		cidade->educacao = 100;
+	}
+
+
+	if(cidade->seguranca + evento.seguranca <= 100){
+		cidade->seguranca += evento.seguranca;
+	}
+	else{
+		cidade->seguranca = 100;
+	}
+
+	if(cidade->saude + evento.saude <= 100){
+		cidade->saude += evento.saude;
+	}
+	else{
+		cidade->saude = 100;
+	}
+
+	if(cidade->saneamento + evento.saneamento <= 100){
+		cidade->saneamento += evento.saude;
+	}
+	else{
+		cidade->saneamento = 100;
+	}
+
+	if(cidade->lazer + evento.lazer <= 100){
+		cidade->lazer += evento.lazer;
+	}
+	else{
+		cidade->lazer = 100;
+	}
+}
+
+void aplica_evento_ruim(CANDIDATO *cidade, EVENTO_RUIM evento){
+	cidade->dinheiro += evento.dinheiro;
+
+	if(cidade->educacao + evento.educacao <= 100){
+		cidade->educacao += evento.educacao;
+	}
+	else{
+		cidade->educacao = 100;
+	}
+
+
+	if(cidade->seguranca + evento.seguranca <= 100){
+		cidade->seguranca += evento.seguranca;
+	}
+	else{
+		cidade->seguranca = 100;
+	}
+
+	if(cidade->saude + evento.saude <= 100){
+		cidade->saude += evento.saude;
+	}
+	else{
+		cidade->saude = 100;
+	}
+
+	if(cidade->saneamento + evento.saneamento <= 100){
+		cidade->saneamento += evento.saude;
+	}
+	else{
+		cidade->saneamento = 100;
+	}
+
+	if(cidade->lazer + evento.lazer <= 100){
+		cidade->lazer += evento.lazer;
+	}
+	else{
+		cidade->lazer = 100;
+	}
+}
 
 /*
 

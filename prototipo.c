@@ -928,8 +928,8 @@ int playScreen(){
                         evento.mouse.y >= 344 && evento.mouse.y <= 361){
                     // botao de voltar quando evento ruim
                     
-                        cidade.dinheiro += ruim.dinheiro; 
-                        //aplica_evento_ruim(&cidade, ruim);                   
+                        cidade.dinheiro += ruim.dinheiro;
+                        aplica_evento_ruim(&cidade, ruim);                   
                         togglePopup = 3;
                         al_start_timer(contador);
                         toggleColor = 0;
@@ -940,7 +940,9 @@ int playScreen(){
                         evento.mouse.y >= 344 && evento.mouse.y <= 363){
                     // botao de aceitar quando evento bom
                         cidade.dinheiro -= bom.investimento;
-                        //aplica_evento_bom(&cidade, bom);                    
+                        if(rand() % 2){
+                            aplica_evento_bom(&cidade, bom); 
+                        }
                         togglePopup = 3;
                         al_start_timer(contador);
                         toggleColor = 1;
