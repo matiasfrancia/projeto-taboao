@@ -516,6 +516,16 @@ int chooseScreen(){
     printf("FUNÇÃO chooseScreen---------------------------------------\n");
 
     globalDeclarations();
+    
+    char *majorName; 
+    char *majorDesc;  
+    int educacao; 
+    int saude; 
+    int seguranca; 
+    int saneamento; 
+    int lazer;
+    int dinheiro;
+    int swapValor;
          
     if (!al_install_mouse() ||
         !al_set_system_mouse_cursor(janela, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT) ||
@@ -536,19 +546,31 @@ int chooseScreen(){
     CANDIDATO *vetor_de_candidatos;
     vetor_de_candidatos = select_candidato();
 
-    // Descrição de candidatos
-    vetor_de_candidatos[0].descricao = "Professor(a) de Agronomia da UNESP e foi ajudante de pedreiro";
-    vetor_de_candidatos[1].descricao = "A favor da legalização do aborto e contra combustíveis fósseis";
-    vetor_de_candidatos[2].descricao = "Empresário(a) da música a favor da biodiversidade";
-    
-    char *majorName; 
-    char *majorDesc;  
-    int educacao; 
-    int saude; 
-    int seguranca; 
-    int saneamento; 
-    int lazer;
-    int dinheiro;
+    // informar pior parametro ao jogador
+        
+    swapValor = cidade.dinheiro;
+    majorDesc = "A cidade sofre com a falta de dinheiro e investimentos";
+       
+    if (cidade.educacao < swapValor){
+        swapValor = cidade.educacao;
+        majorDesc = "A cidade sofre com a educação precária";
+    }
+    if (cidade.saude < swapValor){
+        swapValor = cidade.saude;
+        majorDesc = "A cidade sofre com a saúde precária";
+    }
+    if (cidade.seguranca < swapValor){
+        swapValor = cidade.seguranca;
+        majorDesc = "A cidade sofre com a falta de segurança";
+    }
+    if (cidade.saneamento < swapValor){
+        swapValor = cidade.saneamento;
+        majorDesc = "A cidade sofre com a falta de saneamento";
+    }
+    if (cidade.lazer < swapValor){
+        swapValor = cidade.lazer;
+        majorDesc = "A cidade sofre com a falta de opções de lazer";
+    }    
 
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -673,7 +695,6 @@ int chooseScreen(){
         al_set_target_bitmap(firstPersonaImage);
         if (candidato == 1){
             majorName = *vetor_de_candidatos[0].nome;
-            majorDesc = vetor_de_candidatos[0].descricao;
             educacao =  vetor_de_candidatos[0].educacao ; 
             saude =  vetor_de_candidatos[0].saude ; 
             seguranca =  vetor_de_candidatos[0].seguranca ; 
@@ -682,7 +703,6 @@ int chooseScreen(){
             dinheiro = vetor_de_candidatos[0].dinheiro; 
         }else if (candidato == 2){
             majorName = *vetor_de_candidatos[1].nome;
-            majorDesc = vetor_de_candidatos[1].descricao;
             educacao =  vetor_de_candidatos[1].educacao ; 
             saude =  vetor_de_candidatos[1].saude ; 
             seguranca =  vetor_de_candidatos[1].seguranca ; 
@@ -691,7 +711,6 @@ int chooseScreen(){
             dinheiro = vetor_de_candidatos[1].dinheiro;
         }else if(candidato == 3){
             majorName = *vetor_de_candidatos[2].nome;
-            majorDesc = vetor_de_candidatos[2].descricao;
             educacao =  vetor_de_candidatos[2].educacao ; 
             saude =  vetor_de_candidatos[2].saude ; 
             seguranca =  vetor_de_candidatos[2].seguranca ; 
@@ -700,7 +719,6 @@ int chooseScreen(){
             dinheiro = vetor_de_candidatos[2].dinheiro;
         }else{
             majorName = "Escolha o seu Prefeito(a)";
-            majorDesc = 0;
             educacao = 0; 
             dinheiro = 0;
             saude = 0; 
@@ -1082,7 +1100,7 @@ int playScreen(){
         al_draw_filled_rectangle(310, 10, 730, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %ds%% DOS PARAMETROS", objetivo);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d%% DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         
@@ -1976,8 +1994,8 @@ int helpScreen(){
         al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 25, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 75, 0, "COMO JOGAR:");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 100, 0, "1º   Escolha um nível de dificuldade.                     ");
-        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 125, 0, "2º   Escolha um(a) candidato(a), os nomes e as descrições não afetam o jogo,");
-        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 150, 0, "   mas os parâmetros são as propostas de investimento nas áreas de");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 125, 0, "2º   Escolha um(a) candidato(a), embaixo do nome está o que está de pior na");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 150, 0, "   cidade e os parâmetros são as propostas de investimento nas áreas de");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 175, 0, "   Educação, Saúde, Segurança, Saneamento e Lazer em Taboão.");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 200, 0, "3º   O jogo terá duração de um mandato de 4 anos (5 minutos)  e você irá");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 225, 0, "   perde-lo caso ficar sem dinheiro ou devendo a qualquer momento do jogo.");
