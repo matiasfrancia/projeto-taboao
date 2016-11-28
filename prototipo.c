@@ -934,7 +934,6 @@ int playScreen(){
                         evento.mouse.y >= 344 && evento.mouse.y <= 361){
                     // botao de voltar quando evento ruim
                     
-                        cidade.dinheiro += ruim.dinheiro;
                         aplica_evento_ruim(&cidade, ruim);                   
                         togglePopup = 3;
                         al_start_timer(contador);
