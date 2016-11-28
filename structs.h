@@ -308,16 +308,18 @@ int compra_saude(CANDIDATO *cidade, ITEM *quantidade){
 		if(cidade->dinheiro < precos[quantidade->saude]){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
+		}else{
+			if(cidade->saude + inc[quantidade->saude] <= 100){		
+				cidade->dinheiro -= precos[quantidade->saude];
+				cidade->saude += inc[quantidade->saude];
+				quantidade->saude++;
+				print_candidato(cidade);
+			}else{
+				cidade->dinheiro -= precos[quantidade->saude];
+				cidade->saude = 100;
+			}
 		}
-		if(cidade->saude + inc[quantidade->saude] <= 100){		
-			cidade->dinheiro -= precos[quantidade->saude];
-			cidade->saude += inc[quantidade->saude];
-			quantidade->saude++;
-			print_candidato(cidade);
-		}
-		else{
-		cidade->saude = 100;
-		}
+
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -332,16 +334,18 @@ int compra_saneamento(CANDIDATO *cidade, ITEM *quantidade){
 		if(cidade->dinheiro < precos[quantidade->saneamento]){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
+		}else{
+			if(cidade->saneamento + inc[quantidade->saneamento] <= 100){
+				cidade->dinheiro -= precos[quantidade->saneamento];
+				cidade->saneamento += inc[quantidade->saneamento];
+				quantidade->saneamento++;
+				print_candidato(cidade);
+			}else{
+				cidade->dinheiro -= precos[quantidade->saneamento];
+				cidade->saneamento = 100;
+			}
 		}
-		if(cidade->saneamento + inc[quantidade->saneamento] <= 100){
-			cidade->dinheiro -= precos[quantidade->saneamento];
-			cidade->saneamento += inc[quantidade->saneamento];
-			quantidade->saneamento++;
-			print_candidato(cidade);
-		}
-		else{
-		cidade->saneamento = 100;
-		}
+
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -357,15 +361,18 @@ int compra_seguranca(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		if(cidade->seguranca + inc[quantidade->seguranca]<= 100){
-			cidade->dinheiro -= precos[quantidade->seguranca];
-			cidade->seguranca += inc[quantidade->seguranca];
-			quantidade->seguranca++;
-			print_candidato(cidade);
-		}
 		else{
-		cidade->seguranca = 100;
-		}
+			if(cidade->seguranca + inc[quantidade->seguranca]<= 100){
+				cidade->dinheiro -= precos[quantidade->seguranca];
+				cidade->seguranca += inc[quantidade->seguranca];
+				quantidade->seguranca++;
+				print_candidato(cidade);
+			}
+			else{
+				cidade->dinheiro -= precos[quantidade->seguranca];
+				cidade->seguranca = 100;
+			}
+		}	
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -381,15 +388,18 @@ int compra_educacao(CANDIDATO *cidade, ITEM *quantidade){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
 		}
-		if(cidade->educacao + inc[quantidade->educacao] <= 100){
-			cidade->dinheiro -= precos[quantidade->educacao];
-			cidade->educacao += inc[quantidade->educacao];
-			quantidade->educacao++;
-			print_candidato(cidade);
-		}
 		else{
-		cidade->educacao = 100;
+			if(cidade->educacao + inc[quantidade->educacao] <= 100){
+				cidade->dinheiro -= precos[quantidade->educacao];
+				cidade->educacao += inc[quantidade->educacao];
+				quantidade->educacao++;
+				print_candidato(cidade);
+			}else{
+				cidade->dinheiro -= precos[quantidade->educacao];
+				cidade->educacao = 100;
+			}
 		}
+		
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
@@ -404,16 +414,18 @@ int compra_lazer(CANDIDATO *cidade, ITEM *quantidade){
 		if(cidade->dinheiro < precos[quantidade->lazer]){
 			fprintf(stderr, "NAO POSSUI DINHEIRO\n");
 			return -1;
+		}else{
+			if(cidade->lazer + inc[quantidade->lazer] <= 100){
+				cidade->dinheiro -= precos[quantidade->lazer];
+				cidade->lazer += inc[quantidade->lazer];
+				quantidade->lazer++;
+				print_candidato(cidade);
+			}else{
+				cidade->dinheiro -= precos[quantidade->lazer];
+				cidade->lazer = 100;
+			}
 		}
-		if(cidade->lazer + inc[quantidade->lazer] <= 100){
-			cidade->dinheiro -= precos[quantidade->lazer];
-			cidade->lazer += inc[quantidade->lazer];
-			quantidade->lazer++;
-			print_candidato(cidade);
-		}
-		else{
-		cidade->lazer = 100;
-		}
+
 	}
 	else{
 		fprintf(stderr, "COMPROU TODOS OS UPGRADES\n");
