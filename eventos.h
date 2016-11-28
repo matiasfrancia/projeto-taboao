@@ -372,7 +372,7 @@ void aplica_evento_bom(CANDIDATO *cidade, EVENTO_BOM evento){
 	}
 
 	if(cidade->saneamento + evento.saneamento <= 100){
-		cidade->saneamento += evento.saude;
+		cidade->saneamento += evento.saneamento;
 	}
 	else{
 		cidade->saneamento = 100;
