@@ -745,7 +745,7 @@ int chooseScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d%% DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, "AS ELEIÇÕES ESTÃO PRÓXIMAS");
         al_attach_audio_stream_to_mixer(musica, al_get_default_mixer());
@@ -1082,7 +1082,7 @@ int playScreen(){
         al_draw_filled_rectangle(310, 10, 730, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %ds%% DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         
@@ -1355,7 +1355,7 @@ int budgetScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d%% DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         //imagem do prefeito(a)
@@ -1687,7 +1687,7 @@ int eventScreen(){
         al_draw_filled_rectangle(320, 10, 720, 55, al_map_rgb(87, 87, 86));
         al_draw_filled_rectangle(25, 10, 250, 55, al_map_rgb(29, 113, 189));
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 30, 15, 0, "OBJETIVO:");
-        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d DOS PARAMETROS", objetivo);
+        al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 30, 35, 0, "ATINJA A MEDIA %d%% DOS PARAMETROS", objetivo);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 15, ALLEGRO_ALIGN_CENTRE, "NEWS:");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), (1024/2), 35, ALLEGRO_ALIGN_CENTRE, news);
         //imagem do prefeito(a)
