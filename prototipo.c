@@ -1962,17 +1962,33 @@ int helpScreen(){
         }
 
 
-        al_draw_rounded_rectangle(250, 50, 750, 600, 0.5, 0.5, al_map_rgb(52, 52, 51), 5);
-        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_filled_rectangle(252, 48, 748, 598, al_map_rgb(52, 52, 51));
+        al_draw_filled_rectangle(202, 28, 828, 648, al_map_rgb(52, 52, 51));
+        al_draw_rounded_rectangle(200, 30, 830, 650, 5, 5, al_map_rgb(52, 52, 51), 20);
         al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
-        al_draw_rounded_rectangle(250, 50, 750, 600, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 80, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 150, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 200, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 250, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 300, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        al_draw_text(quinzePx, al_map_rgb(255, 255, 255), (1024/4), 350, 0, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 25, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 60, 75, 0, "COMO JOGAR:");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 100, 0, "1º   Escolha um nível de dificuldade.                     ");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 125, 0, "2º   Escolha um(a) candidato(a), os nomes e as descrições não afetam o jogo,");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 150, 0, "   mas os parâmetros são as propostas de investimento nas áreas de");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 175, 0, "   Educação, Saúde, Segurança, Saneamento e Lazer em Taboão.");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 200, 0, "3º   O jogo terá duração de um mandato de 4 anos (5 minutos)  e você irá");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 225, 0, "   perde-lo caso ficar sem dinheiro ou devendo a qualquer momento do jogo.");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 250, 0, "   Gaste com sabedoria!");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 275, 0, "      Cada nível irá inicar com uma pré-determinada quantidade de dinheiro e");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 300, 0, "   porcentagem dos parâmetros (sendo esses já alterados de acordo com a");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 325, 0, "   proposta do(a) candidato(a)).");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 350, 0, "      Para concluir o desafio com sucesso, é necessário ter a média dos");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 375, 0, "   parâmetros maior que 60 no fácil, 70 no médio e 80 no difícil e cada um");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 400, 0, "   maior que 50%. Para que isso seja possível será necessário investir nas");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 425, 0, "   áreas mais carentes, por meio de investimento direto ou atráves dos");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 450, 0, "   eventos que podem ser escolhidos ou os aleatórios variando do tipo bom,");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 475, 0, "   que se aceitar, lhe permite investir para talvez lucrar e os de tipo ruim,");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 500, 0, "   que são catástrofes imprevisíveis e te fazem");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 525, 0, "   perder ,obrigatoriamente, valores de dinheiro e de parâmetros variando de");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 550, 0, "   acordo com o evento e tipo.");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 575, 0, "      As cores do mapa e dos parâmetros variam de acordo com o nível de ");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 600, 0, "   satisfação, sendo no mapa, o azul é o melhor estágio e o vermelho o pior");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 625, 0, "   estágio.");
         
         al_flip_display();
     }
