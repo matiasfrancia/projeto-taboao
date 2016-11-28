@@ -242,6 +242,22 @@ void globalDeclarations(){
     fila_contador = al_create_event_queue();
 } 
 
+// Função para mudar a cor de verde ou vermelho caso atributo fique maior que 0% na choose
+void colorValidationChoose(int n, int *r, int *g, int *b){
+    
+    //printf("FUNÇÃO colorValidation------------------------\n");
+
+    if (n <= 0) {
+            *r = 190;
+            *g = 22;
+            *b = 34;
+    }else {
+        *r = 0;
+        *g = 150;
+        *b = 64; 
+    }
+}
+
 // Função para mudar a cor de verde para vermelho caso atributo fique menor que 50%
 void colorValidation(int n, int *r, int *g, int *b){
     
@@ -790,15 +806,15 @@ int chooseScreen(){
 
         // valores dos parametros
         if(educacao != 0 || saude != 0 || saneamento != 0 || seguranca != 0 || lazer != 0){
-            colorValidation(educacao, &r, &g, &b);
+            colorValidationChoose(educacao, &r, &g, &b);
             al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 475, 640, 0, "%d%%", educacao);
-            colorValidation(saude, &r, &g, &b);
+            colorValidationChoose(saude, &r, &g, &b);
             al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 530, 640, 0, "%d%%", saude);
-            colorValidation(saneamento, &r, &g, &b);
+            colorValidationChoose(saneamento, &r, &g, &b);
             al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 640, 640, 0, "%d%%", saneamento);
-            colorValidation(seguranca, &r, &g, &b);
+            colorValidationChoose(seguranca, &r, &g, &b);
             al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 585, 640, 0, "%d%%", seguranca);
-            colorValidation(lazer, &r, &g, &b);
+            colorValidationChoose(lazer, &r, &g, &b);
             al_draw_textf(quatorzeBoldPx, al_map_rgb(r, g, b), 695, 640, 0, "%d%%", lazer);
         }
 
