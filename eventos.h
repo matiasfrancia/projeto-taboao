@@ -9,13 +9,21 @@ char *positivo[] = 		   {"Sua Cidade foi escolhida para fazer a abertura dos Jog
 							"O São Paulo Fashion Week poderá ser em Taboão",
 							"O Lollapalooza desta vez será em Taboão",
 							"Um grupo influente de alemães veio para Taboão, o proximo Oktoberfest será aqui",
-							"Taboão F.C. ganhou de 10x0 contra Embu Futebol Arte"
+							"CATS(Clube atlético Taboão da Serra) disputará uma grande final",
+							"Taboão gera atenção de turistas por grande frequência de relatos de OVINIS",
+							"A final do próximo CBLOL ocorrerá no Estádio Municial de Taboão da Serra",
+							"Ocorrerá uma Tomorrowland em Taboão",
+							"Taboão chama atenção de empresas por sua localidade estratégica"
 							};
 
 char *negativo[] = 		   {"Chuva muito forte, realmente muito forte, em Taboão",
 							"Fortes ventos em Taboão",
 							"Um vírus misterioso atingiu Taboão",
 							"Uma bactéria misteriosa está infectando os moradores de Taboão",
+							"Terremoto causa grande dano em Taboão",
+							"O shopping Taboão foi alvo de um atentado terrorista",
+							"Taboão terá que pagar uma divida externa"
+							"Sequencias de assaltos aterroziram cidadãos taboanenses",
 							"Muitos raios antingem Taboão",
 							"Chuva alaga a única avenida de Taboão"
 							};
