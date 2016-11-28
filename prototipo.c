@@ -943,7 +943,6 @@ int playScreen(){
                         evento.mouse.y >= 344 && evento.mouse.y <= 361){
                     // botao de voltar quando evento ruim
                     
-                        cidade.dinheiro += ruim.dinheiro;
                         aplica_evento_ruim(&cidade, ruim);                   
                         togglePopup = 3;
                         al_start_timer(contador);
@@ -954,10 +953,13 @@ int playScreen(){
                         evento.mouse.x >= 412 && evento.mouse.x <= 513 && 
                         evento.mouse.y >= 344 && evento.mouse.y <= 363){
                     // botao de aceitar quando evento bom
-                        cidade.dinheiro -= bom.investimento;
-                        if(rand() % 2){
-                            aplica_evento_bom(&cidade, bom); 
+                        if(cidade.dinheiro >= bom.investimento){
+                            cidade.dinheiro -= bom.investimento;
+                            if(rand() % 2){
+                                aplica_evento_bom(&cidade, bom); 
+                            }
                         }
+                       
                         togglePopup = 3;
                         al_start_timer(contador);
                         toggleColor = 1;
@@ -1110,7 +1112,13 @@ int playScreen(){
             al_draw_bitmap(quietIcon, (1024/2), 270, 0);
             al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 300, ALLEGRO_ALIGN_CENTRE, *texto_evento);
             al_draw_text(onzePx, al_map_rgb(0, 0, 0), (1024/2), 320, ALLEGRO_ALIGN_CENTRE, bom.text);
-            al_draw_bitmap(aceitarBtn, 410, 340, 0);
+            if(cidade.dinheiro >= bom.investimento){
+                al_draw_bitmap(aceitarBtn, 410, 340, 0);
+            }
+            else{
+                al_draw_bitmap(compraNaoDisponivel, 410, 340, 0);
+            }
+            
             al_draw_bitmap(recusarBtn, 535, 340, 0);
 
         }
