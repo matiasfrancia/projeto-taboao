@@ -1964,9 +1964,9 @@ int helpScreen(){
 
         al_draw_filled_rectangle(202, 28, 828, 648, al_map_rgb(52, 52, 51));
         al_draw_rounded_rectangle(200, 30, 830, 650, 5, 5, al_map_rgb(52, 52, 51), 20);
-        al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
+        //al_draw_bitmap(taboaoLogoImage, 325, 170, 0);
         al_draw_text(trintaOitopx, al_map_rgb(255, 255, 255), (1024/2), 25, ALLEGRO_ALIGN_CENTRE, "INSTRUÇÕES");
-        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 60, 75, 0, "COMO JOGAR:");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 75, 0, "COMO JOGAR:");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 100, 0, "1º   Escolha um nível de dificuldade.                     ");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 125, 0, "2º   Escolha um(a) candidato(a), os nomes e as descrições não afetam o jogo,");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 150, 0, "   mas os parâmetros são as propostas de investimento nas áreas de");
