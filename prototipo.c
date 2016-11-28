@@ -2003,9 +2003,9 @@ int helpScreen(){
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 150, 0, "   cidade e os parâmetros são as propostas de investimento nas áreas de");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 175, 0, "   Educação, Saúde, Segurança, Saneamento e Lazer em Taboão.");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 200, 0, "3º   O jogo terá duração de um mandato de 4 anos (5 minutos)  e você irá");
-        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 225, 0, "   perde-lo caso ficar sem dinheiro ou devendo a qualquer momento do jogo.");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 225, 0, "   perdê-lo caso ficar sem dinheiro ou devendo a qualquer momento do jogo.");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 250, 0, "   Gaste com sabedoria!");
-        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 275, 0, "      Cada nível irá inicar com uma pré-determinada quantidade de dinheiro e");
+        al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 275, 0, "      Cada nível irá iniciar com uma pré-determinada quantidade de dinheiro e");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 300, 0, "   porcentagem dos parâmetros (sendo esses já alterados de acordo com a");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 325, 0, "   proposta do(a) candidato(a)).");
         al_draw_text(dezoitoPx, al_map_rgb(255, 255, 255), (1024/4) - 50, 350, 0, "      Para concluir o desafio com sucesso, é necessário ter a média dos");
