@@ -944,10 +944,13 @@ int playScreen(){
                         evento.mouse.x >= 412 && evento.mouse.x <= 513 && 
                         evento.mouse.y >= 344 && evento.mouse.y <= 363){
                     // botao de aceitar quando evento bom
-                        cidade.dinheiro -= bom.investimento;
-                        if(rand() % 2){
-                            aplica_evento_bom(&cidade, bom); 
+                        if(cidade.dinheiro >= bom.investimento){
+                            cidade.dinheiro -= bom.investimento;
+                            if(rand() % 2){
+                                aplica_evento_bom(&cidade, bom); 
+                            }
                         }
+                       
                         togglePopup = 3;
                         al_start_timer(contador);
                         toggleColor = 1;
