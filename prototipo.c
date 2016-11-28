@@ -1751,12 +1751,12 @@ int eventScreen(){
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 306, 0, "%s", *vector_de_projetos[4].nome);
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 447, 0, "%s", *vector_de_projetos[5].nome);
         
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 167+20, 0, "R$ %d", -(vector_de_projetos[0].dinheiro));
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 306+20, 0, "R$ %d", -(vector_de_projetos[1].dinheiro));
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 447+20, 0, "R$ %d", -(vector_de_projetos[2].dinheiro));
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-33, 167+20, 0, "R$ %d", -(vector_de_projetos[3].dinheiro));
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 306+20, 0, "R$ %d", -(vector_de_projetos[4].dinheiro));
-        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 447+20, 0, "R$ %d", -(vector_de_projetos[5].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 167+20, 0, "R$ '%d", -(vector_de_projetos[0].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 306+20, 0, "R$ '%d", -(vector_de_projetos[1].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 447+20, 0, "R$ '%d", -(vector_de_projetos[2].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-33, 167+20, 0, "R$ '%d", -(vector_de_projetos[3].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 306+20, 0, "R$ '%d", -(vector_de_projetos[4].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 447+20, 0, "R$ '%d", -(vector_de_projetos[5].dinheiro));
         
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
