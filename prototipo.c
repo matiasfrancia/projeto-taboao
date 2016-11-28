@@ -107,7 +107,8 @@ ALLEGRO_BITMAP  *taboaoLogoImage = NULL,
                 *creditTaboao = NULL,
                 *teste = NULL,
                 *aceitarBtn = NULL,
-                *recusarBtn = NULL;
+                *recusarBtn = NULL,
+                *novoJogo = NULL;
 
 char *news = "NADA DE MAIS ESTA ACONTECENDO EM TABOÂO";
 
@@ -216,6 +217,7 @@ void globalDeclarations(){
     allegroLogo = al_load_bitmap("Images/creditScreen/allegroLogo.png");
     creditTaboao = al_load_bitmap("Images/creditScreen/taboaoLogo.png");
     teste = al_load_bitmap("Images/creditScreen/creditScreen.png");
+    novoJogo = al_load_bitmap("Images/mainImages/novoJogo.png");
     //Global fontes
     onzePx = al_load_ttf_font("Font/arial.ttf", 11,0 );
     onzeBoldPx = al_load_ttf_font("Font/Arial_Bold.ttf", 11,0 );
@@ -402,15 +404,21 @@ int saveScreen(){
                     break;
                 }
 
+            }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
+                evento.mouse.y >= 500 && evento.mouse.y <= 535){
+                    backHelpCredit = 2;
+                    min = 5;
+                    seg = 0;
+                    nivelScreen(backHelpCredit);   
 
             // Botão de INTRUÇÕES
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
-                evento.mouse.y >= 500 && evento.mouse.y <= 535){
+                evento.mouse.y >= 550 && evento.mouse.y <= 585){
                     backHelpCredit = 2;
                     helpScreen(backHelpCredit);
             // Botão de CRÉDITOS
             }else if (evento.mouse.x >= 400 && evento.mouse.x <= 630 &&
-                evento.mouse.y >= 550 && evento.mouse.y <= 585){
+                evento.mouse.y >= 600 && evento.mouse.y <= 635){
                     backHelpCredit = 2;
                     creditScreen(backHelpCredit);
             }
@@ -420,8 +428,9 @@ int saveScreen(){
         al_draw_text(trintaDoisPx, al_map_rgb(29, 113, 189), (1024/2), 100, ALLEGRO_ALIGN_CENTRE, "PROJETO TABOÃO");
         al_draw_bitmap(taboaoMiniLogoImage, 420, 200, 0);
         al_draw_bitmap(continuarBtnImage, 400, 450, 0);
-        al_draw_bitmap(instrucaoBtnImage, 400, 500, 0);
-        al_draw_bitmap(creditBtnImage, 400, 550, 0);
+        al_draw_bitmap(novoJogo, 400, 500, 0);
+        al_draw_bitmap(instrucaoBtnImage, 400, 550, 0);
+        al_draw_bitmap(creditBtnImage, 400, 600, 0);
         
         al_flip_display();
     }
