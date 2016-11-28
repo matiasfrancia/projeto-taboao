@@ -199,7 +199,6 @@ void select_evento_bom(EVENTO_BOM *aux){
 }
 
 void aplica_alteracao(CANDIDATO *cidade, CANDIDATO *item){
-
 	cidade->dinheiro += item->dinheiro;
 	cidade->saneamento += item->saneamento;
 	cidade->saude += item->saude;
