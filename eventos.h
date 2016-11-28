@@ -200,11 +200,34 @@ void select_evento_bom(EVENTO_BOM *aux){
 
 void aplica_alteracao(CANDIDATO *cidade, CANDIDATO *item){
 	cidade->dinheiro += item->dinheiro;
-	cidade->saneamento += item->saneamento;
-	cidade->saude += item->saude;
-	cidade->seguranca += item->seguranca;
-	cidade->lazer += item->lazer;
-	cidade->educacao += item->educacao;
+	if(cidade->saneamento + item->saneamento <= 100){
+		cidade->saneamento += item->saneamento;
+	}
+	else{
+		cidade->saneamento = 100;
+	}
+	
+	if(cidade->saude + item->saude <= 100){
+		cidade->seguranca += item->seguranca;
+	}
+	else{
+		cidade->seguranca = 100;
+	}
+
+	if(cidade->lazer + item->lazer <= 100){
+		cidade->lazer += item->lazer;
+	}
+	else{
+		cidade->lazer = 100;
+	}
+	
+	if(cidade->educacao + item->educacao <= 100){
+		cidade->educacao += item->educacao;
+	}
+	else{
+		cidade->educacao = 100; 
+	}
+	
 
 }
 
@@ -279,40 +302,40 @@ CANDIDATO* select_projeto(){
 
 void aplica_evento_bom(CANDIDATO *cidade, EVENTO_BOM evento){
 
-	if(cidade->educacao + evento.educacao <= 100){
+	if(cidade->educacao + evento.educacao >= 0){
 		cidade->educacao += evento.educacao;
 	}
 	else{
-		cidade->educacao = 100;
+		cidade->educacao = 0;
 	}
 
 
-	if(cidade->seguranca + evento.seguranca <= 100){
+	if(cidade->seguranca + evento.seguranca >= 0){
 		cidade->seguranca += evento.seguranca;
 	}
 	else{
-		cidade->seguranca = 100;
+		cidade->seguranca = 0;
 	}
 
-	if(cidade->saude + evento.saude <= 100){
+	if(cidade->saude + evento.saude >= 0){
 		cidade->saude += evento.saude;
 	}
 	else{
-		cidade->saude = 100;
+		cidade->saude = 0;
 	}
 
-	if(cidade->saneamento + evento.saneamento <= 100){
+	if(cidade->saneamento + evento.saneamento >= 0){
 		cidade->saneamento += evento.saude;
 	}
 	else{
-		cidade->saneamento = 100;
+		cidade->saneamento = 0;
 	}
 
-	if(cidade->lazer + evento.lazer <= 100){
+	if(cidade->lazer + evento.lazer >= 0){
 		cidade->lazer += evento.lazer;
 	}
 	else{
-		cidade->lazer = 100;
+		cidade->lazer = 0;
 	}
 }
 
