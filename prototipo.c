@@ -11,6 +11,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <time.h>
 #include <stdio.h>
+#include <locale.h>
 #include "structs.h"
 #include "eventos.h"
 
@@ -260,7 +261,7 @@ void colorValidation(int n, int *r, int *g, int *b){
 int main(){
 
     printf("FUNÇÃO main-----------------------------------\n");
-
+    setlocale(LC_NUMERIC, "");
     al_init_font_addon(); 
     al_init_ttf_addon();
 
@@ -755,7 +756,7 @@ int chooseScreen(){
         al_draw_textf(onzePx, al_map_rgb(203, 187, 160), 320, 590+25, ALLEGRO_ALIGN_LEFT, "%d", ano);
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+45, ALLEGRO_ALIGN_LEFT, "O investimento inicial");
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 275, 590+60, ALLEGRO_ALIGN_LEFT, "será de:");
-        al_draw_textf(onzeBoldPx, al_map_rgb(0, 150, 64), 320, 650, ALLEGRO_ALIGN_LEFT, "R$ %d", -dinheiro);
+        al_draw_textf(onzeBoldPx, al_map_rgb(0, 150, 64), 320, 650, ALLEGRO_ALIGN_LEFT, "R$ %'d", -dinheiro);
         al_draw_text(quatorzeBoldPx, al_map_rgb(255, 255, 255), 275, 575+20, ALLEGRO_ALIGN_LEFT, majorName);
         
         // icones de parametros
@@ -1087,17 +1088,17 @@ int playScreen(){
         al_draw_text(onzePx, al_map_rgb(255, 255, 255), 325, 595, ALLEGRO_ALIGN_LEFT, *cidade.nome);
         
         if(toggleColor == 1){
-            al_draw_textf(vinteDoisPx, al_map_rgb(0, 150, 64), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+            al_draw_textf(vinteDoisPx, al_map_rgb(0, 150, 64), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%'d", cidade.dinheiro);
             int testemin = 0;
             int testeseg = 3;   
             
         }else if (toggleColor == 0){
-            al_draw_textf(vinteDoisPx, al_map_rgb(190, 22, 34), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+            al_draw_textf(vinteDoisPx, al_map_rgb(190, 22, 34), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%'d", cidade.dinheiro);
             int testemin = 0;
             int testeseg = 3;
 
         }else{
-            al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
+            al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%'d", cidade.dinheiro);
 
         }
         //al_draw_textf(vinteDoisPx, al_map_rgb(255, 255, 255), 325, 570, ALLEGRO_ALIGN_LEFT, "R$%d", cidade.dinheiro);
@@ -1423,11 +1424,11 @@ int budgetScreen(){
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 840+5, 447+33, ALLEGRO_ALIGN_CENTRE, "bua com o desenvolvi-");
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 835, 447+46, ALLEGRO_ALIGN_CENTRE, "mento de Taboão.");
 
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %d", precos[compra.educacao]);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %d", precos[compra.seguranca]);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %d", precos[compra.saneamento]);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %d", precos[compra.saude]);
-        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %d", precos[compra.lazer]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 167+20, 0, "R$ %'d", precos[compra.educacao]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 306+20, 0, "R$ %'d", precos[compra.seguranca]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 542-40, 447+20, 0, "R$ %'d", precos[compra.saneamento]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "R$ %'d", precos[compra.saude]);
+        al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %'d", precos[compra.lazer]);
         
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
@@ -1452,7 +1453,7 @@ int budgetScreen(){
         }
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 135, 325, 0);
-        al_draw_textf(dezesseisPx, al_map_rgb(104, 94, 35), 165, 330, 0, "R$ %d", cidade.dinheiro);
+        al_draw_textf(dezesseisPx, al_map_rgb(104, 94, 35), 165, 330, 0, "R$ %'d", cidade.dinheiro);
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
@@ -1750,12 +1751,21 @@ int eventScreen(){
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 306, 0, "%s", *vector_de_projetos[4].nome);
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 780-2, 447, 0, "%s", *vector_de_projetos[5].nome);
         
+<<<<<<< HEAD
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 167+20, 0, "R$ %d", -(vector_de_projetos[0].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 306+20, 0, "R$ %d", -(vector_de_projetos[1].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-48, 447+20, 0, "R$ %d", -(vector_de_projetos[2].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-33, 167+20, 0, "R$ %d", -(vector_de_projetos[3].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 306+20, 0, "R$ %d", -(vector_de_projetos[4].dinheiro));
         al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-33, 447+20, 0, "R$ %d", -(vector_de_projetos[5].dinheiro));
+=======
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 167+20, 0, "R$ %'d", -(vector_de_projetos[0].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 306+20, 0, "R$ %'d", -(vector_de_projetos[1].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 542-45, 447+20, 0, "R$ %'d", -(vector_de_projetos[2].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 813-30, 167+20, 0, "R$ %'d", -(vector_de_projetos[3].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-30, 306+20, 0, "R$ %'d", -(vector_de_projetos[4].dinheiro));
+        al_draw_textf(dozeBoldPx, al_map_rgb(255, 255, 255), 812-30, 447+20, 0, "R$ %'d", -(vector_de_projetos[5].dinheiro));
+>>>>>>> efa2a4280a55e927d9408d57506fa8646f1a7ace
         
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 378, 0, "EDUCACÃO");
         al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 140, 411, 0, "SAÚDE");
@@ -1780,7 +1790,7 @@ int eventScreen(){
         }
         al_draw_bitmap(voltar, 140, 568, 0);
         al_draw_bitmap(money, 135, 325, 0);
-        al_draw_textf(dezesseisPx, al_map_rgb(104, 94, 35), 165, 330, 0, "R$ %d", cidade.dinheiro);
+        al_draw_textf(dezesseisPx, al_map_rgb(104, 94, 35), 165, 330, 0, "R$ %'d", cidade.dinheiro);
         al_draw_textf(onzePx, al_map_rgb(255, 255, 255), 795, 23, ALLEGRO_ALIGN_CENTRE, "%d:%d", min, seg);
 
         al_flip_display();
