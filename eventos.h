@@ -333,7 +333,7 @@ void aplica_evento_ruim(CANDIDATO *cidade, EVENTO_RUIM evento){
 	}
 
 	if(cidade->saneamento + evento.saneamento >= 0){
-		cidade->saneamento += evento.saude;
+		cidade->saneamento += evento.saneamento;
 	}
 	else{
 		cidade->saneamento = 0;
