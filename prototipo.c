@@ -799,9 +799,9 @@ int chooseScreen(){
         
         // icones de parametros
         al_draw_bitmap(education, 390+75, 555+40, 0);
-        al_draw_bitmap(security, 445+75, 555+40, 0);
-        al_draw_bitmap(sanitation, 500+75, 555+40, 0);
-        al_draw_bitmap(health, 555+75, 555+40, 0);
+        al_draw_bitmap(health, 445+75, 555+40, 0);
+        al_draw_bitmap(security, 500+75, 555+40, 0);
+        al_draw_bitmap(sanitation, 555+75, 555+40, 0);
         al_draw_bitmap(fun, 610+75, 555+40, 0);
 
         // valores dos parametros
@@ -1160,9 +1160,9 @@ int playScreen(){
 
         al_draw_bitmap(investiment, 325, 630, ALLEGRO_ALIGN_LEFT);
         al_draw_bitmap(education, 390+75+50, 575, 0);
-        al_draw_bitmap(security, 445+75+50, 575, 0);
-        al_draw_bitmap(sanitation, 500+75+50, 575, 0);
-        al_draw_bitmap(health, 555+75+50, 575, 0);
+        al_draw_bitmap(health, 445+75+50, 575, 0);
+        al_draw_bitmap(security, 500+75+50, 575, 0);
+        al_draw_bitmap(sanitation, 555+75+50, 575, 0);
         al_draw_bitmap(fun, 610+75+50, 575, 0);
 
         // PopUp de eventos
@@ -1498,7 +1498,7 @@ int budgetScreen(){
             al_draw_text(quatorzeBoldPx, al_map_rgb(255, 255, 255), 813-20, 167+20, 0, "Esgotado");
         }
         
-        if(cidade.lazer <= 4){
+        if(compra.lazer <= 4){
             al_draw_textf(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "R$ %'d", precos[compra.lazer]);
         }else{
             al_draw_text(quatorzeBoldPx, al_map_rgb(255, 255, 255), 812-20, 306+20, 0, "Esgotado");
